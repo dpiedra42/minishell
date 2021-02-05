@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/01/30 15:25:09 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/05 15:40:56 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,25 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <signal.h>
 # include "./libft/libft.h"
 
+typedef struct  s_parse
+{
+                int len;
+                int	num_commands;
+                int h;
+                int i;
+                int j;
+}               t_parse;
+
+void    minishell();
+// void    ft_sigint(int sig);
+void    ft_signal(void);
+void    ft_parse(char *command);
+char	**ft_create_commands(char *command);
+int     count_commands(char *command, char *sep);
+int	    count_chars(char *command, char *sep);
+char	*ft_makestr(int size);
 
 #endif

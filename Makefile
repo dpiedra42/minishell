@@ -6,7 +6,7 @@
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 15:03:32 by dpiedra           #+#    #+#              #
-#    Updated: 2021/01/30 15:21:23 by dpiedra          ###   ########.fr        #
+#    Updated: 2021/02/01 19:28:20 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FLAGS	= -Wall -Wextra -Werror
 
 CLANG	= clang
 
-SRCS	= main.c
+SRCS	= main.c parsing.c parsing_utils.c signal_handler.c
 
 OBJS	= $(SRCS:.c=.o)
 
