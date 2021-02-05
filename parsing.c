@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/05 15:42:39 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/05 16:00:26 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ char	**ft_create_commands(char *command)
 	comlines = (char**)malloc(sizeof(char*) * p.num_commands + 1);
 	p.i = 0;
 	p.h = 0;
-	while (p.h <= p.num_commands)
+	while (p.h <= (p.num_commands + p.num_commands - 1))
 	{
 		p.j = 0;
 		p.len = count_chars(command, ";");
+		printf("len = %d\n", p.len);
 		if (command && p.len == 0)
 			command++;
 		if (command && p.len > 0)
@@ -45,6 +46,4 @@ char	**ft_create_commands(char *command)
 	char **new_commands;
 
 	new_commands = ft_create_commands(command);
-	printf("new com = %s\n", new_commands[0]);
-	printf("new com = %s\n", new_commands[1]);
 }
