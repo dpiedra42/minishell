@@ -6,26 +6,26 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/05 16:00:26 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/10 19:19:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_create_commands(char *command)
+char	**ft_create_commands(char *command, char *sep)
 {
 	char **comlines;
 	t_parse p;
 
-	p.num_commands = count_commands(command, ";");
-	comlines = (char**)malloc(sizeof(char*) * p.num_commands + 1);
+	p.num_commands = count_commands(command, sep);
+	if (!(comlines = (char**)malloc(sizeof(char*) * p.num_commands + 1)))
+		exit(EXIT_FAILURE);
 	p.i = 0;
 	p.h = 0;
-	while (p.h <= (p.num_commands + p.num_commands - 1))
+	while (p.h <= (p.num_commands + (p.num_commands - 1)))
 	{
 		p.j = 0;
-		p.len = count_chars(command, ";");
-		printf("len = %d\n", p.len);
+		p.len = count_chars(command, sep);
 		if (command && p.len == 0)
 			command++;
 		if (command && p.len > 0)
@@ -45,5 +45,8 @@ char	**ft_create_commands(char *command)
 {
 	char **new_commands;
 
-	new_commands = ft_create_commands(command);
+	while(*command == ' ' && *command)
+		command++;
+	new_commands = ft_create_commands(command, ";");
+	new_commands = filter_commands(new_commands);
 }

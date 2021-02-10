@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/01 18:24:33 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/09 18:33:36 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ void    minishell()
 	{
 		ft_putstr_fd("minishell> ", 1);
 		read = get_next_line(0, &command);
-		if (read == -1)
-			exit(EXIT_FAILURE);
-		else if (read == 0)
+		if (!read)
 		{
 			free(command);
 			exit(EXIT_SUCCESS);
 		}
-		else if (read > 0)
+		else
 			ft_parse(command);
 	}
 }
