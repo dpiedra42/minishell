@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/12 17:10:35 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/02/12 17:26:40 by dpiedra           #+#    #+#             */
+/*   Updated: 2021/02/12 18:16:18 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    minishell()
-{
-	char    *command;
-	int     read;
+// char	*clean_quotes(char *str)
+// {
+// 	char	*new_str;
+// 	int		i;
 
-	while (1)
-	{
-		ft_putstr_fd("minishell> ", 1);
-		read = get_next_line(0, &command);
-		if (!read)
-		{
-			free(command);
-			exit(EXIT_SUCCESS);
-		}
-		else
-			ft_parse(command);
-	}
-}
-
-int     main(int ac, char **av)
-{
-	ac = 0;
-	av = NULL;
-	ft_signal();
-	minishell();
-	return (0);
-}
+// 	i = ft_strlen(str);
+// 	if (!(new_str = malloc(sizeof(char) * (i + 1))))
+// 		return (NULL);
+// 	while (*str != '"' && *str)
+// 		*(new_str++) = *(str++);
+// 	if (*str == '"')
+// 	{
+// 		copy_quote(&str, &new_str);
+// 	}
+// 	*new_str = '\0';
+// 	return (new_str);
+// }

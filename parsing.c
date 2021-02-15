@@ -6,47 +6,43 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/10 19:19:16 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/15 19:06:14 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_create_commands(char *command, char *sep)
+char	*ft_clean_command(char *command)
 {
-	char **comlines;
-	t_parse p;
-
-	p.num_commands = count_commands(command, sep);
-	if (!(comlines = (char**)malloc(sizeof(char*) * p.num_commands + 1)))
-		exit(EXIT_FAILURE);
-	p.i = 0;
-	p.h = 0;
-	while (p.h <= (p.num_commands + (p.num_commands - 1)))
-	{
-		p.j = 0;
-		p.len = count_chars(command, sep);
-		if (command && p.len == 0)
-			command++;
-		if (command && p.len > 0)
-		{
-			comlines[p.i] = ft_makestr(p.len);
-			while(*command && p.j < p.len && p.len > 0)
-				comlines[p.i][p.j++] = *(command++);
-			p.i++;
-		}
-		p.h++;
-	}
-	comlines[p.i] = NULL;
-	return (comlines);
+	char	*comline;
+	int		len;
+	
+	len = find_len(command);
+	printf("len = %d\n", len);
+	if (len == -1)
+		return (0);
+	if (!(comline = malloc(sizeof(char) * (len + 1))))
+		exit (EXIT_FAILURE);
+	copy_command(comline, command);
+	return (comline);
 }
 
- void    ft_parse(char *command)
+ int    ft_parse(char *command)
 {
-	char **new_commands;
+	char *new_command;
 
 	while(*command == ' ' && *command)
 		command++;
-	new_commands = ft_create_commands(command, ";");
-	new_commands = filter_commands(new_commands);
+	new_command = ft_clean_command(command);
+	if (new_command == 0)
+	{
+		ft_putstr_fd("Multiline is not supported\n", 1);
+		return (0);
+	}
+	if (!new_command)
+	{
+		free(new_command);
+		return (0);
+	}
+	return (0);
 }

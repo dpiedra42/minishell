@@ -6,85 +6,127 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/10 19:21:09 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/15 19:06:18 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**filter_commands(char **commands)
+void	copy_inside_quotes(char **command, char **comline, char quote)
 {
-	char	**fil_coms;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (commands[i])
+	while (**command != quote)
 	{
-		if(commands[i][j] == ' ' && commands[i][j])
-			j++;
-		if(commands[i][j] == '"' || '\'')
-			ft_quotes();
-		
+		*((*comline)++) = *((*command)++);
 	}
-	return (fil_coms);
 }
 
-char	*ft_makestr(int size)
+void	copy_command(char *comline, char *command)
 {
-	char	*str;
-	int	i;
+	char	quote;
 
-	i = 0;
-	if (!(str = malloc(sizeof(char) * (size + 1))))
-		exit(EXIT_FAILURE);
-	ft_memset((char*)str, (int)'\0', size + 1);
-	return (str);
-}
-
-int	count_chars(char *command, char *sep)
-{
-	int i;
-	int len;
-
-	len = 0;
-	i = 0;
-	while (command[len])
+	while (*command)
 	{
-		if (command[len] == '"' || command[len] == '\'')
+		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
+			command++;
+		else if (*command == '"' || *command == '\'')
 		{
-			len++;
-			while (command[len] != '"' || command[len] == '\'')
-				len++;
+			*(comline++) = *command;
+			quote = *(command++);
+			copy_inside_quotes(&command, &comline, quote);
+			*(comline++) = *(command++);
 		}
-		if (command[len] == sep[i] && command[len + 1] != sep[i] &&
-			command[len - 1] != sep[i])
-			return (len);
-		len++;
+		else
+			*(comline++) = *(command++);
 	}
-	return (len);
+
 }
 
-int	count_commands(char *command, char *sep)
+void	quote_len(char **command, int *i, char quote)
+{
+	while (**command != quote && **command)
+	{
+		(*i)++;
+		(*command)++;
+	}
+}
+
+int		find_len(char *command)
 {
 	int i;
-	int number;
+	char quote;
 
-	number = 0;
 	i = 0;
 	while (*command)
 	{
-		if (*command == '"' || *command == '\'')
-		{
+		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
 			command++;
-			while (*command != '"' || *command == '\'')
-				command++;
+		else if (*command == '"' || *command == '\'')
+		{
+			quote = *(command++);
+			quote_len(&command, &i, quote);
+			if (!*command)
+				return (-1);
+			command++;
+			i = i + 2;
 		}
-		if (*command == sep[i] && *(command + 1) != sep[i] &&
-			*(command - 1) != sep[i])
-			number++;
-		command++;
+		else if (command++)
+			i++;
 	}
-	return (number + 1);
+	return (i);
 }
+
+// char	*ft_makestr(int size)
+// {
+// 	char	*str;
+// 	int	i;
+
+// 	i = 0;
+// 	if (!(str = malloc(sizeof(char) * (size + 1))))
+// 		exit(EXIT_FAILURE);
+// 	ft_memset((char*)str, (int)'\0', size + 1);
+// 	return (str);
+// }
+
+// int	count_chars(char *command, char *sep)
+// {
+// 	int len;
+
+// 	len = 0;
+// 	while (command[len])
+// 	{
+// 		if (command[len] == '"' || command[len] == '\'')
+// 		{
+// 			len++;
+// 			while (command[len] != '"' || command[len] == '\'')
+// 				len++;
+// 		}
+// 		if (command[len] == *sep && command[len + 1] != *sep &&
+// 			command[len - 1] != *sep)
+// 			return (len);
+// 		len++;
+// 	}
+// 	return (len);
+// }
+
+// int	count_commands(char *command, char *sep)
+// {
+// 	int number;
+
+// 	number = 0;
+// 	while (*command)
+// 	{
+// 		if (*command == '"' || *command == '\'')
+// 		{
+// 			command++;
+// 			while ((*command != '"' || *command == '\'') && *command)
+// 				command++;
+// 			if (!*command)
+// 				return (-1);
+// 		}
+// 		if (*command == *sep && *(command + 1) != *sep &&
+// 			*(command - 1) != *sep)
+// 			number++;
+// 		command++;
+// 	}
+// 	return (number + 1);
+// }
