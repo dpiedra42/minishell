@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils2.c                                   :+:      :+:    :+:   */
+/*   parsing_special.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 17:26:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/12 18:16:18 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/02/16 18:04:11 by dpiedra           #+#    #+#             */
+/*   Updated: 2021/02/22 10:32:38 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char	*clean_quotes(char *str)
-// {
-// 	char	*new_str;
-// 	int		i;
+int		ft_semi(char *command, int semi)
+{
+	char	*semi_command;
+	int		i;
 
-// 	i = ft_strlen(str);
-// 	if (!(new_str = malloc(sizeof(char) * (i + 1))))
-// 		return (NULL);
-// 	while (*str != '"' && *str)
-// 		*(new_str++) = *(str++);
-// 	if (*str == '"')
-// 	{
-// 		copy_quote(&str, &new_str);
-// 	}
-// 	*new_str = '\0';
-// 	return (new_str);
-// }
+	i = 0;
+	if (command[semi - 1] == ' ')
+		i = 1;
+	semi_command = ft_strdup(&command[semi + 1]);
+	printf("str = %s\n", semi_command);
+	command[semi - i] = '\0';
+	command_directory(command);
+	if (g_status != 130)
+		return(ft_parse(semi_command));
+	else
+		free(semi_command);
+	return (0);
+}

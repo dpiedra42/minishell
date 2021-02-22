@@ -6,20 +6,31 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:05:46 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/01 18:24:56 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/22 11:03:56 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void    ft_sigint(int sig)
-// {
-//     printf("caught signal %d\n", sig);
-// }
-
+void    ft_sigiq(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_status = 130;
+		if (g_user_input)
+			ft_putstr_fd("\nminishell> ", 1);
+		if (g_user_input)
+			free(g_user_input);
+		g_user_input = ft_strdup("\0");
+	}
+	else if (sig == SIGQUIT)
+		write(2, "\b\b  \b\b", 6);
+}
 
 void    ft_signal(void)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	if (signal(SIGINT, ft_sigiq) == SIG_ERR)
+		exit(EXIT_FAILURE);
+	if (signal(SIGQUIT, ft_sigiq) == SIG_ERR)
+		exit (EXIT_FAILURE);
 }
