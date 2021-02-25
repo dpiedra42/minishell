@@ -6,11 +6,20 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/22 11:15:36 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/25 15:07:09 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void		choose_builtin(char **inputs)
+{
+	if (!ft_strcmp(inputs[0], "echo"))
+		ft_echo(inputs);
+	else
+		exit(EXIT_FAILURE);
+	// 	ft_exec(inputs);
+}
 
 void		copy_inside_quotes(char **command, char **comline, char quote)
 {
@@ -53,28 +62,12 @@ void		quote_len(char **command, int *i, char quote)
 	}
 }
 
-int	find_len(char *command)
+int		command_directory(char *command)
 {
-	int i;
-	char quote;
+	char **inputs;
 
-	i = 0;
-	while (*command)
-	{
-		if (*command == ' ' && (*(command + 1) == ' ' ||
-			*(command + 1) == '\0'))
-			command++;
-		else if (*command == '"' || *command == '\'')
-		{
-			quote = *(command++);
-			quote_len(&command, &i, quote);
-			if (!*command)
-				return (-1);
-			command++;
-			i = i + 2;
-		}
-		else if (command++)
-			i++;
-	}
-	return (i);
+	inputs = split_command(command);
+	free(command);
+	choose_builtin(inputs);
+	return (0);
 }

@@ -6,47 +6,20 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/22 11:24:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/25 15:09:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int		command_directory(char *command)
-// {
-// 	char **inputs;
-
-// 	inputs = split_command(command);
-// 	free(command);
-// 	choose_builtin(inputs);
-// }
-
-int		special_chars(char **command, int *i)
-{
-	if ((*command)[*i] == '\'')
-	{
-		(i++);
-		while ((*command)[*i] != '\'')
-			(*i)++;
-	}
-	else if ((*command)[*i] == ';')
-	{
-		ft_semi((*command), *i);
-		return (1);
-	}
-	(*i)++;
-	return (0);
-}
-
 int		filter_command(char *command)
 {
 	int i;
-	int slash;
 
 	i = 0;
 	while (command[i])
 	{
-		if (command[i] = '"')
+		if (command[i] == '"')
 		{
 			i++;
 			while (command[i] != '"')
@@ -56,6 +29,32 @@ int		filter_command(char *command)
 			return (0);
 	}
 	return (command_directory(command));
+}
+
+static int	find_len(char *command)
+{
+	int i;
+	char quote;
+
+	i = 0;
+	while (*command)
+	{
+		if (*command == ' ' && (*(command + 1) == ' ' ||
+			*(command + 1) == '\0'))
+			command++;
+		else if (*command == '"' || *command == '\'')
+		{
+			quote = *(command++);
+			quote_len(&command, &i, quote);
+			if (!*command)
+				return (-1);
+			command++;
+			i = i + 2;
+		}
+		else if (command++)
+			i++;
+	}
+	return (i);
 }
 
 char	*ft_clean_command(char *command)
