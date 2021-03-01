@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/25 13:14:03 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/01 16:04:42 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@
 # include <dirent.h>
 # include "./libft/libft.h"
 
-typedef struct  s_parse
+typedef struct  s_data
 {
-				int len;
-				int	num_commands;
-				int h;
-				int i;
-}               t_parse;
+				char *pwd;
+}               t_data;
 
 int				g_status;
 char			*g_user_input;
@@ -44,19 +41,19 @@ int				g_quit;
 void			minishell();
 void			ft_sigiq(int sig);
 void			ft_signal(void);
-int     		ft_parse(char *command);
+int     		ft_parse(char *command, t_data *data);
 char			*ft_clean_command(char *command);
 void			quote_len(char **command, int *i, char quote);
 void			copy_command(char *comline, char *command);
 void			copy_inside_quotes(char **command, char **comline, char quote);
-int				filter_command(char *command);
-int				special_chars(char **command, int *i);
-int				command_directory(char *command);
+int				filter_command(char *command, t_data *data);
+int				special_chars(char **command, int *i, t_data *data);
+int				command_directory(char *command, t_data *data);
 char			**split_command(char *str);
 char			*new_str(char *src);
 void			copy_newsplit(char *src, char *dst, char quote);
-void			choose_builtin(char **inputs);
+void			choose_builtin(char **inputs, t_data *data);
 void			ft_echo(char **inputs);
-
+void			ft_pwd(t_data *data);
 
 #endif
