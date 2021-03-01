@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/25 15:07:09 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/01 14:28:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,22 @@ void		copy_command(char *comline, char *command)
 
 void		quote_len(char **command, int *i, char quote)
 {
+	int slash;
+
 	while (**command != quote && **command)
 	{
+		slash = 0;
+		while (quote == '"' && **command == '\\')
+		{
+			(*i)++;
+			(*command)++;
+			slash++;
+		}
+		if (slash && !(slash % 2))
+		{
+			(*command)--;
+			(*i)--;
+		}
 		(*i)++;
 		(*command)++;
 	}
