@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/01 16:09:29 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 17:47:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@
 
 typedef struct  s_data
 {
-				char *pwd;
+		char	*pwd;
+		char	**env;
 }               t_data;
 
 int				g_status;
 char			*g_user_input;
 int				g_quit;
 
-void			minishell();
 void			ft_sigiq(int sig);
 void			ft_signal(void);
 int     		ft_parse(char *command, t_data *data);
@@ -55,5 +55,8 @@ void			copy_newsplit(char *src, char *dst, char quote);
 void			choose_builtin(char **inputs, t_data *data);
 void			ft_echo(char **inputs);
 void			ft_pwd(t_data *data);
+char			**get_env(char **env);
+int				env_len(char **env);
+void			ft_env(t_data *data);
 
 #endif

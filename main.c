@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/01 16:02:38 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 17:35:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,17 @@ void    minishell(t_data *data)
 	}
 }
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, char **env)
 {
 	data->pwd = getcwd(NULL, 0);
+	data->env = get_env(env);
 }
 
-int     main(int ac, char **av)
+int     main(int ac, char **av, char **env)
 {
 	t_data data;
-	
-	init_data(&data);
+
+	init_data(&data, env);
 	ac = 0;
 	av = NULL;
 	minishell(&data);
