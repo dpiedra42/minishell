@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:05:46 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/01 16:09:50 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:07:14 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_sigiq(int sig)
+void	ft_sigiq(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -27,10 +27,10 @@ void    ft_sigiq(int sig)
 		write(2, "\b\b  \b\b", 6);
 }
 
-void    ft_signal(void)
+void	ft_signal(void)
 {
 	if (signal(SIGINT, ft_sigiq) == SIG_ERR)
 		exit(EXIT_FAILURE);
 	if (signal(SIGQUIT, ft_sigiq) == SIG_ERR)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:57:55 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/25 13:29:28 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 17:59:23 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char			*new_str(char *src)
 	quote = 0;
 	len = ft_strlen(src);
 	if (!(dst = malloc(sizeof(char) * (len + 1))))
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	copy_newsplit(src, dst, quote);
 	return (dst);
 }
@@ -92,13 +92,13 @@ static size_t	string_len(char *str)
 
 char			**split_command(char *str)
 {
-	char **inputs;
-	size_t len;
-	size_t i;
+	char	**inputs;
+	size_t	len;
+	size_t	i;
 
 	len = string_len(str);
 	if (!(inputs = malloc(sizeof(char *) * (len + 1))))
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	i = 0;
 	while (i < len)
 	{

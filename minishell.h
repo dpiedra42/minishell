@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/02 17:47:49 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:11:35 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@
 # include <dirent.h>
 # include "./libft/libft.h"
 
-typedef struct  s_data
+typedef struct	s_data
 {
-		char	*pwd;
-		char	**env;
-}               t_data;
+	char	*pwd;
+	char	**env;
+}				t_data;
 
 int				g_status;
 char			*g_user_input;
@@ -41,7 +41,7 @@ int				g_quit;
 
 void			ft_sigiq(int sig);
 void			ft_signal(void);
-int     		ft_parse(char *command, t_data *data);
+int				ft_parse(char *command, t_data *data);
 char			*ft_clean_command(char *command);
 void			quote_len(char **command, int *i, char quote);
 void			copy_command(char *comline, char *command);

@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/02 17:44:04 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:05:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		choose_builtin(char **inputs, t_data *data)
+void	choose_builtin(char **inputs, t_data *data)
 {
 	if (!ft_strcmp(inputs[0], "echo"))
 		ft_echo(inputs);
@@ -37,17 +37,17 @@ int		command_directory(char *command, t_data *data)
 	return (0);
 }
 
-void		copy_inside_quotes(char **command, char **comline, char quote)
+void	copy_inside_quotes(char **command, char **comline, char quote)
 {
 	while (**command != quote)
 	{
-		if (**command == '\\' && *((*command) + 1) == '\\'  && quote == '"')
+		if (**command == '\\' && *((*command) + 1) == '\\' && quote == '"')
 			(*command)++;
 		*((*comline)++) = *((*command)++);
 	}
 }
 
-void		copy_command(char *comline, char *command)
+void	copy_command(char *comline, char *command)
 {
 	char	quote;
 
@@ -69,7 +69,7 @@ void		copy_command(char *comline, char *command)
 	*(comline) = '\0';
 }
 
-void		quote_len(char **command, int *i, char quote)
+void	quote_len(char **command, int *i, char quote)
 {
 	int slash;
 

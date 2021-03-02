@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/01 16:02:56 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:12:24 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		filter_command(char *command, t_data *data)
+int			filter_command(char *command, t_data *data)
 {
 	int i;
 
@@ -33,8 +33,8 @@ int		filter_command(char *command, t_data *data)
 
 static int	find_len(char *command)
 {
-	int i;
-	char quote;
+	int		i;
+	char	quote;
 
 	i = 0;
 	while (*command)
@@ -57,26 +57,26 @@ static int	find_len(char *command)
 	return (i);
 }
 
-char	*ft_clean_command(char *command)
+char		*ft_clean_command(char *command)
 {
 	char	*comline;
 	int		len;
-	
+
 	len = find_len(command);
 	if (len == -1)
 		return (0);
 	if (!(comline = malloc(sizeof(char) * (len + 1))))
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	copy_command(comline, command);
 	return (comline);
 }
 
- int    ft_parse(char *command, t_data *data)
+int			ft_parse(char *command, t_data *data)
 {
 	char *new_command;
 
 	g_user_input = NULL;
-	while(*command == ' ' && *command)
+	while (*command == ' ' && *command)
 		command++;
 	new_command = ft_clean_command(command);
 	if (new_command == 0)

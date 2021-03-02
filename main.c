@@ -6,16 +6,16 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/02 17:35:13 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:02:42 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    minishell(t_data *data)
+void	minishell(t_data *data)
 {
-	char    *command;
-	int     read;
+	char	*command;
+	int		read;
 
 	g_status = 0;
 	g_user_input = NULL;
@@ -42,7 +42,7 @@ void	init_data(t_data *data, char **env)
 	data->env = get_env(env);
 }
 
-int     main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
 	t_data data;
 

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 18:04:11 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/01 16:09:36 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:07:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_semi(char *command, int semi, t_data *data)
 	return (0);
 }
 
-int		special_chars(char **command, int *i, t_data *data)
+int			special_chars(char **command, int *i, t_data *data)
 {
 	if ((*command)[*i] == '\'')
 	{
