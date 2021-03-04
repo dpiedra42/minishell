@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/02 18:11:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/04 16:48:50 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <termios.h>
 # include <stdint.h>
 # include <sys/ioctl.h>
-
 # include <stdio.h>
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/wait.h>
@@ -58,5 +58,13 @@ void			ft_pwd(t_data *data);
 char			**get_env(char **env);
 int				env_len(char **env);
 void			ft_env(t_data *data);
+int				env_index(t_data *data, char *id);
+void			replace_var(char *new_pwd, t_data *data, int index);
+void    		ft_cd(char **input, t_data *data);
+void			replace_var(char *new_pwd, t_data *data, int index);
+int				cd_empty(t_data *data);
+int				change_dir(t_data *data, char *str);
+void			set_oldpwd(t_data *data);
+void			new_pwd(t_data *data);
 
 #endif
