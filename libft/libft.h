@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:02:14 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/25 12:31:46 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/05 14:56:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 int					get_next_line(int fd, char **line);
-char 				*ft_strappend(char *str, char c);
+char				*ft_strappend(char *str, char c);
 int					ft_strcmp(const char *str1, const char *str2);
 
 #endif

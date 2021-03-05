@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/04 17:15:00 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/05 14:52:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ int		env_index(t_data *data, char *id)
 	while (data->env[i])
 	{
 		j = 0;
-		while (data->env[i][j] != '\0' && id[j] != '\0' && data->env[i][j] == id[j] &&
-			data->env[i][j] != '=' && id[j] != '=')
+		while (data->env[i][j] != '\0' && id[j] != '\0' &&
+				data->env[i][j] == id[j] && data->env[i][j] != '='
+				&& id[j] != '=')
 			j++;
 		if ((data->env[i][j] == '=' && id[j] == '=') ||
 			(data->env[i][j] == '\0' && id[j] == '\0'))

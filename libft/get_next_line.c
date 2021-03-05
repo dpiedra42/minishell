@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 15:28:52 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/02/01 17:11:57 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/05 14:56:04 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strappend(char *str, char c)
+char	*ft_strappend(char *str, char c)
 {
 	int		len;
 	char	*new;
@@ -23,7 +23,7 @@ char *ft_strappend(char *str, char c)
 	new = malloc((len + 2) * sizeof(char));
 	if (!new)
 		exit(EXIT_FAILURE);
-	while(str[i])
+	while (str[i])
 	{
 		new[i] = str[i];
 		i++;
@@ -33,10 +33,10 @@ char *ft_strappend(char *str, char c)
 	return (new);
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	char	buf;
-	char 	*str;
+	char	*str;
 	char	*tmp;
 	int		ret;
 
