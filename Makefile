@@ -6,7 +6,7 @@
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 15:03:32 by dpiedra           #+#    #+#              #
-#    Updated: 2021/03/04 16:45:51 by dpiedra          ###   ########.fr        #
+#    Updated: 2021/03/08 13:20:44 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ FLAGS	= -Wall -Wextra -Werror
 CLANG	= clang
 
 SRCS	= main.c parsing.c parsing_utils.c signal_handler.c parsing_split.c \
-		  parsing_special.c ft_echo.c ft_pwd.c ft_env.c ft_cd.c cd_utils.c
+		  parsing_special.c ft_echo.c ft_pwd.c ft_env.c ft_cd.c cd_utils.c  \
+		  parsing_escape.c
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/05 14:57:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/08 13:12:24 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	copy_command(char *comline, char *command)
 			copy_inside_quotes(&command, &comline, quote);
 			*(comline++) = *(command++);
 		}
+		else if (*command == '\\' && *(command + 1))
+			escape_input(&comline, &command);
 		else
 			*(comline++) = *(command++);
 	}
