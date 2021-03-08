@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 18:39:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/08 23:21:02 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int			filter_command(char *command, t_data *data)
 			i++;
 			while (command[i] != '"')
 			{
-				i++;
-				if (command[i] == '$')
+				if (command[i] == '$' && data->e_var == 0)
 					find_variable(&command, &i, data);
+				i++;
 			}
 		}
 		if (special_chars(&command, &i, data))
@@ -61,7 +61,7 @@ static int	find_len(char *command)
 	return (i);
 }
 
-char		*ft_clean_command(char *command)
+char		*ft_clean_command(char *command, t_data *data)
 {
 	char	*comline;
 	int		len;
@@ -71,7 +71,7 @@ char		*ft_clean_command(char *command)
 		return (0);
 	if (!(comline = malloc(sizeof(char) * (len + 1))))
 		exit(EXIT_FAILURE);
-	copy_command(comline, command);
+	copy_command(comline, command, data);
 	return (comline);
 }
 
@@ -82,7 +82,7 @@ int			ft_parse(char *command, t_data *data)
 	g_user_input = NULL;
 	while (*command == ' ' && *command)
 		command++;
-	new_command = ft_clean_command(command);
+	new_command = ft_clean_command(command, data);
 	if (new_command == 0)
 	{
 		ft_putstr_fd("Multiline is not supported\n", 1);

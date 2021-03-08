@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 13:12:24 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/08 23:20:45 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,30 @@ int		command_directory(char *command, t_data *data)
 {
 	char **inputs;
 
+	data->e_var = 0;
 	inputs = split_command(command);
 	free(command);
 	choose_builtin(inputs, data);
 	return (0);
 }
 
-void	copy_inside_quotes(char **command, char **comline, char quote)
+void	copy_inside_quotes(char **command, char **comline, char quote, t_data *data)
 {
+	
 	while (**command != quote)
 	{
 		if (**command == '\\' && *((*command) + 1) == '\\' && quote == '"')
 			(*command)++;
+		else if (**command == '\\' && *((*command) + 1) == '$' && quote == '"')
+		{
+			(*command)++;
+			data->e_var = 1;
+		}
 		*((*comline)++) = *((*command)++);
 	}
 }
 
-void	copy_command(char *comline, char *command)
+void	copy_command(char *comline, char *command, t_data *data)
 {
 	char	quote;
 
@@ -59,7 +66,7 @@ void	copy_command(char *comline, char *command)
 		{
 			*(comline++) = *command;
 			quote = *(command++);
-			copy_inside_quotes(&command, &comline, quote);
+			copy_inside_quotes(&command, &comline, quote, data);
 			*(comline++) = *(command++);
 		}
 		else if (*command == '\\' && *(command + 1))

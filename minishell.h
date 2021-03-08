@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 18:42:22 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/08 22:50:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_data
 {
 	char	*pwd;
 	char	**env;
+	int		e_var;
 }				t_data;
 
 int				g_status;
@@ -42,12 +43,13 @@ int				g_quit;
 void			ft_sigiq(int sig);
 void			ft_signal(void);
 int				ft_parse(char *command, t_data *data);
-char			*ft_clean_command(char *command);
+char			*ft_clean_command(char *command, t_data *data);
 void			quote_len(char **command, int *i, char quote);
-void			copy_command(char *comline, char *command);
+void			copy_command(char *comline, char *command, t_data *data);
 void			escape_input(char **comline, char **command);
-void			copy_inside_quotes(char **command, char **comline, char quote);
+void			copy_inside_quotes(char **command, char **comline, char quote, t_data *data);
 int				filter_command(char *command, t_data *data);
+void			find_variable(char **command, int *i, t_data *data);
 int				special_chars(char **command, int *i, t_data *data);
 int				command_directory(char *command, t_data *data);
 char			**split_command(char *str);
@@ -67,6 +69,5 @@ int				cd_empty(t_data *data);
 int				change_dir(t_data *data, char *str);
 void			set_oldpwd(t_data *data);
 void			new_pwd(t_data *data);
-void			find_variable(char **command, int *i, t_data *data);
 
 #endif

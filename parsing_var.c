@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:41:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 18:53:27 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/08 21:24:35 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	var_len(char *str)
 	return (len);
 }
 
-static void		add_escaped_char(char *src, char *dst, int *i, int *j)
+static void	add_escaped_char(char *src, char *dst, int *i, int *j)
 {
 	dst[(*j)++] = '\\';
 	dst[(*j)++] = src[(*i)++];
@@ -73,15 +73,15 @@ static char	*get_val(char *name, t_data *data)
 	return (NULL);
 }
 
-void		find_variable(char **command, int *i, t_data *data)
+void    find_variable(char **command, int *i, t_data *data)
 {
 	int		len;
 	char	*var_value;
 	char	*var_name;
-	char	*new_command;
 	char	*tmp;
+	char	*new_command;
 
-	len = var_len(&(command[0][*i +1]));
+	len = var_len(&(command[0][*i + 1]));
 	var_name = ft_substr(*command, *i + 1, len);
 	if (len == 1 && command[0][*i + 1] == '?')
 		var_value = ft_itoa(g_status);
@@ -90,14 +90,14 @@ void		find_variable(char **command, int *i, t_data *data)
 	else
 		var_value = ft_strdup("$");
 	free(var_name);
-	new_input = ft_substr(*command, 0, *i);
-	tmp = ft_strjoin(new_input, var_value);
-	free(new_input);
-	new_input = ft_strjoin(tmp, &(command[0][*i + 1 + len]));
+	new_command = ft_substr(*command, 0, *i);
+	tmp = ft_strjoin(new_command, var_value);
+	free(new_command);
+	new_command = ft_strjoin(tmp, &(command[0][*i + 1 + len]));
 	len = ft_strlen(var_value);
 	free(tmp);
 	free(var_value);
 	free(*command);
-	*command = new_input;
+	*command = new_command;
 	*i += len - 1;
 }
