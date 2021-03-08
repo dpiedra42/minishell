@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 13:21:22 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/08 18:42:22 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int				cd_empty(t_data *data);
 int				change_dir(t_data *data, char *str);
 void			set_oldpwd(t_data *data);
 void			new_pwd(t_data *data);
+void			find_variable(char **command, int *i, t_data *data);
 
 #endif
