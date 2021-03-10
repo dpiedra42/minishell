@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 23:20:45 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:08:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,24 @@ int		command_directory(char *command, t_data *data)
 {
 	char **inputs;
 
-	data->e_var = 0;
+	command = ft_clean_command(command);
+	clean_quotes(&command);
+	command = ft_clean_command(command);
 	inputs = split_command(command);
 	free(command);
 	choose_builtin(inputs, data);
 	return (0);
 }
 
-void	copy_inside_quotes(char **command, char **comline, char quote, t_data *data)
+void	copy_inside_quotes(char **command, char **comline, char quote)
 {
-	
 	while (**command != quote)
 	{
-		if (**command == '\\' && *((*command) + 1) == '\\' && quote == '"')
-			(*command)++;
-		else if (**command == '\\' && *((*command) + 1) == '$' && quote == '"')
-		{
-			(*command)++;
-			data->e_var = 1;
-		}
 		*((*comline)++) = *((*command)++);
 	}
 }
 
-void	copy_command(char *comline, char *command, t_data *data)
+void	copy_command(char *comline, char *command)
 {
 	char	quote;
 
@@ -66,7 +60,7 @@ void	copy_command(char *comline, char *command, t_data *data)
 		{
 			*(comline++) = *command;
 			quote = *(command++);
-			copy_inside_quotes(&command, &comline, quote, data);
+			copy_inside_quotes(&command, &comline, quote);
 			*(comline++) = *(command++);
 		}
 		else if (*command == '\\' && *(command + 1))
@@ -79,22 +73,8 @@ void	copy_command(char *comline, char *command, t_data *data)
 
 void	quote_len(char **command, int *i, char quote)
 {
-	int slash;
-
 	while (**command != quote && **command)
 	{
-		slash = 0;
-		while (quote == '"' && **command == '\\')
-		{
-			(*i)++;
-			(*command)++;
-			slash++;
-		}
-		if (slash && !(slash % 2))
-		{
-			(*command)--;
-			(*i)--;
-		}
 		(*i)++;
 		(*command)++;
 	}

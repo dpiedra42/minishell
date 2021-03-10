@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:57:55 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/02 17:59:23 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:28:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static char		*next_input(char *str)
 {
 	char	quote;
+	int		slash;
 
 	str--;
 	while (*(++str))
@@ -23,7 +24,14 @@ static char		*next_input(char *str)
 		{
 			quote = *(str++);
 			while (*str != quote)
+			{
+				slash = 0;
+				while (*str == '\\' && quote == '"' && ++slash)
+					str++;
+				if (slash && !(slash % 2))
+					str--;
 				str++;
+			}
 		}
 		if (*str == ' ')
 			return (str + 1);
@@ -46,7 +54,12 @@ void			copy_newsplit(char *src, char *dst, char quote)
 		{
 			quote = *(src++);
 			while (*src != quote)
+			{
+				if (*src == '\\' && (*(src + 1) == quote ||
+					*(src + 1) == '\\' || *(src + 1) == '$'))
+					src++;
 				*(dst++) = *(src++);
+			}
 			src++;
 		}
 		else
@@ -73,6 +86,7 @@ static size_t	string_len(char *str)
 {
 	int		i;
 	char	quote;
+	int		slash;
 
 	i = 1;
 	str--;
@@ -82,7 +96,14 @@ static size_t	string_len(char *str)
 		{
 			quote = *(str++);
 			while (*str != quote)
+			{
+				slash = 0;
+				while (*str == '\\' && quote == '"' && ++slash)
+					str++;
+				if (slash && !(slash % 2))
+					str--;
 				str++;
+			}
 		}
 		if (*str == ' ')
 			i++;

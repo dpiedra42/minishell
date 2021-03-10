@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 23:21:02 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:07:33 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int			filter_command(char *command, t_data *data)
 {
 	int i;
+	int slash;
 
 	i = 0;
 	while (command[i])
@@ -24,8 +25,13 @@ int			filter_command(char *command, t_data *data)
 			i++;
 			while (command[i] != '"')
 			{
-				if (command[i] == '$' && data->e_var == 0)
+				slash = 0;
+				while (command[i] == '\\' && ++i)
+					slash++;
+				if (command[i] == '$' && !(slash % 2))
 					find_variable(&command, &i, data);
+				if (slash && !(slash % 2))
+					i--;
 				i++;
 			}
 		}
@@ -61,7 +67,7 @@ static int	find_len(char *command)
 	return (i);
 }
 
-char		*ft_clean_command(char *command, t_data *data)
+char		*ft_clean_command(char *command)
 {
 	char	*comline;
 	int		len;
@@ -71,7 +77,8 @@ char		*ft_clean_command(char *command, t_data *data)
 		return (0);
 	if (!(comline = malloc(sizeof(char) * (len + 1))))
 		exit(EXIT_FAILURE);
-	copy_command(comline, command, data);
+	copy_command(comline, command);
+	printf("com = %s\n", comline);
 	return (comline);
 }
 
@@ -82,7 +89,7 @@ int			ft_parse(char *command, t_data *data)
 	g_user_input = NULL;
 	while (*command == ' ' && *command)
 		command++;
-	new_command = ft_clean_command(command, data);
+	new_command = ft_clean_command(command);
 	if (new_command == 0)
 	{
 		ft_putstr_fd("Multiline is not supported\n", 1);
