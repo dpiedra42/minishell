@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:57:55 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/10 15:28:40 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:49:35 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static size_t	string_len(char *str)
 {
 	int		i;
 	char	quote;
-	int		slash;
+	// int		slash;
 
 	i = 1;
 	str--;
@@ -97,11 +97,11 @@ static size_t	string_len(char *str)
 			quote = *(str++);
 			while (*str != quote)
 			{
-				slash = 0;
-				while (*str == '\\' && quote == '"' && ++slash)
-					str++;
-				if (slash && !(slash % 2))
-					str--;
+				// slash = 0;
+				// while (*str == '\\' && quote == '"' && ++slash)
+				// 	str++;
+				// if (slash && !(slash % 2))
+				// 	str--;
 				str++;
 			}
 		}

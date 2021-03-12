@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/10 13:29:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/11 16:24:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	init_data(t_data *data, char **env)
 {
 	data->pwd = getcwd(NULL, 0);
 	data->env = get_env(env);
+	data->fd_in = 0;
+	data->fd_out = 1;
+	data->redir = 1;
 }
 
 int		main(int ac, char **av, char **env)

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/10 16:07:33 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/11 16:15:52 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			filter_command(char *command, t_data *data)
 		if (special_chars(&command, &i, data))
 			return (0);
 	}
-	return (command_directory(command, data));
+	return (command_directory(command, data, 0));
 }
 
 static int	find_len(char *command)
@@ -78,7 +78,6 @@ char		*ft_clean_command(char *command)
 	if (!(comline = malloc(sizeof(char) * (len + 1))))
 		exit(EXIT_FAILURE);
 	copy_command(comline, command);
-	printf("com = %s\n", comline);
 	return (comline);
 }
 
