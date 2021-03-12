@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/11 16:25:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/12 11:48:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,10 @@ void			set_oldpwd(t_data *data);
 void			new_pwd(t_data *data);
 int				clean_quotes(char **com);
 void			parsing_quotes(char *str, int *i, char quote);
+void			close_fd(t_data *data);
+void			free_inputs(char **inputs);
+void			exit_pipe(t_data *data);
+void			ft_parent(char *new_com, t_data *data, int pid, int *fds);
+int				ft_pipe(char *command, char *new_com, t_data *data);
 
 #endif

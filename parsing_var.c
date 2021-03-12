@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:41:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/09 18:38:02 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/12 11:41:43 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	*get_val(char *name, t_data *data)
 	return (NULL);
 }
 
-void    find_variable(char **command, int *i, t_data *data)
+void		find_variable(char **command, int *i, t_data *data)
 {
 	int		len;
 	char	*var_value;

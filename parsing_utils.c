@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/11 16:34:38 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/12 11:49:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,18 @@ void	choose_builtin(char **inputs, t_data *data)
 	else if (!ft_strcmp(inputs[0], "cd"))
 		ft_cd(inputs, data);
 	else
-		ft_exec(inputs, data);// continue exec tomorrow
+		ft_exec(inputs, data);
 }
 
 int		command_directory(char *command, t_data *data, int pipe)
 {
 	char	**inputs;
-	// int		oldfd[2];
-	
-	// oldfd[0] = dup(1);
-	// oldfd[1] = dup(0);
-	// command = ft_clean_command(command);
-	// clean_quotes(&command);
-	// command = ft_clean_command(command);
+
 	inputs = split_command(command);
 	free(command);
 	choose_builtin(inputs, data);
 	free_inputs(inputs);
-	// dup2(oldfd[0], 1);
-	// dup2(oldfd[1], 0);
 	close_fd(data);
-	// close(oldfd[0]);
-	// close(oldfd[1]);
 	if (pipe)
 		exit_pipe(data);
 	return (0);

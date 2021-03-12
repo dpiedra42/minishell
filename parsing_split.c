@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:57:55 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/11 14:49:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/12 11:39:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static size_t	string_len(char *str)
 {
 	int		i;
 	char	quote;
-	// int		slash;
 
+	// int		slash;
 	i = 1;
 	str--;
 	while (*(++str))
