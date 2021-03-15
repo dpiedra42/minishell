@@ -6,7 +6,7 @@
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 15:03:32 by dpiedra           #+#    #+#              #
-#    Updated: 2021/03/15 16:07:33 by dpiedra          ###   ########.fr        #
+#    Updated: 2021/03/15 17:41:35 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CLANG	= clang
 SRCS	= main.c parsing.c parsing_utils.c ft_signal.c parsing_split.c \
 		  parsing_special.c ft_echo.c ft_pwd.c ft_env.c ft_cd.c cd_utils.c  \
 		  parsing_escape.c parsing_var.c parsing_quotes.c parsing_exits.c   \
-		  ft_execute.c
+		  ft_execute.c execute_utils.c
 
 OBJS	= $(SRCS:.c=.o)
 
