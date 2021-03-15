@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/12 11:48:11 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/15 17:43:54 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,11 @@ void			free_inputs(char **inputs);
 void			exit_pipe(t_data *data);
 void			ft_parent(char *new_com, t_data *data, int pid, int *fds);
 int				ft_pipe(char *command, char *new_com, t_data *data);
+void			ft_exec(char **inputs, t_data *data);
+int				exec(char **inputs, t_data *data);
+int				exec_2(char **inputs, t_data *data);
+char			**make_paths(int id, t_data *data, char *input);
+int				check_exec(char **inputs, t_data *data);
+int				check_exec_path(char **inputs, t_data *data);
 
 #endif
