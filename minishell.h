@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 17:54:49 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/15 18:02:54 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void			ft_env(t_data *data);
 int				env_index(t_data *data, char *id);
 void			replace_var(char *new_pwd, t_data *data, int index);
 void			ft_cd(char **input, t_data *data);
-void			replace_var(char *new_pwd, t_data *data, int index);
 int				cd_empty(t_data *data);
 void			ft_error(char *str, int status);
 int				change_dir(t_data *data, char *str);

@@ -6,11 +6,23 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:09:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 17:56:13 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/15 18:04:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_env(char **env)
+{
+	int	i;
+	int	elen;
+
+	i = 0;
+	elen = env_len(env);
+	while (i < elen)
+		free(env[i++]);
+	free(env);
+}
 
 int		check_path(char **inputs, t_data *data)
 {
