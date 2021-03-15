@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/12 17:07:11 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/15 17:29:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void    ft_exec(char **inputs, t_data *data)
 	int		status;
 
 	status = 0;
+	if (!check_exec(inputs, data))
+		return (ft_error("\t\tminishell: Command not found\n", 127));
 	pid = fork();
 	if (pid == 0)
 	{
@@ -94,6 +96,7 @@ void    ft_exec(char **inputs, t_data *data)
 		exit(EXIT_FAILURE);
 	else
 	{
+		signal_exec();
 		waitpid(pid, &status, 0);
 	}
 	g_status = WEXITSTATUS(status);
