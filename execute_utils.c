@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:09:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 17:29:42 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/15 17:38:34 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		check_exec_path(char **inputs, t_data *data)
+int		check_path(char **inputs, t_data *data)
 {
 	int			i;
 	int			index;
@@ -54,6 +54,6 @@ int		check_exec(char **inputs, t_data *data)
 	!(statounet.st_mode & __S_IFDIR))
 		ret = 1;
 	else
-		ret = check_exec_path(inputs, data);
+		ret = check_path(inputs, data);
 	return (ret);
 }
