@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 17:43:15 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/15 17:58:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		exec(char **inputs, t_data *data)
 	return (1);
 }
 
-void    ft_exec(char **inputs, t_data *data)
+void	ft_exec(char **inputs, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -102,5 +102,4 @@ void    ft_exec(char **inputs, t_data *data)
 	g_status = WEXITSTATUS(status);
 	if (g_quit)
 		status = 130;
-	
 }
