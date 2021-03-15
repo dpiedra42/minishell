@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:09:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 18:04:16 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/15 18:06:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int		check_path(char **inputs, t_data *data)
 
 	buff.st_mode = 0;
 	i = 0;
-	index = env_index("PATH=", data);
-	if (env_index("PATH=", data) == -1)
+	index = env_index(data, "PATH=");
+	if (env_index(data, "PATH=") == -1)
 		return (0);
-	index = env_index("PATH=", data);
+	index = env_index(data, "PATH=");
 	paths = make_paths(index, data, inputs[0]);
 	while (paths[i])
 	{
