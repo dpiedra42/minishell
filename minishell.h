@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 18:02:54 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 17:22:53 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void			ft_error(char *str, int status);
 int				change_dir(t_data *data, char *str);
 void			set_oldpwd(t_data *data);
 void			new_pwd(t_data *data);
-int				clean_quotes(char **com);
-void			parsing_quotes(char *str, int *i, char quote);
+int				ft_redir(char **com, t_data *data);
+void			redir_quotes(char *str, int *i, char quote);
 void			close_fd(t_data *data);
 void			free_inputs(char **inputs);
 void			exit_pipe(t_data *data);
@@ -86,5 +86,6 @@ int				check_exec(char **inputs, t_data *data);
 int				check_exec_path(char **inputs, t_data *data);
 void			signal_exec(void);
 void			exec_sigiq(int sig);
+void			ft_escape(int *i, char *str)
 
 #endif

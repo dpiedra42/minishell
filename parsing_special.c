@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 18:04:11 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/12 11:33:40 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 17:13:37 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int			special_chars(char **command, int *i, t_data *data)
 		special_pipe((*command), *i, data);
 		return (1);
 	}
+	else if ((*command)[*i] == '$')
+		find_variable(command, i, data);
 	(*i)++;
 	return (0);
 }
