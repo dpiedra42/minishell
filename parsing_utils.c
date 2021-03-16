@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/12 11:49:13 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 17:09:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		command_directory(char *command, t_data *data, int pipe)
 {
 	char	**inputs;
 
+	command = ft_clean_command(command);
+	command = ft_clean_command(command);
 	inputs = split_command(command);
 	free(command);
 	choose_builtin(inputs, data);
@@ -42,8 +44,18 @@ int		command_directory(char *command, t_data *data, int pipe)
 
 void	copy_inside_quotes(char **command, char **comline, char quote)
 {
+	int slash;
+
 	while (**command != quote)
 	{
+		slash = 0;
+		while (**command == '\\' && quote == '"')
+		{
+			*((*comline)++) = *((*command)++);
+			slash++;
+		}
+		if (slash && !(slash % 2))
+			*((*comline)--) = *((*command)--);
 		*((*comline)++) = *((*command)++);
 	}
 }
@@ -74,8 +86,22 @@ void	copy_command(char *comline, char *command)
 
 void	quote_len(char **command, int *i, char quote)
 {
+	int slash;
+
 	while (**command != quote && **command)
 	{
+		slash = 0;
+		while (quote == '"' && **command == '\\')
+		{
+			(*i)++;
+			(*command)++;
+			slash++;
+		}
+		if (slash && !(slash % 2))
+		{
+			(*command)--;
+			(*i)--;
+		}
 		(*i)++;
 		(*command)++;
 	}

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:09:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 18:06:31 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 16:45:37 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		check_path(char **inputs, t_data *data)
 	while (paths[i])
 	{
 		stat(paths[i], &buff);
-		if ((buff.st_mode & S_IXUSR) && !(buff.st_mode & __S_IFDIR))
+		if ((buff.st_mode & S_IXUSR) && !(buff.st_mode & S_IFDIR))
 		{
 			free_env(paths);
 			return (1);
@@ -63,7 +63,7 @@ int		check_exec(char **inputs, t_data *data)
 	ret = 0;
 	stat(inputs[0], &buff);
 	if (ft_strchr(inputs[0], '/') && (buff.st_mode & S_IXUSR) &&
-	!(buff.st_mode & __S_IFDIR))
+	!(buff.st_mode & S_IFDIR))
 		ret = 1;
 	else
 		ret = check_path(inputs, data);

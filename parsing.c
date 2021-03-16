@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/11 16:15:52 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 16:56:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static int	find_len(char *command)
 		if (*command == ' ' && (*(command + 1) == ' ' ||
 			*(command + 1) == '\0'))
 			command++;
+		else if (*command == '\\' && (command += 2))
+			i += 4;
 		else if (*command == '"' || *command == '\'')
 		{
 			quote = *(command++);
