@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:55:20 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/16 17:52:44 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 18:06:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	choose_redir(char **com, int i, t_data *data)
 		redir_to_append(str, i, com, data);
 }
 
-void		redir_quotes(char *str, int *i, char quote)
+void	redir_quotes(char *str, int *i, char quote)
 {
 	int slash;
 
@@ -72,7 +72,7 @@ void		redir_quotes(char *str, int *i, char quote)
 	}
 }
 
-int			ft_redir(char **com, t_data *data)
+int		ft_redir(char **com, t_data *data)
 {
 	int		i;
 	char	*str;

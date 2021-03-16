@@ -6,10 +6,8 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 17:38:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/16 17:38:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 18:07:14 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "minishell.h"
-
- 
+#include "minishell.h"

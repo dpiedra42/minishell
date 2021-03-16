@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/16 17:22:53 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/16 18:08:15 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <termios.h>
 # include <stdint.h>
 # include <sys/ioctl.h>
+
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
@@ -27,6 +28,7 @@
 # include <errno.h>
 # include <signal.h>
 # include <dirent.h>
+# include <fcntl.h>
 # include "./libft/libft.h"
 
 typedef struct	s_data
@@ -86,6 +88,6 @@ int				check_exec(char **inputs, t_data *data);
 int				check_exec_path(char **inputs, t_data *data);
 void			signal_exec(void);
 void			exec_sigiq(int sig);
-void			ft_escape(int *i, char *str)
+void			ft_escape(int *i, char *str);
 
 #endif
