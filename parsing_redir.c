@@ -6,11 +6,38 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:55:20 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/16 18:06:31 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/17 16:45:34 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	redir_from(char *str, int i, char **com, t_data *data)
+{
+	char	*filename;
+	int		fd;
+	int		j;
+
+	j = i;
+	if (str[j + 1] == ' ')
+		j++;
+	filename = get_file(&(str[j + 1]), &j);
+	del_redir_comm(com, i, j);
+	fd = open(filename, O_RDONLY);
+	free(filename);
+	if (fd < 0)
+	{
+		ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
+		g_status = 1;
+		data->redir = 0;
+		return ;
+	}
+	dup2(fd, 0);
+	if (data->fd_in != 0)
+		close(data->fd_in);
+	data->fd_in = fd;
+	ft_redir(com, data);
+}
 
 void	redir_into(char *str, int i, char **com, t_data *data)
 {
@@ -21,13 +48,13 @@ void	redir_into(char *str, int i, char **com, t_data *data)
 	j = i;
 	if (str[j + 1] == ' ')
 		j++;
-	filename = get_filename(&(str[j + 1]), &j);
-	remove_redir_input(com, i, j);
+	filename = get_file(&(str[j + 1]), &j);
+	del_redir_comm(com, i, j);
 	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	free(filename);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Error: wrong permissions\n", 2);
+		ft_putstr_fd("Error: wrong permissions\n", 1);
 		g_status = 1;
 		data->redir = 0;
 		return ;

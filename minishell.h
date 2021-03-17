@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/16 18:08:15 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/17 17:39:55 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int				g_status;
 char			*g_user_input;
 int				g_quit;
 
+void			minishell(t_data *data);
+void			ft_end(char *input, t_data *data);
 void			ft_sigiq(int sig);
 void			ft_signal(void);
 int				ft_parse(char *command, t_data *data);
@@ -75,6 +77,14 @@ void			set_oldpwd(t_data *data);
 void			new_pwd(t_data *data);
 int				ft_redir(char **com, t_data *data);
 void			redir_quotes(char *str, int *i, char quote);
+void			choose_redir(char **com, int i, t_data *data);
+void			redir_into(char *str, int i, char **com, t_data *data);
+void			redir_from(char *str, int i, char **com, t_data *data);
+void			redir_to_append(char *str, int i, char **com, t_data *data);
+char    		*get_file(char *str, int *j);
+int				file_len(char *str);
+void			copy_file(char *src, char *dst, int i, int k);
+void			del_redir_comm(char **com, int i, int j);
 void			close_fd(t_data *data);
 void			free_inputs(char **inputs);
 void			exit_pipe(t_data *data);
@@ -85,9 +95,12 @@ int				exec(char **inputs, t_data *data);
 int				exec_2(char **inputs, t_data *data);
 char			**make_paths(int id, t_data *data, char *input);
 int				check_exec(char **inputs, t_data *data);
-int				check_exec_path(char **inputs, t_data *data);
+int				check_path(char **inputs, t_data *data);
 void			signal_exec(void);
 void			exec_sigiq(int sig);
 void			ft_escape(int *i, char *str);
+void			ft_exit(char **inputs, t_data *data);
+int				check_num(char *str);
+void			free_env(char **env);
 
 #endif

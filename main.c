@@ -6,15 +6,23 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/11 16:24:58 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/17 17:39:03 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	ft_end(char *input, t_data *data)
+{
+	free_env(data->env);
+	free(input);
+	free(data->pwd);
+	ft_putstr_fd("exit\n", 2);
+	exit(EXIT_SUCCESS);
+}
+
 void	minishell(t_data *data)
 {
-	char	*command;
 	int		read;
 
 	g_status = 0;
@@ -25,14 +33,11 @@ void	minishell(t_data *data)
 		free(g_user_input);
 		ft_signal();
 		ft_putstr_fd("minishell> ", 1);
-		read = get_next_line(0, &command);
+		read = get_next_line(0, &g_user_input);
 		if (!read)
-		{
-			free(command);
-			exit(EXIT_SUCCESS);
-		}
+			ft_end(g_user_input, data);
 		else
-			ft_parse(command, data);
+			ft_parse(g_user_input, data);
 	}
 }
 
@@ -50,6 +55,8 @@ int		main(int ac, char **av, char **env)
 	t_data data;
 
 	init_data(&data, env);
+	if (!data.env)
+		exit(EXIT_FAILURE);
 	ac = 0;
 	av = NULL;
 	minishell(&data);

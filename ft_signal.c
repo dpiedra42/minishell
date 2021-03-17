@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:05:46 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 17:52:41 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/17 17:40:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ void	ft_signal(void)
 {
 	if (signal(SIGINT, ft_sigiq) == SIG_ERR)
 		exit(EXIT_FAILURE);
-	if (signal(SIGQUIT, ft_sigiq) == SIG_ERR)
+	else if (signal(SIGQUIT, ft_sigiq) == SIG_ERR)
 		exit(EXIT_FAILURE);
 }

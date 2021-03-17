@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/16 17:16:13 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/17 16:53:01 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	choose_builtin(char **inputs, t_data *data)
 		ft_env(data);
 	else if (!ft_strcmp(inputs[0], "cd"))
 		ft_cd(inputs, data);
+	//else if (!ft_strcmp(inputs[0], "export"))
+	//	ft_export(inputs, data);
+	// else if (!ft_strcmp(inputs[0], "unset"))
+	// 	handle_unset(inputs, data);
+	else if (!ft_strcmp(inputs[0], "exit"))
+		ft_exit(inputs, data);
 	else
 		ft_exec(inputs, data);
 }
