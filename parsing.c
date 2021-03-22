@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/17 17:38:23 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/22 19:06:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char		*ft_clean_command(char *command)
 	char	*comline;
 	int		len;
 
+	while (*command == ' ' && *command)
+		command++;
 	len = find_len(command);
 	if (len == -1)
 		return (0);
@@ -87,8 +89,6 @@ int			ft_parse(char *command, t_data *data)
 {
 	char *new_command;
 
-	while (*command == ' ' && *command)
-		command++;
 	new_command = ft_clean_command(command);
 	g_user_input = NULL;
 	if (new_command == 0)

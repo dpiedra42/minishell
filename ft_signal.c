@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:05:46 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/22 12:45:34 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/22 19:05:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_sigiq(int sig)
 			free(g_user_input);
 		g_status = 130;
 		g_quit = 1;
-		write(2, "\n", 1);
+		write(1, "\n", 1);
 	}
 	else if (sig == SIGQUIT)
 	{

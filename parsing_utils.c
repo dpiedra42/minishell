@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/17 16:53:01 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/22 19:38:26 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	choose_builtin(char **inputs, t_data *data)
 {
+	if (!data->redir)
+	{
+			data->redir = 1;
+			return ;
+	}
 	if (!ft_strcmp(inputs[0], "echo"))
 		ft_echo(inputs);
 	else if (!ft_strcmp(inputs[0], "pwd"))
@@ -22,10 +27,10 @@ void	choose_builtin(char **inputs, t_data *data)
 		ft_env(data);
 	else if (!ft_strcmp(inputs[0], "cd"))
 		ft_cd(inputs, data);
-	//else if (!ft_strcmp(inputs[0], "export"))
-	//	ft_export(inputs, data);
-	// else if (!ft_strcmp(inputs[0], "unset"))
-	// 	handle_unset(inputs, data);
+	else if (!ft_strcmp(inputs[0], "export"))
+		ft_export(inputs, data);
+	else if (!ft_strcmp(inputs[0], "unset"))
+		ft_unset(inputs, data);
 	else if (!ft_strcmp(inputs[0], "exit"))
 		ft_exit(inputs, data);
 	else
@@ -35,7 +40,15 @@ void	choose_builtin(char **inputs, t_data *data)
 int		command_directory(char *command, t_data *data, int pipe)
 {
 	char	**inputs;
+	int		oldfd[2];
 
+	if (parse_error(command))
+	{
+		free(command);
+		return (0);
+	}
+	oldfd[0] = dup(1);
+	oldfd[1] = dup(0);
 	command = ft_clean_command(command);
 	ft_redir(&command, data);
 	command = ft_clean_command(command);
@@ -43,7 +56,11 @@ int		command_directory(char *command, t_data *data, int pipe)
 	free(command);
 	choose_builtin(inputs, data);
 	free_inputs(inputs);
+	dup2(oldfd[0], 1);
+	dup2(oldfd[1], 0);
 	close_fd(data);
+	close(oldfd[0]);
+	close(oldfd[1]);
 	if (pipe)
 		exit_pipe(data);
 	return (0);

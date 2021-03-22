@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/17 17:39:55 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/22 19:36:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,15 @@ void			ft_escape(int *i, char *str);
 void			ft_exit(char **inputs, t_data *data);
 int				check_num(char *str);
 void			free_env(char **env);
+int				error_redir(char *com, int *i, char c);
+void			skip_quotes(char *com, int *i);
+int				parse_error(char *com);
+void			ft_export(char **inputs, t_data *data);
+int				check_export(char *input);
+char			**exp_env(char **env, char *exp);
+void			ft_exp(t_data *data);
+int				put_exp(char **env);
+void			ft_unset(char **inputs, t_data *data);
+char			**unset_env(char **env, int id);
 
 #endif

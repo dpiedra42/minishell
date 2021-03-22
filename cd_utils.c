@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/05 14:58:18 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/22 19:34:20 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	new_pwd(t_data *data)
 		replace_var(pwd, data, env_index(data, pwd));
 		free(pwd);
 	}
-	// else
-	// {
-	// 	pwd = ft_strjoin("PWD=", data->pwd);
-	// 	data->env = export_env(data->env, pwd);
-	// 	free(pwd);
-	// }
+	else
+	{
+		pwd = ft_strjoin("PWD=", data->pwd);
+		data->env = exp_env(data->env, pwd);
+		free(pwd);
+	}
 }
 
 void	set_oldpwd(t_data *data)
@@ -44,8 +44,8 @@ void	set_oldpwd(t_data *data)
 		free(oldpwd);
 		free(pwd);
 	}
-	//else
-	// data->env = export_env(data->env, "OLDPWD");
+	else
+	data->env = exp_env(data->env, "OLDPWD");
 	free(data->pwd);
 }
 
