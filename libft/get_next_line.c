@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 15:28:52 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/05 14:56:04 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 14:14:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,26 @@ char	*ft_strappend(char *str, char c)
 int		get_next_line(int fd, char **line)
 {
 	char	buf;
-	char	*str;
 	char	*tmp;
 	int		ret;
 
 	buf = 0;
-	str = malloc(sizeof(char));
-	if (!str)
+	*line = malloc(sizeof(char));
+	if (!*line)
 		exit(EXIT_FAILURE);
-	*str = '\0';
-	while ((ret = read(fd, &buf, 1)) && buf != '\n')
+	**line = '\0';
+	while (buf != '\n')
 	{
-		tmp = ft_strappend(str, buf);
-		free(str);
-		str = tmp;
+		if ((ret = read(fd, &buf, 1)) && buf != '\n')
+		{
+			tmp = ft_strappend(*line, buf);
+			free(*line);
+			*line = tmp;
+		}
+		else if (!ret && !ft_strlen(*line))
+			break ;
 	}
-	*line = str;
-	if (ret)
+	if (buf == '\n')
 		return (1);
 	else
 		return (0);

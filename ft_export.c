@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:17:43 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/22 19:30:17 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 14:08:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		put_exp(char **env)
 	{
 		equal = 1;
 		j = 0;
-		ft_putstr("declare -x ");
+		ft_putstr_fd("declare -x ", 1);
 		while (env[i][j])
 		{
 			if (env[i][j] == '\\' || env[i][j] == '$' || env[i][j] == '\"')
@@ -48,7 +48,7 @@ void	ft_exp(t_data *data)
 	char	*swap;
 
 	i = 0;
-	tmp = dup_env(data->env);
+	tmp = get_env(data->env);
 	while (tmp[i + 1])
 	{
 		j = i + 1;
@@ -72,7 +72,7 @@ char	**exp_env(char **env, char *exp)
 	char	**new_env;
 
 	i = 0;
-	new_env = malloc(sizeof(char *) * (envlen(env) + 1));
+	new_env = malloc(sizeof(char *) * (env_len(env) + 1));
 	if (!new_env)
 		exit(EXIT_FAILURE);
 	while (env[i])
@@ -88,7 +88,7 @@ char	**exp_env(char **env, char *exp)
 }
 
 
-int		check_export(char *input)
+int		check_exp(char *input)
 {
 	int	i;
 
