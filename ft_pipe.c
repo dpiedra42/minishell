@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:48:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/12 11:40:15 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 19:19:05 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ void	ft_parent(char *new_com, t_data *data, int pid, int *fds)
 int		ft_pipe(char *command, char *new_com, t_data *data)
 {
 	pid_t	pid;
-	int		fd[2];
+	int		fds[2];
 
-	if (pipe(fd) < 0)
+	if (pipe(fds) < 0)
 		exit(EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
 	{
 		free(new_com);
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
+		dup2(fds[1], 1);
+		close(fds[0]);
+		close(fds[1]);
 		command_directory(command, data, 1);
 	}
 	else if (pid < 0)
@@ -52,7 +52,7 @@ int		ft_pipe(char *command, char *new_com, t_data *data)
 	{
 		free(command);
 		command = NULL;
-		ft_parent(new_com, data, pid, fd);
+		ft_parent(new_com, data, pid, fds);
 	}
 	return (1);
 }

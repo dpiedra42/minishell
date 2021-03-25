@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 16:27:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/12 11:39:59 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 16:45:18 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	close_fd(t_data *data)
 {
-	if (data->fd_in)
+	if (data->fd_in != 0)
 	{
 		close(data->fd_in);
 		data->fd_in = 0;
 	}
-	if (!data->fd_out)
+	if (data->fd_out != 1)
 	{
 		close(data->fd_out);
 		data->fd_out = 1;

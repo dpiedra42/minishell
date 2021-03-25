@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 11:58:28 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 11:24:23 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:10:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 int	ft_atoi(const char *str)
 {
-	int i;
-	int res;
-	int neg;
+	long int	n;
+	int			sign;
 
-	i = 0;
-	neg = 1;
-	res = 0;
-	while (str[i] == '\f' || str[i] == '\t' || str[i] == '\n' ||
-		str[i] == '\r' || str[i] == '\v' || str[i] == ' ')
-		i++;
-	if (str[i] == '-')
+	n = 0;
+	sign = 1;
+	while ((*str <= 13 && *str >= 9) || *str == 32)
+		str++;
+	if (*str == '-')
 	{
-		neg = -1;
-		i++;
+		sign = -1;
+		str++;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+	else if (*str == '+')
+		str++;
+	while (*str)
 	{
-		res = res * 10 + str[i] - '0';
-		i++;
+		if (*str >= '0' && *str <= '9')
+			n = n * 10 + (*str++ - '0');
+		else
+			break ;
 	}
-	return (res * neg);
+	return ((int)(n * sign));
 }

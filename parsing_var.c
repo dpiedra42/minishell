@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:41:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/12 11:41:43 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 16:33:01 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	var_len(char *str)
+static int	file_len(char *str)
 {
 	int len;
 
@@ -58,16 +58,23 @@ static char	*get_val(char *name, t_data *data)
 {
 	int		i;
 	int		j;
+	int		k;
+	char	**env;
 
 	i = 0;
-	while (data->env[i])
+	env = data->env;
+	while (env[i])
 	{
 		j = 0;
-		while (data->env[i][j] && data->env[i][j] != '=' &&
-				data->env[i][j] == name[j])
+		k = 0;
+		while (env[i][j] && env[i][j] != '=' &&
+				env[i][j] == name[k])
+		{
 			j++;
-		if (data->env[i][j] == '=' && !name[j])
-			return (copy_val(&data->env[i][j + 1]));
+			k++;
+		}
+		if (env[i][j] == '=' && !name[k])
+			return (copy_val(&env[i][j + 1]));
 		i++;
 	}
 	return (NULL);
@@ -76,27 +83,27 @@ static char	*get_val(char *name, t_data *data)
 void		find_variable(char **command, int *i, t_data *data)
 {
 	int		len;
-	char	*var_value;
-	char	*var_name;
+	char	*v_value;
+	char	*v_name;
 	char	*tmp;
 	char	*new_command;
 
-	len = var_len(&(command[0][*i + 1]));
-	var_name = ft_substr(*command, *i + 1, len);
+	len = file_len(&(command[0][*i + 1]));
+	v_name = ft_substr(*command, *i + 1, len);
 	if (len == 1 && command[0][*i + 1] == '?')
-		var_value = ft_itoa(g_status);
+		v_value = ft_itoa(g_status);
 	else if (len)
-		var_value = get_val(var_name, data);
+		v_value = get_val(v_name, data);
 	else
-		var_value = ft_strdup("$");
-	free(var_name);
+		v_value = ft_strdup("$");
+	free(v_name);
 	new_command = ft_substr(*command, 0, *i);
-	tmp = ft_strjoin(new_command, var_value);
+	tmp = ft_strjoin(new_command, v_value);
 	free(new_command);
 	new_command = ft_strjoin(tmp, &(command[0][*i + 1 + len]));
-	len = ft_strlen(var_value);
+	len = ft_strlen(v_value);
 	free(tmp);
-	free(var_value);
+	free(v_value);
 	free(*command);
 	*command = new_command;
 	*i += len - 1;

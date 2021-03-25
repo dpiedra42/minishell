@@ -6,67 +6,71 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 11:21:00 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:22:42 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:12:33 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_nlength(long n)
+static size_t	getitoalen(long n)
 {
-	size_t len;
+	size_t	i;
 
-	len = 0;
-	if (n == 0)
-		return (1);
+	i = 1;
 	if (n < 0)
 	{
-		n = -n;
-		len++;
+		i++;
+		n *= -1;
 	}
-	while (n > 0)
-	{
-		n = n / 10;
-		len++;
-	}
-	return (len);
+	while (n /= 10)
+		i++;
+	return (i);
 }
 
-static char		*ft_makestr(long int n, char *str, int neg, char nlength)
+static int		itoa_divpow(long n)
 {
-	if (neg == 1)
-		str[0] = '-';
-	while (n > 0)
+	int	div;
+
+	div = 1;
+	if (n < 0)
+		n = -n;
+	while (n /= 10)
+		div *= 10;
+	return (div);
+}
+
+static void		itoa_assign(char *str, size_t len, int div, long n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n < 0)
 	{
-		str[nlength - 1] = n % 10 + '0';
-		n = n / 10;
-		nlength--;
+		str[i++] = '-';
+		n = -n;
 	}
-	return (str);
+	while (i < len)
+	{
+		str[i] = ((n / div) % 10) + '0';
+		i++;
+		div /= 10;
+	}
+	str[i] = '\0';
 }
 
 char			*ft_itoa(int n)
 {
-	char		*str;
-	size_t		nlen;
-	int			neg;
-	long		num;
+	size_t	len;
+	char	*str;
+	int		div;
+	long	ln;
 
-	neg = 0;
-	num = (long)n;
-	nlen = ft_nlength(num);
-	if (num == 0)
-	{
-		return (str = ft_strdup("0"));
-	}
-	if (num < 0)
-	{
-		num = num * -1;
-		neg = 1;
-	}
-	if (!(str = malloc(sizeof(char) * (nlen + 1))))
+	ln = (long)n;
+	len = getitoalen(ln);
+	str = malloc((len + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
-	str = ft_makestr(num, str, neg, nlen);
-	str[nlen] = '\0';
+	div = itoa_divpow(ln);
+	itoa_assign(str, len, div, ln);
 	return (str);
 }

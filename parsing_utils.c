@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/22 19:38:26 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 19:14:10 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	choose_builtin(char **inputs, t_data *data)
 	else if (!ft_strcmp(inputs[0], "pwd"))
 		ft_pwd(data);
 	else if (!ft_strcmp(inputs[0], "env"))
-		ft_env(data);
+		ft_env(data->env);
 	else if (!ft_strcmp(inputs[0], "cd"))
 		ft_cd(inputs, data);
 	else if (!ft_strcmp(inputs[0], "export"))

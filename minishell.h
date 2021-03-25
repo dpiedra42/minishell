@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 14:03:55 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 14:57:38 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int				g_status;
 char			*g_user_input;
 int				g_quit;
 
-void			minishell(t_data *data);
+int				minishell(t_data *data);
 void			ft_end(char *input, t_data *data);
 void			ft_sigiq(int sig);
 void			ft_signal(void);
@@ -66,7 +66,7 @@ void			ft_echo(char **inputs);
 void			ft_pwd(t_data *data);
 char			**get_env(char **env);
 int				env_len(char **env);
-void			ft_env(t_data *data);
+void			ft_env(char **env);
 int				env_index(t_data *data, char *id);
 void			replace_var(char *new_pwd, t_data *data, int index);
 void			ft_cd(char **input, t_data *data);
@@ -82,7 +82,6 @@ void			redir_into(char *str, int i, char **com, t_data *data);
 void			redir_from(char *str, int i, char **com, t_data *data);
 void			redir_to_append(char *str, int i, char **com, t_data *data);
 char    		*get_file(char *str, int *j);
-int				file_len(char *str);
 void			copy_file(char *src, char *dst, int i, int k);
 void			del_redir_comm(char **com, int i, int j);
 void			close_fd(t_data *data);

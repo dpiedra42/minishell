@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/22 19:06:13 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 16:12:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int			ft_parse(char *command, t_data *data)
 		ft_putstr_fd("Multiline is not supported\n", 1);
 		return (0);
 	}
-	if (!new_command)
+	if (!*new_command)
 	{
 		free(new_command);
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 14:29:44 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 11:24:50 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:11:00 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isalnum(int c)
 {
-	if ((ft_isalpha(c) == 1) || (ft_isdigit(c) == 1))
+	if (ft_isalpha(c) || ft_isdigit(c))
 		return (1);
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 13:30:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:25:38 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:16:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!(substr = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	n = 0;
-	while (len-- && s[start] != '\0')
+	while (len-- && s[start])
 	{
 		substr[n] = s[start];
 		n++;

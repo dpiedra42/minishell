@@ -6,50 +6,41 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:54 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:25:33 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:16:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_issep(char c, const char *set)
+static int	ft_setcheck(char const c, char const *set)
 {
-	int i;
-
-	i = 0;
-	while (set[i] != '\0')
+	while (*set)
 	{
-		if (c == set[i])
+		if (c == *set)
 			return (1);
 		else
-			i++;
+			set++;
 	}
 	return (0);
 }
 
 char		*ft_strtrim(char const *s1, char const *set)
 {
-	char	*newstr;
+	char	*new;
 	size_t	newlen;
-	size_t	start;
-	int		end;
 
 	if (!s1 || !set)
 		return (NULL);
-	newlen = 0;
-	start = 0;
-	end = ft_strlen(s1) - 1;
-	while (ft_issep(s1[start], set) == 1 && s1[start] != '\0')
-		start++;
-	while (ft_issep(s1[end], set) == 1 && end > 0)
-		end--;
-	if (start == ft_strlen(s1))
-		newlen = 0;
-	else
-		newlen = end + 1 - start;
-	if (!(newstr = malloc(sizeof(char) * (newlen + 1))))
+	while (ft_setcheck(*s1, set))
+		s1++;
+	if (!(*s1))
+		return (new = ft_substr(s1, 0, 0));
+	newlen = ft_strlen(s1);
+	while (ft_setcheck(s1[newlen - 1], set))
+		newlen--;
+	if (!(new = malloc((newlen + 1) * sizeof(char))))
 		return (NULL);
-	newstr = ft_substr(s1, start, newlen);
-	newstr[newlen] = '\0';
-	return (newstr);
+	ft_memmove(new, s1, newlen);
+	new[newlen] = '\0';
+	return (new);
 }

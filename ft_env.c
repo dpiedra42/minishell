@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/05 14:52:58 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:00:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int		env_index(t_data *data, char *id)
 	while (data->env[i])
 	{
 		j = 0;
-		while (data->env[i][j] != '\0' && id[j] != '\0' &&
-				data->env[i][j] == id[j] && data->env[i][j] != '='
-				&& id[j] != '=')
+		while (data->env[i][j] && data->env[i][j] == id[j]
+		&& id[j] != '\0' && id[j] != '=' &&
+		data->env[i][j] != '\0' && data->env[i][j] != '=')
 			j++;
-		if ((data->env[i][j] == '=' && id[j] == '=') ||
-			(data->env[i][j] == '\0' && id[j] == '\0'))
+		if ((data->env[i][j] == '\0' || data->env[i][j] == '=') &&
+		(id[j] == '\0' || id[j] == '='))
 			return (i);
 		i++;
 	}
@@ -71,15 +71,26 @@ char	**get_env(char **env)
 	return (new_env);
 }
 
-void	ft_env(t_data *data)
+void	ft_env(char **env)
 {
-	int i;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
-	while (data->env[i])
+	while (env[i])
 	{
-		ft_putstr_fd(data->env[i], 0);
-		write(0, "\n", 1);
+		str = ft_strstr(env[i], "=");
+		if (str)
+		{
+			j = 0;
+			while (env[i][j])
+			{
+				write(1, &env[i][j], 1);
+				j++;
+			}
+			ft_putchar_fd('\n', 1);
+		}
 		i++;
 	}
 	g_status = 0;

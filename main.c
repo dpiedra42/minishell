@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/17 17:39:03 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 16:11:33 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_end(char *input, t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-void	minishell(t_data *data)
+int		minishell(t_data *data)
 {
 	int		read;
 
@@ -39,6 +39,7 @@ void	minishell(t_data *data)
 		else
 			ft_parse(g_user_input, data);
 	}
+	return (0);
 }
 
 void	init_data(t_data *data, char **env)

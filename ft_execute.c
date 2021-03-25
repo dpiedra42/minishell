@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/15 17:58:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 14:53:19 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		exec_2(char **inputs, t_data *data)
 			return (0);
 		i++;
 	}
+	free_env(paths);
 	return (1);
 }
 
@@ -67,7 +68,7 @@ int		exec(char **inputs, t_data *data)
 	index = env_index(data, "PATH=");
 	stat(inputs[0], &buff);
 	if (ft_strchr(inputs[0], '/') && (buff.st_mode & S_IXUSR) &&
-		execve(inputs[0], &inputs[0], data->env) != -1)
+		(execve(inputs[0], &inputs[0], data->env) != -1))
 		return (0);
 	else if (index >= 0)
 	{
@@ -88,7 +89,7 @@ void	ft_exec(char **inputs, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (exec(inputs, data))
+		if (exec(inputs, data) != 0)
 			exit(errno);
 		exit(EXIT_SUCCESS);
 	}

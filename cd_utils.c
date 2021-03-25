@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/22 19:34:20 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/23 19:11:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		change_dir(t_data *data, char *str)
 	cwd = getcwd(NULL, 0);
 	if (!cwd && str && !ft_strcmp(".", str))
 	{
-		ft_putstr_fd("Error retrieving current directory\n", 2);
+		ft_putstr_fd("Error retrieving current directory\n", 1);
 		pwd = data->pwd;
 		data->pwd = ft_strjoin(pwd, "/.");
 		free(pwd);
