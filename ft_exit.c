@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/17 16:57:32 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 16:06:28 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_exit(char **inputs, t_data *data)
 				g_status = 255;
 		}
 		else
-			ft_error("\t\tminishell: numeric argument is required\n", 2);
+			ft_error("\t\tminishell: numeric argument required\n", 2);
 	}
 	free_env(inputs);
 	free(data->pwd);
