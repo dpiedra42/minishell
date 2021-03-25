@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 14:57:38 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:24:00 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			quote_len(char **command, int *i, char quote);
 void			copy_command(char *comline, char *command);
 void			escape_input(char **comline, char **command);
 void			copy_inside_quotes(char **command, char **comline, char quote);
-int				filter_command(char *command, t_data *data);
+int				filter_command(char *command, t_data *data, int pipe);
 void			find_variable(char **command, int *i, t_data *data);
 int				special_chars(char **command, int *i, t_data *data);
 int				command_directory(char *command, t_data *data, int pipe);

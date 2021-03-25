@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 16:12:58 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:24:20 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			filter_command(char *command, t_data *data)
+int			filter_command(char *command, t_data *data, int pipe)
 {
 	int i;
 	int slash;
@@ -38,7 +38,7 @@ int			filter_command(char *command, t_data *data)
 		if (special_chars(&command, &i, data))
 			return (0);
 	}
-	return (command_directory(command, data, 0));
+	return (command_directory(command, data, pipe));
 }
 
 static int	find_len(char *command)
@@ -101,5 +101,5 @@ int			ft_parse(char *command, t_data *data)
 		free(new_command);
 		return (0);
 	}
-	return (filter_command(new_command, data));
+	return (filter_command(new_command, data, 0));
 }

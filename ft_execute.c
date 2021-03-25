@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 14:53:19 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:57:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**make_paths(int id, t_data *data, char *input)
 
 	i = 0;
 	str = ft_strdup(&data->env[id][5]);
-	paths = ft_split(str, ';');
+	paths = ft_split(str, ':');
 	free(str);
 	while (paths[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:49:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/05 14:54:07 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/25 15:37:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(char *str, int status)
 {
 	g_status = status;
-	ft_putstr_fd(str, 0);
+	ft_putstr_fd(str, 1);
 }
 
 int		cd_path(char **input, t_data *data)
