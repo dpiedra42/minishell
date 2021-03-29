@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 15:00:46 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:49:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		env_len(char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	return (i);
+	return (++i);
 }
 
 char	**get_env(char **env)
