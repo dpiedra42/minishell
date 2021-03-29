@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:17:43 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 14:08:11 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/29 15:31:45 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,16 @@ int		check_exp(char *input)
 void	ft_export(char **inputs, t_data *data)
 {
 	int	i;
-	int	index;
+	int	id;
 
 	i = 1;
 	if (inputs[i])
 	{
 		while (inputs[i])
 		{
-			index = env_index(data, inputs[i]);
-			if (index >= 0 && check_exp(inputs[i]))
-				replace_var(inputs[i], data, index);
+			id = env_index(data, inputs[i]);
+			if (id >= 0 && check_exp(inputs[i]))
+				replace_var(inputs[i], data, id);
 			else if (check_exp(inputs[i]))
 			{
 				data->env = exp_env(data->env, inputs[i]);

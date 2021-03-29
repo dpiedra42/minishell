@@ -6,66 +6,67 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:30:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:24:04 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/29 13:41:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_wordcount(const char *s, char c)
+static size_t	stringcount(char const *str, char c)
 {
-	int wordnum;
 	int i;
 
-	wordnum = 0;
-	i = 0;
-	while (s[i] != '\0')
+	i = 1;
+	while (*str == c && *str)
+		str++;
+	if (!(*str))
+		return (0);
+	while (*(++str))
 	{
-		if ((s[i + 1] == c && s[i] != c) || (s[i + 1] == '\0' && s[i] != c))
-			wordnum++;
-		i++;
+		if (*str != c && *(str - 1) == c)
+			i++;
 	}
-	return (wordnum);
+	return (i);
 }
 
-static void		ft_copyword(char **tab, char const *s, char c)
+static char		*newsplit(char const *str, char c)
 {
-	int i;
-	int wordlength;
-	int strnum;
+	size_t	i;
+	char	*ptr;
 
 	i = 0;
-	strnum = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			i++;
-		else
-		{
-			wordlength = 0;
-			while (s[i + wordlength] != c && s[i + wordlength] != '\0')
-				wordlength++;
-			if (!(tab[strnum] =
-				(char *)malloc(sizeof(char) * (wordlength + 1))))
-				return ;
-			tab[strnum] = ft_substr(s, i, wordlength);
-			i = i + wordlength;
-			strnum++;
-		}
-	}
+	while (str[i] != c && str[i])
+		i++;
+	ptr = malloc((i + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	ft_memmove(ptr, str, i);
+	ptr[i] = '\0';
+	return (ptr);
 }
 
 char			**ft_split(char const *s, char c)
 {
 	char	**tab;
-	int		strs;
+	size_t	count;
+	size_t	i;
 
-	if (!s)
+	if (s == NULL)
 		return (NULL);
-	strs = ft_wordcount(s, c);
-	if (!(tab = (char **)malloc(sizeof(char *) * (strs + 1))))
+	count = stringcount(s, c);
+	tab = malloc((count + 1) * sizeof(char *));
+	if (!tab)
 		return (NULL);
-	tab[strs] = NULL;
-	ft_copyword(tab, s, c);
+	i = 0;
+	while (i < count)
+	{
+		while (*s == c)
+			s++;
+		if (!(tab[i++] = newsplit(s, c)))
+			return (NULL);
+		while (*s != c && *s)
+			s++;
+	}
+	tab[i] = NULL;
 	return (tab);
 }
