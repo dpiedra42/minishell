@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 15:24:20 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/31 12:26:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,30 @@ int			filter_command(char *command, t_data *data, int pipe)
 	return (command_directory(command, data, pipe));
 }
 
+void	copy_command(char *new_com, char *command)
+{
+	char	quote;
+
+	while (*command)
+	{
+		if (*command == ' ' && (*(command + 1) == ' ' ||
+			*(command + 1) == '\0'))
+			command++;
+		else if (*command == '"' || *command == '\'')
+		{
+			*(new_com++) = *command;
+			quote = *(command++);
+			copy_inside_quotes(&command, &new_com, quote);
+			*(new_com++) = *(command++);
+		}
+		else if (*command == '\\' && *(command + 1))
+			escape_input(&new_com, &command);
+		else
+			*(new_com++) = *(command++);
+	}
+	*(new_com) = '\0';
+}
+
 static int	find_len(char *command)
 {
 	int		i;
@@ -71,7 +95,7 @@ static int	find_len(char *command)
 
 char		*ft_clean_command(char *command)
 {
-	char	*comline;
+	char	*new_com;
 	int		len;
 
 	while (*command == ' ' && *command)
@@ -79,10 +103,10 @@ char		*ft_clean_command(char *command)
 	len = find_len(command);
 	if (len == -1)
 		return (0);
-	if (!(comline = malloc(sizeof(char) * (len + 1))))
+	if (!(new_com = (char *)malloc(sizeof(char) * (len + 1))))
 		exit(EXIT_FAILURE);
-	copy_command(comline, command);
-	return (comline);
+	copy_command(new_com, command);
+	return (new_com);
 }
 
 int			ft_parse(char *command, t_data *data)

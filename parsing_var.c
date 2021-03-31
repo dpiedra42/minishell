@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:41:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 16:33:01 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/31 12:48:53 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	file_len(char *str)
 	return (len);
 }
 
-static void	add_escaped_char(char *src, char *dst, int *i, int *j)
+static void	add_escape(char *src, char *dst, int *i, int *j)
 {
 	dst[(*j)++] = '\\';
 	dst[(*j)++] = src[(*i)++];
@@ -33,12 +33,12 @@ static void	add_escaped_char(char *src, char *dst, int *i, int *j)
 static char	*copy_val(char *str)
 {
 	int		maxlen;
-	char	*value;
+	char	*val;
 	int		i;
 	int		j;
 
 	maxlen = ft_strlen(str) * 2;
-	if (!(value = malloc(sizeof(char) * (maxlen + 1))))
+	if (!(val = malloc(sizeof(char) * (maxlen + 1))))
 		exit(EXIT_FAILURE);
 	i = 0;
 	j = 0;
@@ -46,12 +46,12 @@ static char	*copy_val(char *str)
 	{
 		if (str[i] == '\\' || str[i] == '$' || str[i] == '"' ||
 			str[i] == '\'' || str[i] == '>' || str[i] == '<')
-			add_escaped_char(str, value, &i, &j);
+			add_escape(str, val, &i, &j);
 		else
-			value[j++] = str[i++];
+			val[j++] = str[i++];
 	}
-	value[j] = '\0';
-	return (value);
+	val[j] = '\0';
+	return (val);
 }
 
 static char	*get_val(char *name, t_data *data)
@@ -83,27 +83,27 @@ static char	*get_val(char *name, t_data *data)
 void		find_variable(char **command, int *i, t_data *data)
 {
 	int		len;
-	char	*v_value;
-	char	*v_name;
+	char	*var_val;
+	char	*var_name;
 	char	*tmp;
 	char	*new_command;
 
 	len = file_len(&(command[0][*i + 1]));
-	v_name = ft_substr(*command, *i + 1, len);
+	var_name = ft_substr(*command, *i + 1, len);
 	if (len == 1 && command[0][*i + 1] == '?')
-		v_value = ft_itoa(g_status);
+		var_val = ft_itoa(g_status);
 	else if (len)
-		v_value = get_val(v_name, data);
+		var_val = get_val(var_name, data);
 	else
-		v_value = ft_strdup("$");
-	free(v_name);
+		var_val = ft_strdup("$");
+	free(var_name);
 	new_command = ft_substr(*command, 0, *i);
-	tmp = ft_strjoin(new_command, v_value);
+	tmp = ft_strjoin(new_command, var_val);
 	free(new_command);
 	new_command = ft_strjoin(tmp, &(command[0][*i + 1 + len]));
-	len = ft_strlen(v_value);
+	len = ft_strlen(var_val);
 	free(tmp);
-	free(v_value);
+	free(var_val);
 	free(*command);
 	*command = new_command;
 	*i += len - 1;

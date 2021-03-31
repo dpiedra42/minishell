@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 18:04:11 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 16:37:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/31 12:53:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static int	special_pipe(char *command, int pipe, t_data *data)
 {
 	char	*new_com;
-	int		space;
+	int		i;
 
-	space = 0;
+	i = 0;
 	if (command[pipe - 1] == ' ')
-		space = 1;
+		i = 1;
 	new_com = ft_strdup(&command[pipe + 1]);
-	command[pipe - space] = '\0';
+	command[pipe - i] = '\0';
 	return (ft_pipe(command, new_com, data));
 }
 

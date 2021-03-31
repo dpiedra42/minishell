@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 19:14:10 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/31 12:27:34 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,21 @@ int		command_directory(char *command, t_data *data, int pipe)
 	return (0);
 }
 
-void	copy_inside_quotes(char **command, char **comline, char quote)
+void	escape_input(char **comline, char **command)
+{
+	char q;
+
+	(*command)++;
+	if (**command == '\'')
+		q = '"';
+	else
+		q = '\'';
+	*((*comline)++) = q;
+	*((*comline)++) = *((*command)++);
+	*((*comline)++) = q;
+}
+
+void	copy_inside_quotes(char **command, char **new_com, char quote)
 {
 	int slash;
 
@@ -75,37 +89,13 @@ void	copy_inside_quotes(char **command, char **comline, char quote)
 		slash = 0;
 		while (**command == '\\' && quote == '"')
 		{
-			*((*comline)++) = *((*command)++);
+			*((*new_com)++) = *((*command)++);
 			slash++;
 		}
 		if (slash && !(slash % 2))
-			*((*comline)--) = *((*command)--);
-		*((*comline)++) = *((*command)++);
+			*((*new_com)--) = *((*command)--);
+		*((*new_com)++) = *((*command)++);
 	}
-}
-
-void	copy_command(char *comline, char *command)
-{
-	char	quote;
-
-	while (*command)
-	{
-		if (*command == ' ' && (*(command + 1) == ' ' ||
-			*(command + 1) == '\0'))
-			command++;
-		else if (*command == '"' || *command == '\'')
-		{
-			*(comline++) = *command;
-			quote = *(command++);
-			copy_inside_quotes(&command, &comline, quote);
-			*(comline++) = *(command++);
-		}
-		else if (*command == '\\' && *(command + 1))
-			escape_input(&comline, &command);
-		else
-			*(comline++) = *(command++);
-	}
-	*(comline) = '\0';
 }
 
 void	quote_len(char **command, int *i, char quote)

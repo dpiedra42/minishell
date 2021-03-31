@@ -6,11 +6,17 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 16:27:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 16:45:18 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/31 13:36:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_escape(int *i, char *str)
+{
+	if (str[(*i)] == '\\')
+		(*i)++;
+}
 
 void	close_fd(t_data *data)
 {

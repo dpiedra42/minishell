@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_escape.c                                   :+:      :+:    :+:   */
+/*   parsing_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:13:23 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/22 19:14:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/03/31 13:36:09 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,4 @@ int		parse_error(char *com)
 			i++;
 	}
 	return (0);
-}
-
-
-void	escape_input(char **comline, char **command)
-{
-	char q;
-
-	(*command)++;
-	if (**command == '\'')
-		q = '"';
-	else
-		q = '\'';
-	*((*comline)++) = q;
-	*((*comline)++) = *((*command)++);
-	*((*comline)++) = q;
-}
-
-void	ft_escape(int *i, char *str)
-{
-	if (str[(*i)] == '\\')
-		(*i)++;
 }
