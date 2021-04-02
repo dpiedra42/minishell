@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:17:43 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:50:20 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 16:13:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		put_exp(char **env)
 	{
 		equal = 1;
 		j = 0;
-		ft_putstr_fd("declare -x ", 1);
+		ft_putstr("declare -x ");
 		while (env[i][j])
 		{
 			if (env[i][j] == '\\' || env[i][j] == '$' || env[i][j] == '\"')

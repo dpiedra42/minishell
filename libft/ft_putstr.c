@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/01 15:06:56 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 16:15:31 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/10/07 11:10:08 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/02 15:20:33 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	ft_pwd(t_data *data)
+void	ft_putstr(char *str)
 {
-	ft_putstr(data->pwd);
-	ft_putstr("\n");
-	g_status = 0;
+	int count;
+
+	if (str == NULL)
+	{
+		write(1, "(null)", 6);
+		return ;
+	}
+	count = 0;
+	while (str[count])
+		count++;
+	write(1, str, count);
 }

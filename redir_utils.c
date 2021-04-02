@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 17:38:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:49:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:36:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	redir_to_append(char *str, int i, char **com, t_data *data)
 	free(filename);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Error: wrong permissions\n", 1);
+		ft_putstr_fd("Error: wrong permissions\n", 2);
 		g_status = 1;
 		data->redir = 0;
 		return ;

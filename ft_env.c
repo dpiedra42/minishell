@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:17:18 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 16:00:42 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_env(char **env)
 				write(1, &env[i][j], 1);
 				j++;
 			}
-			ft_putchar_fd('\n', 1);
+			ft_putchar('\n');
 		}
 		i++;
 	}

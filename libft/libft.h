@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:02:14 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:37:41 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 16:18:14 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
@@ -54,6 +55,7 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(long n, int fd);
 void				ft_putstr_fd(char *s, int fd);
+void				ft_putstr(char *str);
 char				**ft_split(char const *s, char c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strdup(const char *s1);

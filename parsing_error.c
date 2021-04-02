@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 13:13:23 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 13:36:09 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 15:26:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		parse_error(char *com)
 			if (error_redir(com, &i, com[i]))
 			{
 				g_status = 1;
-				ft_putstr_fd("Error: wrong or unsupported redirection\n", 1);
+				ft_putstr_fd("Error: wrong or unsupported redirection\n", 2);
 				return (1);
 			}
 		}

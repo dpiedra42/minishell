@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:55:02 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 16:19:32 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,22 @@
 # include <stdint.h>
 # include <sys/ioctl.h>
 
-# include <stdio.h>
 # include <string.h>
-# include <stdlib.h>
 # include <unistd.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
 # include <signal.h>
 # include <dirent.h>
-# include <fcntl.h>
-# include "./libft/libft.h"
+# include "libft/libft.h"
 
 typedef struct	s_data
 {
-	char	*pwd;
-	char	**env;
-	int		fd_in;
-	int		fd_out;
-	int		redir;
+	char		*pwd;
+	char		**env;
+	int			fd_in;
+	int			fd_out;
+	int			redir;
 }				t_data;
 
 int				g_status;
