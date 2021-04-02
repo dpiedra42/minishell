@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:26:29 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:38:50 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,6 @@ void	replace_var(char *new_pwd, t_data *data, int index)
 		free(data->env[index]);
 		data->env[index] = ft_strdup(new_pwd);
 	}
-}
-
-int		env_index(t_data *data, char *id)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (data->env[i])
-	{
-		j = 0;
-		while (data->env[i][j] && data->env[i][j] == id[j]
-		&& id[j] != '\0' && id[j] != '=' &&
-		data->env[i][j] != '\0' && data->env[i][j] != '=')
-			j++;
-		if ((data->env[i][j] == '\0' || data->env[i][j] == '=') &&
-		(id[j] == '\0' || id[j] == '='))
-			return (i);
-		i++;
-	}
-	return (-1);
 }
 
 int		env_len(char **env)

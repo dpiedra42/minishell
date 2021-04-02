@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 18:04:11 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:25:04 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 18:44:53 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,31 @@
 static int	special_pipe(char *command, int pipe, t_data *data)
 {
 	char	*new_com;
-	int		i;
+	int		space;
 
-	i = 0;
+	space = 0;
 	if (command[pipe - 1] == ' ')
-		i = 1;
+		space = 1;
 	new_com = ft_strdup(&command[pipe + 1]);
-	command[pipe - i] = '\0';
+	command[pipe - space] = '\0';
 	return (ft_pipe(command, new_com, data));
 }
 
 static int	ft_semi(char *command, int semi, t_data *data)
 {
-	char	*semi_command;
-	int		i;
+	char	*new_com;
+	int		space;
 
-	i = 0;
+	space = 0;
 	if (command[semi - 1] == ' ')
-		i = 1;
-	semi_command = ft_strdup(&command[semi + 1]);
-	command[semi - i] = '\0';
+		space = 1;
+	new_com = ft_strdup(&command[semi + 1]);
+	command[semi - space] = '\0';
 	command_directory(command, data, 0);
 	if (g_status != 130)
-		return (ft_parse(semi_command, data));
+		return (ft_parse(new_com, data));
 	else
-		free(semi_command);
+		free(new_com);
 	return (0);
 }
 
@@ -51,14 +51,14 @@ int			special_chars(char **command, int *i, t_data *data)
 		while ((*command)[*i] != '\'')
 			(*i)++;
 	}
-	else if ((*command)[*i] == ';')
-	{
-		ft_semi((*command), *i, data);
-		return (1);
-	}
 	else if ((*command)[*i] == '|')
 	{
 		special_pipe((*command), *i, data);
+		return (1);
+	}
+	else if ((*command)[*i] == ';')
+	{
+		ft_semi((*command), *i, data);
 		return (1);
 	}
 	else if ((*command)[*i] == '$')

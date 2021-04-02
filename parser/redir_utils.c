@@ -6,23 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 17:38:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:24:32 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:13:36 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	del_redir_comm(char **com, int i, int j)
-{
-	char *tmp;
-	char *new_com;
-
-	tmp = ft_substr(com[0], 0, i);
-	new_com = ft_strjoin(tmp, &(com[0][j + 1]));
-	free(tmp);
-	free(*com);
-	*com = new_com;
-}
 
 void	copy_file(char *src, char *dst, int i, int k)
 {
@@ -56,8 +44,8 @@ int		file_len(char *str)
 	int i;
 
 	i = 0;
-	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>'
-			&& str[i] != '<' && str[i])
+	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>' &&
+			str[i] != '<' && str[i])
 	{
 		if (str[i] == '\'')
 		{
@@ -80,25 +68,38 @@ int		file_len(char *str)
 	return (i);
 }
 
+void	del_redir(char **com, int i, int j)
+{
+	char *tmp;
+	char *new_com;
+
+	tmp = ft_substr(com[0], 0, i);
+	new_com = ft_strjoin(tmp, &(com[0][j + 1]));
+	free(tmp);
+	free(*com);
+	*com = new_com;
+}
+
 char	*get_file(char *str, int *j)
 {
 	int		i;
-	int		d;
+	int		k;
 	char	*file;
 
 	i = file_len(str);
 	*j += i;
-	if (!(file = malloc(sizeof(char) * (i + 1))))
+	file = malloc((i + 1) * sizeof(char));
+	if (!file)
 		return (NULL);
 	i = 0;
-	d = 0;
-	copy_file(str, file, i, d);
+	k = 0;
+	copy_file(str, file, i, k);
 	return (file);
 }
 
-void	redir_to_append(char *str, int i, char **com, t_data *data)
+void	redir_append(char *str, int i, char **com, t_data *data)
 {
-	char	*filename;
+	char	*file;
 	int		fd;
 	int		j;
 
@@ -106,10 +107,10 @@ void	redir_to_append(char *str, int i, char **com, t_data *data)
 	j++;
 	if (str[j + 1] == ' ')
 		j++;
-	filename = get_file(&(str[j + 1]), &j);
-	del_redir_comm(com, i, j);
-	fd = open(filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-	free(filename);
+	file = get_file(&(str[j + 1]), &j);
+	del_redir(com, i, j);
+	fd = open(file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+	free(file);
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: wrong permissions\n", 2);

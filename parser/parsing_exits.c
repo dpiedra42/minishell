@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 16:27:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:25:16 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:27:17 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ void	ft_escape(int *i, char *str)
 {
 	if (str[(*i)] == '\\')
 		(*i)++;
+}
+
+void	exit_pipe(t_data *data)
+{
+	free_inputs(data->env);
+	if (g_user_input)
+		free(g_user_input);
+	free(data->pwd);
+	exit(EXIT_SUCCESS);
 }
 
 void	close_fd(t_data *data)
@@ -43,13 +52,3 @@ void	free_inputs(char **inputs)
 		i++;
 	}
 	free(inputs);
-}
-
-void	exit_pipe(t_data *data)
-{
-	free_inputs(data->env);
-	if (g_user_input)
-		free(g_user_input);
-	free(data->pwd);
-	exit(EXIT_SUCCESS);
-}

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:24:53 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:24:47 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	choose_builtin(char **inputs, t_data *data)
 		ft_echo(inputs);
 	else if (!ft_strcmp(inputs[0], "pwd"))
 		ft_pwd(data);
-	else if (!ft_strcmp(inputs[0], "env"))
-		ft_env(data->env);
 	else if (!ft_strcmp(inputs[0], "cd"))
 		ft_cd(inputs, data);
+	else if (!ft_strcmp(inputs[0], "env"))
+		ft_env(data->env);
 	else if (!ft_strcmp(inputs[0], "exit"))
 		ft_exit(inputs, data);
 	else if (!ft_strcmp(inputs[0], "export"))
@@ -34,7 +34,9 @@ void	choose_builtin(char **inputs, t_data *data)
 	else if (!ft_strcmp(inputs[0], "unset"))
 		ft_unset(inputs, data);
 	else
+	{
 		ft_exec(inputs, data);
+	}
 }
 
 int		command_directory(char *command, t_data *data, int pipe)
@@ -49,16 +51,16 @@ int		command_directory(char *command, t_data *data, int pipe)
 	}
 	oldfd[0] = dup(1);
 	oldfd[1] = dup(0);
-	command = ft_clean_command(command);
+	command = clean_command(command);
 	ft_redir(&command, data);
-	command = ft_clean_command(command);
+	command = clean_command(command);
 	inputs = split_command(command);
 	free(command);
 	choose_builtin(inputs, data);
 	free_inputs(inputs);
 	dup2(oldfd[0], 1);
 	dup2(oldfd[1], 0);
-	close_fd(data);
+	close_fds(data);
 	close(oldfd[0]);
 	close(oldfd[1]);
 	if (pipe)
@@ -66,21 +68,21 @@ int		command_directory(char *command, t_data *data, int pipe)
 	return (0);
 }
 
-void	escape_input(char **comline, char **command)
+void	escape_input(char **new_com, char **command)
 {
-	char q;
+	char	quote;
 
 	(*command)++;
 	if (**command == '\'')
-		q = '"';
+		quote = '"';
 	else
-		q = '\'';
-	*((*comline)++) = q;
-	*((*comline)++) = *((*command)++);
-	*((*comline)++) = q;
+		quote = '\'';
+	*((*new_com)++) = quote;
+	*((*new_com)++) = *((*command)++);
+	*((*new_com)++) = quote;
 }
 
-void	copy_inside_quotes(char **command, char **new_com, char quote)
+void	copy_quote(char **command, char **new_com, char quote)
 {
 	int slash;
 

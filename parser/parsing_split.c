@@ -6,127 +6,128 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:57:55 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:24:57 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:22:50 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char		*next_input(char *str)
+static char		*next_input(char *command)
 {
 	char	quote;
 	int		slash;
 
-	str--;
-	while (*(++str))
+	command--;
+	while (*(++command))
 	{
-		if (*str == '"' || *str == '\'')
+		if (*command == '"' || *command == '\'')
 		{
-			quote = *(str++);
-			while (*str != quote)
+			quote = *(command++);
+			while (*command != quote)
 			{
 				slash = 0;
-				while (*str == '\\' && quote == '"' && ++slash)
-					str++;
+				while (*command == '\\' && quote == '"' && ++slash)
+					command++;
 				if (slash && !(slash % 2))
-					str--;
-				str++;
+					command--;
+				command++;
 			}
 		}
-		if (*str == ' ')
-			return (str + 1);
+		if (*command == ' ')
+			return (command + 1);
 	}
-	return (str);
+	return (command);
 }
 
-void			copy_newsplit(char *src, char *dst, char quote)
+void			copy_split(char *command, char *new_com, char quote)
 {
-	while (*src != ' ' && *src)
+	while (*command != ' ' && *command)
 	{
-		if (*src == '\'')
+		if (*command == '\'')
 		{
-			quote = *(src++);
-			while (*src != quote)
-				*(dst++) = *(src++);
-			src++;
+			quote = *(command++);
+			while (*command != quote)
+				*(new_com++) = *(command++);
+			command++;
 		}
-		else if (*src == '"')
+		else if (*command == '"')
 		{
-			quote = *(src++);
-			while (*src != quote)
+			quote = *(command++);
+			while (*command != quote)
 			{
-				if (*src == '\\' && (*(src + 1) == quote ||
-					*(src + 1) == '\\' || *(src + 1) == '$'))
-					src++;
-				*(dst++) = *(src++);
+				if (*command == '\\' && (*(command + 1) == quote ||
+					*(command + 1) == '\\' || *(command + 1) == '$'))
+					command++;
+				*(new_com++) = *(command++);
 			}
-			src++;
+			command++;
 		}
 		else
-			*(dst++) = *(src++);
+			*(new_com++) = *(command++);
 	}
-	*dst = '\0';
+	*new_com = '\0';
 }
 
-char			*new_str(char *src)
+char			*new_str(char *commands)
 {
 	int		len;
-	char	*dst;
+	char	*new_com;
 	char	quote;
 
 	quote = 0;
-	len = ft_strlen(src);
-	if (!(dst = malloc(sizeof(char) * (len + 1))))
+	len = ft_strlen(commands);
+	if (!(new_com = malloc(sizeof(char) * (len + 1))))
 		exit(EXIT_FAILURE);
-	copy_newsplit(src, dst, quote);
-	return (dst);
+	copy_split(commands, new_com, quote);
+	return (new_com);
 }
 
-static size_t	string_len(char *str)
+static size_t	string_num(char *commands)
 {
 	int		i;
 	char	quote;
 	int		slash;
 
 	i = 1;
-	str--;
-	while (*(++str))
+	commands--;
+	while (*(++commands))
 	{
-		if (*str == '"' || *str == '\'')
+		if (*commands == '"' || *commands == '\'')
 		{
-			quote = *(str++);
-			while (*str != quote)
+			quote = *(commands++);
+			while (*commands != quote)
 			{
 				slash = 0;
-				while (*str == '\\' && quote == '"' && ++slash)
-					str++;
+				while (*commands == '\\' && quote == '"' && ++slash)
+					commands++;
 				if (slash && !(slash % 2))
-					str--;
-				str++;
+					commands--;
+				commands++;
 			}
 		}
-		if (*str == ' ')
+		if (*commands == ' ')
 			i++;
 	}
 	return (i);
 }
 
-char			**split_command(char *str)
+char			**split_command(char *command)
 {
 	char	**inputs;
-	size_t	len;
+	size_t	count;
 	size_t	i;
 
-	len = string_len(str);
-	if (!(inputs = malloc(sizeof(char *) * (len + 1))))
+	count = string_num(command);
+	inputs = malloc((count + 1) * sizeof(char *));
+	if (!inputs)
 		exit(EXIT_FAILURE);
 	i = 0;
-	while (i < len)
+	while (i < count)
 	{
-		inputs[i++] = new_str(str);
+		inputs[i++] = new_str(command);
 		if (i > 0 && !inputs[i - 1])
 			return (NULL);
-		str = next_input(str);
+		command = next_input(command);
 	}
 	inputs[i] = NULL;
 	return (inputs);

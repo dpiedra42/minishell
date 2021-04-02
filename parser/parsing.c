@@ -6,16 +6,16 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:24:40 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 18:28:55 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int			filter_command(char *command, t_data *data, int pipe)
+int			parser_filter(char *command, t_data *data, int pipe)
 {
-	int i;
-	int slash;
+	int		i;
+	int		slash;
 
 	i = 0;
 	while (command[i])
@@ -54,7 +54,7 @@ void		copy_command(char *new_com, char *command)
 		{
 			*(new_com++) = *command;
 			quote = *(command++);
-			copy_inside_quotes(&command, &new_com, quote);
+			copy_quote(&command, &new_com, quote);
 			*(new_com++) = *(command++);
 		}
 		else if (*command == '\\' && *(command + 1))
@@ -62,7 +62,7 @@ void		copy_command(char *new_com, char *command)
 		else
 			*(new_com++) = *(command++);
 	}
-	*(new_com) = '\0';
+	*new_com = '\0';
 }
 
 static int	find_len(char *command)
@@ -93,17 +93,18 @@ static int	find_len(char *command)
 	return (i);
 }
 
-char		*ft_clean_command(char *command)
+char		*clean_command(char *command)
 {
-	char	*new_com;
 	int		len;
+	char	*new_com;
 
 	while (*command == ' ' && *command)
 		command++;
 	len = find_len(command);
 	if (len == -1)
 		return (0);
-	if (!(new_com = (char *)malloc(sizeof(char) * (len + 1))))
+	new_com = (char *)malloc((len + 1) * sizeof(char));
+	if (!new_com)
 		exit(EXIT_FAILURE);
 	copy_command(new_com, command);
 	return (new_com);
@@ -111,19 +112,19 @@ char		*ft_clean_command(char *command)
 
 int			ft_parse(char *command, t_data *data)
 {
-	char *new_command;
+	char	*clean_com;
 
-	new_command = ft_clean_command(command);
+	clean_com = clean_command(command);
 	g_user_input = NULL;
-	if (new_command == 0)
+	if (clean_com == 0)
 	{
-		ft_putstr("Multiline is not supported\n");
+		ft_putstr("This minishell does not support multiline\n");
 		return (0);
 	}
-	if (!*new_command)
+	if (!*clean_com)
 	{
-		free(new_command);
+		free(clean_com);
 		return (0);
 	}
-	return (filter_command(new_command, data, 0));
+	return (parser_filter(clean_com, data, 0));
 }

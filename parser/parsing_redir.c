@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:55:20 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:25:09 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:10:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	redir_from(char *str, int i, char **com, t_data *data)
 {
-	char	*filename;
+	char	*file;
 	int		fd;
 	int		j;
 
 	j = i;
 	if (str[j + 1] == ' ')
 		j++;
-	filename = get_file(&(str[j + 1]), &j);
-	del_redir_comm(com, i, j);
-	fd = open(filename, O_RDONLY);
-	free(filename);
+	file = get_file(&(str[j + 1]), &j);
+	del_redir(com, i, j);
+	fd = open(file, O_RDONLY);
+	free(file);
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
@@ -41,17 +41,17 @@ void	redir_from(char *str, int i, char **com, t_data *data)
 
 void	redir_into(char *str, int i, char **com, t_data *data)
 {
-	char	*filename;
+	char	*file;
 	int		fd;
 	int		j;
 
 	j = i;
 	if (str[j + 1] == ' ')
 		j++;
-	filename = get_file(&(str[j + 1]), &j);
-	del_redir_comm(com, i, j);
-	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	free(filename);
+	file = get_file(&(str[j + 1]), &j);
+	del_redir(com, i, j);
+	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	free(file);
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: wrong permissions\n", 2);
@@ -75,13 +75,13 @@ void	choose_redir(char **com, int i, t_data *data)
 	j = i;
 	if (str[i] == '>' && str[i + 1] != '>')
 		redir_into(str, i, com, data);
+	else if (str[i] == '>' && str[i + 1] == '>')
+		redir_append(str, i, com, data);
 	else if (str[i] == '<' && str[i + 1] != '<')
 		redir_from(str, i, com, data);
-	else if (str[i] == '>' && str[i + 1] == '>')
-		redir_to_append(str, i, com, data);
 }
 
-void	redir_quotes(char *str, int *i, char quote)
+void		redir_quotes(char *str, int *i, char quote)
 {
 	int slash;
 
@@ -99,14 +99,14 @@ void	redir_quotes(char *str, int *i, char quote)
 	}
 }
 
-int		ft_redir(char **com, t_data *data)
+int		ft_redir(char **command, t_data *data)
 {
 	int		i;
 	char	*str;
 	char	quote;
 
 	i = -1;
-	str = *com;
+	str = *command;
 	while (str[++i])
 	{
 		if (str[i] == '\'' || str[i] == '"')
@@ -117,7 +117,7 @@ int		ft_redir(char **com, t_data *data)
 		}
 		if (str[i] == '>' || str[i] == '<')
 		{
-			choose_redir(com, i, data);
+			choose_redir(command, i, data);
 			return (1);
 		}
 		ft_escape(&i, str);

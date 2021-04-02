@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:49:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:30:31 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 19:45:35 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ int		cd_path(char **input, t_data *data)
 
 int		cd_minus(t_data *data)
 {
-	if (env_index(data,"OLDPWD=") < 0 ||
-	chdir((strchr(data->env[env_index(data,"OLDPWD=")], '=') + 1)) == -1)
+	if (env_index("OLDPWD=", data) < 0 ||
+	chdir((strchr(data->env[env_index("OLDPWD=", data)], '=') + 1)) == -1)
 		return (0);
-	change_dir(data, "-");
+	change_dir(data, NULL);
 	return (1);
 }
 
 int		cd_empty(t_data *data)
 {
-	if (env_index(data, "HOME=") < 0 || 
-		chdir((strchr(data->env[env_index(data, "HOME=")], '=') + 1)) == -1)
+	if (env_index("HOME=", data) < 0 ||
+	chdir((strchr(data->env[env_index("HOME=", data)], '=') + 1)) == -1)
 		return (0);
 	change_dir(data, NULL);
 	return (1);
@@ -51,7 +51,7 @@ void	ft_cd(char **input, t_data *data)
 	else if (!input[1])
 	{
 		if (!cd_empty(data))
-			return (ft_error("cd: HOME is undefined\n", 1));
+			return (ft_error("cd: HOME: is undefined\n", 1));
 	}
 	else if (ft_strcmp(input[1], "-") == 0)
 	{
