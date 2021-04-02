@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:14:13 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:56:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_end(char *input, t_data *data)
 	free_env(data->env);
 	free(input);
 	free(data->pwd);
-	ft_putstr_fd("exit\n", 1);
+	ft_putstr_fd("exit\n", 2);
 	exit(EXIT_SUCCESS);
 }
 
@@ -32,7 +32,7 @@ void	init_data(t_data *data, char **env)
 
 int		main(int ac, char **av, char **env)
 {
-	t_data data;
+	t_data	data;
 	int		read;
 
 	ac = 0;
@@ -47,7 +47,7 @@ int		main(int ac, char **av, char **env)
 		g_quit = 0;
 		free(g_user_input);
 		ft_signal();
-		ft_putstr_fd("minishell> ", 1);
+		ft_putstr_fd("minishell> ", 2);
 		read = get_next_line(0, &g_user_input);
 		if (!read)
 			ft_end(g_user_input, &data);

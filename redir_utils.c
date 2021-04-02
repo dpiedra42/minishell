@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 17:38:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 17:07:03 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:49:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		file_len(char *str)
 	return (i);
 }
 
-char    *get_file(char *str, int *j)
+char	*get_file(char *str, int *j)
 {
 	int		i;
 	int		d;

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:26:59 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:53:56 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			filter_command(char *command, t_data *data, int pipe)
 	return (command_directory(command, data, pipe));
 }
 
-void	copy_command(char *new_com, char *command)
+void		copy_command(char *new_com, char *command)
 {
 	char	quote;
 

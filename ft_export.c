@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:17:43 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:09:54 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:50:20 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char	**exp_env(char **env, char *exp)
 	new_env[i] = NULL;
 	return (new_env);
 }
-
 
 int		check_exp(char *input)
 {

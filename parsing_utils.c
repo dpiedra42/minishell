@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:27:34 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:52:24 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	choose_builtin(char **inputs, t_data *data)
 {
 	if (!data->redir)
 	{
-			data->redir = 1;
-			return ;
+		data->redir = 1;
+		return ;
 	}
 	if (!ft_strcmp(inputs[0], "echo"))
 		ft_echo(inputs);

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 19:11:13 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:52:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	set_oldpwd(t_data *data)
 		free(pwd);
 	}
 	else
-	data->env = exp_env(data->env, "OLDPWD");
+		data->env = exp_env(data->env, "OLDPWD");
 	free(data->pwd);
 }
 
