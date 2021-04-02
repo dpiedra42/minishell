@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 12:02:58 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 13:47:59 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/10/07 11:27:08 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/02 17:12:07 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+char	*ft_strncat(char *dest, const char *src, size_t n)
 {
-	t_list *element;
-	t_list *successor;
+	int i;
 
-	if (!lst || !*lst || !del)
-		return ;
-	element = *lst;
-	while (element)
+	i = 0;
+	while (dest[i])
+		i++;
+	while (*src && n--)
 	{
-		successor = element->next;
-		(*del)((void *)element->content);
-		free(element);
-		element = successor;
+		dest[i] = *src;
+		src++;
+		i++;
 	}
-	*lst = NULL;
+	dest[i] = '\0';
+	return (dest);
 }

@@ -1,25 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putptrnbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 18:35:31 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:11:13 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/10/09 18:51:12 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/02 17:10:43 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	ft_putstr_fd(char *str, int fd)
+static size_t	getptrnbrlen(unsigned long long n)
 {
-	int count;
+	size_t	i;
 
-	if (str == NULL)
-		return ;
-	count = 0;
-	while (str[count])
-		count++;
-	write(fd, str, count);
+	i = 1;
+	while (n /= 16)
+		i++;
+	return (i);
+}
+
+void			ft_putptrnbr(unsigned long long n)
+{
+	size_t						len;
+	unsigned long long			div;
+	char						c;
+	char						*ptrbase;
+
+	ptrbase = "0123456789abcdef";
+	div = 1;
+	len = getptrnbrlen(n);
+	while (--len)
+		div *= 16;
+	while (div)
+	{
+		c = ptrbase[((n / div) % 16)];
+		write(1, &c, 1);
+		div /= 16;
+	}
 }

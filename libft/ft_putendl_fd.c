@@ -5,24 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 18:12:04 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:23:25 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/10/09 18:35:31 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/02 17:10:32 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(char *str, int fd)
 {
-	int i;
+	int count;
 
-	if (!s)
+	if (str == NULL)
 		return ;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+	count = 0;
+	while (str[count])
+		count++;
+	write(fd, str, count);
 	write(fd, "\n", 1);
 }

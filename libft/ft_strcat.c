@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 11:09:24 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:10:24 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/10/07 11:10:34 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/02 17:11:25 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	*ft_memset(void *ptr, int c, size_t len)
+char	*ft_strcat(char *dest, const char *src)
 {
-	unsigned char *set;
+	int i;
 
-	set = (unsigned char *)ptr;
-	while (len--)
+	i = 0;
+	while (dest[i])
+		i++;
+	while (*src)
 	{
-		*set = (unsigned char)c;
-		set++;
+		dest[i] = *src;
+		src++;
+		i++;
 	}
-	return (ptr);
+	dest[i] = '\0';
+	return (dest);
 }
