@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 16:00:42 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:26:29 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	replace_var(char *new_pwd, t_data *data, int index)
 {

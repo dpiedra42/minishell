@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:09:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 16:04:02 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:26:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_env(char **env)
 {

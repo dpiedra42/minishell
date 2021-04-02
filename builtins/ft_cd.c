@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 11:49:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 15:59:14 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:30:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_error(char *str, int status)
 {
@@ -28,8 +28,8 @@ int		cd_path(char **input, t_data *data)
 
 int		cd_minus(t_data *data)
 {
-	if (env_index("OLDPWD=", data) < 0 ||
-	chdir((strchr(data->env[env_index("OLDPWD=", data)], '=') + 1)) == -1)
+	if (env_index(data,"OLDPWD=") < 0 ||
+	chdir((strchr(data->env[env_index(data,"OLDPWD=")], '=') + 1)) == -1)
 		return (0);
 	change_dir(data, "-");
 	return (1);

@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:05:46 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 15:13:57 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:25:52 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	exec_sigiq(int sig)
 {

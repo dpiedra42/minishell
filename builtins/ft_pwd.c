@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 15:06:56 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 16:15:31 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:25:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_pwd(t_data *data)
 {

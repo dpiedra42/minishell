@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 12:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 15:53:37 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:31:05 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	new_pwd(t_data *data)
 {
@@ -55,7 +55,7 @@ int		change_dir(t_data *data, char *str)
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
-	if (!cwd && str && !ft_strcmp(".", str) == 0)
+	if (!cwd && str && ft_strcmp(".", str) == 0)
 	{
 		ft_putstr_fd("Error retrieving current directory\n", 2);
 		pwd = data->pwd;

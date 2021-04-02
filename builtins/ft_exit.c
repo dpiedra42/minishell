@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:31:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:26:19 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int		check_num(char *str)
 {

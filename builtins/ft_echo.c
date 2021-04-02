@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 12:42:53 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/08 23:05:45 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:26:34 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_echo(char **inputs)
 {

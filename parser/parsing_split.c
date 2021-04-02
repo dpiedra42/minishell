@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:57:55 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/16 17:08:00 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:24:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static char		*next_input(char *str)
 {

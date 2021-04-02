@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 18:04:11 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:53:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:25:04 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static int	special_pipe(char *command, int pipe, t_data *data)
 {

@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:29:52 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:26:47 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:25:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**unset_env(char **env, int id)
 {

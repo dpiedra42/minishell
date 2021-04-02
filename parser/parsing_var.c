@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:41:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:48:53 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:24:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static int	file_len(char *str)
 {

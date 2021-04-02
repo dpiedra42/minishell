@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 16:27:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 13:36:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:25:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_escape(int *i, char *str)
 {

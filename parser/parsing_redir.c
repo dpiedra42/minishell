@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:55:20 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 15:37:25 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:25:09 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	redir_from(char *str, int i, char **com, t_data *data)
 {

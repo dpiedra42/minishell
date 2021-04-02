@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 16:19:32 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:48:25 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int				g_status;
 char			*g_user_input;
 int				g_quit;
 
-int				minishell(t_data *data);
-void			ft_end(char *input, t_data *data);
 void			ft_sigiq(int sig);
 void			ft_signal(void);
 int				ft_parse(char *command, t_data *data);

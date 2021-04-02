@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 16:06:33 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:26:24 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	**make_paths(int id, t_data *data, char *input)
 {

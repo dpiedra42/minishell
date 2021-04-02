@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:48:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/23 19:19:05 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 17:26:03 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_parent(char *new_com, t_data *data, int pid, int *fds)
 {

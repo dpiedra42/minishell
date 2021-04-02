@@ -6,11 +6,13 @@
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 15:03:32 by dpiedra           #+#    #+#              #
-#    Updated: 2021/03/31 13:00:21 by dpiedra          ###   ########.fr        #
+#    Updated: 2021/04/02 17:45:50 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
+
+LIBFT	= libft/libft.a
 
 RM		= rm -rf
 
@@ -18,11 +20,13 @@ FLAGS	= -Wall -Wextra -Werror
 
 CLANG	= clang
 
-SRCS	= main.c parsing.c parsing_utils.c ft_signal.c parsing_split.c \
-		  parsing_special.c ft_echo.c ft_pwd.c ft_env.c ft_cd.c cd_utils.c \
-		  parsing_error.c parsing_var.c parsing_redir.c parsing_exits.c \
-		  ft_execute.c execute_utils.c ft_pipe.c redir_utils.c ft_exit.c \
-		  ft_export.c ft_unset.c
+SRCS	= main.c parser/parsing.c parser/parsing_utils.c builtins/ft_signal.c \
+		  parser/parsing_split.c parser/parsing_special.c builtins/ft_echo.c  \
+		  builtins/ft_pwd.c builtins/ft_env.c builtins/ft_cd.c \
+		  builtins/ft_unset.c builtins/cd_utils.c parser/parsing_error.c \
+		  parser/parsing_var.c parser/parsing_redir.c parser/parsing_exits.c \
+		  builtins/ft_execute.c builtins/execute_utils.c builtins/ft_pipe.c \
+		  parser/redir_utils.c builtins/ft_exit.c builtins/ft_export.c \
 
 OBJS	= $(SRCS:.c=.o)
 
