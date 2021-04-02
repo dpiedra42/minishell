@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:04:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2020/02/06 11:06:26 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:35:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int i;
+	int count;
 
-	if (!s)
+	if (s == NULL)
 		return ;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+	count = 0;
+	while (s[count])
+		count++;
+	write(fd, s, count);
 }

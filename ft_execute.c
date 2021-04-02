@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 15:57:31 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:45:44 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_exec(char **inputs, t_data *data)
 			exit(errno);
 		exit(EXIT_SUCCESS);
 	}
-	if (pid < 0)
+	else if (pid < 0)
 		exit(EXIT_FAILURE);
 	else
 	{

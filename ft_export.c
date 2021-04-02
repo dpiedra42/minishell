@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:17:43 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/29 15:31:45 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:09:54 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ char	**exp_env(char **env, char *exp)
 	char	**new_env;
 
 	i = 0;
-	new_env = malloc(sizeof(char *) * (env_len(env) + 1));
-	if (!new_env)
+	if (!(new_env = malloc(sizeof(char *) * (env_len(env) + 1))))
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 17:05:46 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/22 19:05:11 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 13:49:39 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exec_sigiq(int sig)
 			free(g_user_input);
 		g_status = 130;
 		g_quit = 1;
-		write(1, "\n", 1);
+		write(2, "\n", 1);
 	}
 	else if (sig == SIGQUIT)
 	{
@@ -43,7 +43,7 @@ void	ft_sigiq(int sig)
 	{
 		g_status = 130;
 		if (g_user_input)
-			ft_putstr_fd("\nminishell> ", 1);
+			ft_putstr_fd("\nminishell> ", 2);
 		if (g_user_input)
 			free(g_user_input);
 		g_user_input = ft_strdup("\0");

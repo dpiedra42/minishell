@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:02:14 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 14:56:26 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 14:37:41 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <string.h>
+# include <fcntl.h>
 
 typedef struct		s_list
 {
