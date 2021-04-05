@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:29:52 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 15:46:55 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:42:53 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**unset_env(char **env, int id)
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{
-		if (i != index)
+		if (i != id)
 		{
 			new_env[j] = ft_strdup(env[i]);
 			j++;

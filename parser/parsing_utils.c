@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 19:19:01 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 19:24:47 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:41:41 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		command_directory(char *command, t_data *data, int pipe)
 	free_inputs(inputs);
 	dup2(oldfd[0], 1);
 	dup2(oldfd[1], 0);
-	close_fds(data);
+	close_fd(data);
 	close(oldfd[0]);
 	close(oldfd[1]);
 	if (pipe)

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 16:39:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:44:00 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void			redir_from(char *str, int i, char **com, t_data *data);
 void			redir_append(char *str, int i, char **com, t_data *data);
 char			*get_file(char *str, int *j);
 void			del_redir(char **com, int i, int j);
-int				file_len(char *str);
 void			copy_file(char *src, char *dst, int i, int k);
 
 void			ft_escape(int *i, char *str);

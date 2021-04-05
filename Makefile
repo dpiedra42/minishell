@@ -6,13 +6,13 @@
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 15:03:32 by dpiedra           #+#    #+#              #
-#    Updated: 2021/04/05 16:58:02 by dpiedra          ###   ########.fr        #
+#    Updated: 2021/04/05 17:00:29 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= main.c
 
-SRCS	+= parser/parsing.c parser/parsing_split.c parser/parsing_special parser/parsing_var.c parser/parsing_redir.c
+SRCS	+= parser/parsing.c parser/parsing_split.c parser/parsing_special.c parser/parsing_var.c parser/parsing_redir.c
 
 SRCS	+= parser/parsing_utils.c parser/parsing_error.c parser/parsing_exits.c parser/redir_utils.c
 

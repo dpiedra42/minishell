@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 18:02:03 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/02 18:07:32 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int		main(int ac, char **av, char **env)
 		ft_signal();
 		ft_putstr_fd("minishell> ", 2);
 		read = get_next_line(0, &g_user_input);
-		printf("%s\n", g_user_input);
 		if (!read)
 			ft_eof(g_user_input, &data);
 		else

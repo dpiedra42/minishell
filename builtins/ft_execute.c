@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 16:38:34 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:46:56 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		exec_2(char **inputs, t_data *data)
 	i = 0;
 	stats.st_mode = 0;
 	id = env_index("PATH=", data);
-	paths = makepaths(index, data, inputs[0]);
+	paths = make_paths(id, data, inputs[0]);
 	while (paths[i])
 	{
 		stat(paths[i], &stats);
