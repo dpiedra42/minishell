@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 19:38:50 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:42:18 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	replace_var(char *new_pwd, t_data *data, int index)
 
 int		env_len(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
@@ -37,7 +37,8 @@ char	**get_env(char **env)
 	int		i;
 
 	i = 0;
-	if (!(new_env = malloc(sizeof(char *) * (env_len(env)))))
+	new_env = malloc(sizeof(char *) * env_len(env));
+	if (!new_env)
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{

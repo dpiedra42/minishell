@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 19:45:57 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:39:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int				g_quit;
 
 void			ft_sigiq(int sig);
 void			ft_signal(void);
+void			signal_exec(void);
+void			exec_sigiq(int sig);
 
 int				ft_parse(char *command, t_data *data);
 char			*clean_command(char *command);
@@ -84,7 +86,7 @@ char			*new_str(char *commands);
 void			copy_split(char *command, char *new_com, char quote);
 
 void			ft_echo(char **inputs);
-void			ft_echo(char **inputs);
+void			ft_pwd(t_data *data);
 
 void			ft_cd(char **input, t_data *data);
 void			ft_error(char *str, int status);
@@ -97,39 +99,33 @@ int				change_dir(t_data *data, char *str);
 void			set_oldpwd(t_data *data);
 void			new_pwd(t_data *data);
 
-// void			ft_pwd(t_data *data);
-// char			**get_env(char **env);
-// int				env_len(char **env);
-// void			ft_env(char **env);
-// int				env_index(t_data *data, char *id);
-// void			replace_var(char *new_pwd, t_data *data, int index);
-// void			ft_cd(char **input, t_data *data);
-// int				cd_empty(t_data *data);
-// void			ft_error(char *str, int status);
-// int				change_dir(t_data *data, char *str);
-// void			set_oldpwd(t_data *data);
-// void			new_pwd(t_data *data);
-// void			close_fd(t_data *data);
-// void			free_inputs(char **inputs);
-// void			ft_parent(char *new_com, t_data *data, int pid, int *fds);
-// int				ft_pipe(char *command, char *new_com, t_data *data);
-// void			ft_exec(char **inputs, t_data *data);
-// int				exec(char **inputs, t_data *data);
-// int				exec_2(char **inputs, t_data *data);
-// char			**make_paths(int id, t_data *data, char *input);
-// int				check_exec(char **inputs, t_data *data);
-// int				check_path(char **inputs, t_data *data);
-// void			signal_exec(void);
-// void			exec_sigiq(int sig);
-// void			ft_exit(char **inputs, t_data *data);
-// int				check_num(char *str);
-// void			free_env(char **env);
-// void			ft_export(char **inputs, t_data *data);
-// int				check_exp(char *input);
-// char			**exp_env(char **env, char *exp);
-// void			ft_exp(t_data *data);
-// int				put_exp(char **env);
-// void			ft_unset(char **inputs, t_data *data);
-// char			**unset_env(char **env, int id);
+int				env_len(char **env);
+char			**get_env(char **env);
+void			replace_var(char *new_pwd, t_data *data, int index);
+void			ft_env(char **env);
+
+void			ft_exit(char **inputs, t_data *data);
+int				check_num(char *str);
+
+char			**exp_env(char **env, char *exp);
+void			ft_export(char **inputs, t_data *data);
+int				check_exp(char *input);
+int				put_exp(char **env);
+void			export_a(t_data *data);
+
+void			ft_unset(char **inputs, t_data *data);
+char			**unset_env(char **env, int id);
+
+int				ft_pipe(char *command, char *new_com, t_data *data);
+void			ft_parent(char *new_com, t_data *data, int pid, int *fds);
+
+int				check_exec(char **inputs, t_data *data);
+int				check_path(char **inputs, t_data *data);
+void			free_env(char **env);
+
+char			**make_paths(int id, t_data *data, char *input);
+int				exec_2(char **inputs, t_data *data);
+int				exec(char **inputs, t_data *data);
+void			ft_exec(char **inputs, t_data *data);
 
 #endif

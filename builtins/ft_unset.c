@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:29:52 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:25:48 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:46:55 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ char	**unset_env(char **env, int id)
 
 	i = 0;
 	j = 0;
-	if (!(new_env = malloc(sizeof(char *) * (env_len(env) - 1))))
+	new_env = malloc(sizeof(char *) * (env_len(env) - 1));
+	if (!new_env)
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{
-		if (i != id)
+		if (i != index)
 		{
 			new_env[j] = ft_strdup(env[i]);
 			j++;
@@ -40,16 +41,16 @@ char	**unset_env(char **env, int id)
 void	ft_unset(char **inputs, t_data *data)
 {
 	int	i;
-	int	index;
+	int	id;
 
 	i = 1;
 	while (inputs[i])
 	{
 		if (check_exp(inputs[i]))
 		{
-			index = env_index(data, inputs[i]);
-			if (index > 0)
-				data->env = unset_env(data->env, index);
+			id = env_index(inputs[i], data);
+			if (id > 0)
+				data->env = unset_env(data->env, id);
 			i++;
 		}
 		else

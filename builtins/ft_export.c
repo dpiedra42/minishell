@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 19:17:43 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:26:14 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:44:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,32 @@ int		put_exp(char **env)
 {
 	int	i;
 	int j;
-	int	equal;
+	int	sign;
 
 	i = -1;
 	while (env[++i])
 	{
-		equal = 1;
+		sign = 1;
 		j = 0;
 		ft_putstr("declare -x ");
 		while (env[i][j])
 		{
-			if (env[i][j] == '\\' || env[i][j] == '$' || env[i][j] == '\"')
+			if (env[i][j] == '\\' || env[i][j] == '$' ||
+			env[i][j] == '\"')
 				write(1, "\\", 1);
 			write(1, &env[i][j], 1);
-			if (env[i][j] == '=' && equal-- == 1)
+			if (env[i][j] == '=' && sign-- == 1)
 				write(1, "\"", 1);
 			j++;
 		}
-		if (equal != 1)
+		if (sign != 1)
 			write(1, "\"", 1);
 		write(1, "\n", 1);
 	}
 	return (1);
 }
 
-void	ft_exp(t_data *data)
+void	export_a(t_data *data)
 {
 	int		i;
 	int		j;
@@ -72,7 +73,8 @@ char	**exp_env(char **env, char *exp)
 	char	**new_env;
 
 	i = 0;
-	if (!(new_env = malloc(sizeof(char *) * (env_len(env) + 1))))
+	new_env = malloc(sizeof(char *) * (env_len(env) + 1));
+	if (!new_env)
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{
@@ -105,16 +107,16 @@ int		check_exp(char *input)
 void	ft_export(char **inputs, t_data *data)
 {
 	int	i;
-	int	id;
+	int	index;
 
 	i = 1;
 	if (inputs[i])
 	{
 		while (inputs[i])
 		{
-			id = env_index(data, inputs[i]);
-			if (id >= 0 && check_exp(inputs[i]))
-				replace_var(inputs[i], data, id);
+			index = env_index(inputs[i], data);
+			if (index >= 0 && check_exp(inputs[i]))
+				replace_var(inputs[i], data, index);
 			else if (check_exp(inputs[i]))
 			{
 				data->env = exp_env(data->env, inputs[i]);
@@ -127,6 +129,6 @@ void	ft_export(char **inputs, t_data *data)
 		}
 	}
 	else
-		ft_exp(data);
+		export_a(data);
 	g_status = 0;
 }

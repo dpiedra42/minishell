@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:26:19 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 15:35:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	ft_exit(char **inputs, t_data *data)
 	g_status = 0;
 	if (inputs[1])
 	{
-		if (check_num(inputs[1]))
+		if (check_number(inputs[1]))
 		{
 			if (inputs[2])
-				return (ft_error("\tminishell: too many arguments\n", 2));
+				return (ft_error("\tminishell: too many argument\n", 2));
 			g_status = ft_atoi(inputs[1]);
 			if (g_status > 255)
 				g_status = 255;
@@ -44,7 +44,7 @@ void	ft_exit(char **inputs, t_data *data)
 				g_status = 255;
 		}
 		else
-			ft_error("\t\tminishell: numeric argument required\n", 2);
+			ft_error("\t\tminishell: numeric argument is required\n", 2);
 	}
 	free_env(inputs);
 	free(data->pwd);

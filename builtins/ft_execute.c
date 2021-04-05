@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:44:38 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:26:24 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/05 16:38:34 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ char	**make_paths(int id, t_data *data, char *input)
 int		exec_2(char **inputs, t_data *data)
 {
 	int			i;
-	int			id;
 	char		**paths;
-	struct stat	buff;
+	int			id;
+	struct stat	stats;
 
 	i = 0;
-	buff.st_mode = 0;
-	id = env_index(data, "PATH=");
-	paths = make_paths(id, data, inputs[0]);
+	stats.st_mode = 0;
+	id = env_index("PATH=", data);
+	paths = makepaths(index, data, inputs[0]);
 	while (paths[i])
 	{
-		stat(paths[i], &buff);
-		if ((buff.st_mode & S_IXUSR) &&
-			(execve(paths[i], inputs, data->env) != -1))
+		stat(paths[i], &stats);
+		if ((stats.st_mode & S_IXUSR) &&
+		(execve(paths[i], inputs, data->env) != -1))
 			return (0);
 		i++;
 	}
@@ -61,16 +61,16 @@ int		exec_2(char **inputs, t_data *data)
 
 int		exec(char **inputs, t_data *data)
 {
-	int			index;
-	struct stat	buff;
+	int			id;
+	struct stat	stats;
 
-	buff.st_mode = 0;
-	index = env_index(data, "PATH=");
-	stat(inputs[0], &buff);
-	if (ft_strchr(inputs[0], '/') && (buff.st_mode & S_IXUSR) &&
-		(execve(inputs[0], &inputs[0], data->env) != -1))
+	stats.st_mode = 0;
+	id = env_index("PATH=", data);
+	stat(inputs[0], &stats);
+	if (ft_strchr(inputs[0], '/') && (stats.st_mode & S_IXUSR) &&
+	(execve(inputs[0], &inputs[0], data->env) != -1))
 		return (0);
-	else if (index >= 0)
+	else if (id >= 0)
 	{
 		if (!exec_2(inputs, data))
 			return (0);
@@ -85,7 +85,7 @@ void	ft_exec(char **inputs, t_data *data)
 
 	status = 0;
 	if (!check_exec(inputs, data))
-		return (ft_error("\t\tminishell: Command not found\n", 127));
+		return (ft_error("\t\tminishell: Unknown command\n", 127));
 	pid = fork();
 	if (pid == 0)
 	{
@@ -102,5 +102,5 @@ void	ft_exec(char **inputs, t_data *data)
 	}
 	g_status = WEXITSTATUS(status);
 	if (g_quit)
-		status = 130;
+		g_status = 130;
 }
