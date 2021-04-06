@@ -6,11 +6,11 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:20:27 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 15:21:01 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 15:30:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	choose_builtin(char **inputs, t_data *data)
 {
