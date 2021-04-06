@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 18:08:34 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:13:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int				command_directory(char *command, t_data *data, int pipe);
 void			close_fd(t_data *data);
 
 void			ft_cd(char **input, t_data *data);
+int				change_dir(t_data *data, char *str);
+void			ft_pwd(t_data *data);
 
 void			ft_echo(char **inputs);
 void			ft_env(char **env);
