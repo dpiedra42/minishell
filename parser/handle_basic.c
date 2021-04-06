@@ -6,11 +6,7 @@
 /*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-<<<<<<< HEAD:parser/handle_basic.c
 /*   Updated: 2021/02/05 16:29:03 by gsmets           ###   ########.fr       */
-=======
-/*   Updated: 2021/04/06 18:10:48 by dpiedra          ###   ########.fr       */
->>>>>>> 82c3ec7ad2767275e90ec1f5e3f2346c91b2e109:parser/parsing_directory.c
 /*                                                                            */
 /* ************************************************************************** */
 
