@@ -3,59 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/04 12:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 19:43:33 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/02/04 17:58:50 by tpons             #+#    #+#             */
+/*   Updated: 2021/02/05 13:51:04 by tpons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	new_pwd(t_data *data)
+void	change_env_pwd(t_data *data)
 {
 	char *pwd;
 
 	data->pwd = getcwd(NULL, 0);
-	if (env_index("PWD", data) >= 0)
+	if (var_index("PWD", data) >= 0)
 	{
 		pwd = ft_strjoin("PWD=", data->pwd);
-		replace_var(pwd, data, env_index(pwd, data));
+		replace_var(pwd, data, var_index(pwd, data));
 		free(pwd);
 	}
 	else
 	{
 		pwd = ft_strjoin("PWD=", data->pwd);
-		data->env = exp_env(data->env, pwd);
+		data->env = export_env(data->env, pwd);
 		free(pwd);
 	}
 }
 
-void	set_oldpwd(t_data *data)
+void	change_env_oldpwd(t_data *data)
 {
 	char *pwd;
 	char *oldpwd;
 
-	if (env_index("OLDPWD", data) >= 0)
+	if (var_index("OLDPWD", data) >= 0)
 	{
 		pwd = ft_strjoin("PWD=", data->pwd);
 		oldpwd = ft_strjoin("OLD", pwd);
-		replace_var(oldpwd, data, env_index("OLDPWD=", data));
+		replace_var(oldpwd, data, var_index("OLDPWD=", data));
 		free(oldpwd);
 		free(pwd);
 	}
 	else
-		data->env = exp_env(data->env, "OLDPWD");
+		data->env = export_env(data->env, "OLDPWD");
 	free(data->pwd);
 }
 
-int		change_dir(t_data *data, char *str)
+int		change_pwd(t_data *data, char *input)
 {
 	char	*pwd;
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
-	if (!cwd && str && ft_strcmp(".", str) == 0)
+	if (!cwd && input && ft_strcmp(".", input) == 0)
 	{
 		ft_putstr_fd("Error retrieving current directory\n", 2);
 		pwd = data->pwd;
@@ -64,30 +64,9 @@ int		change_dir(t_data *data, char *str)
 	}
 	if (cwd)
 	{
-		set_oldpwd(data);
-		new_pwd(data);
+		change_env_oldpwd(data);
+		change_env_pwd(data);
 	}
 	free(cwd);
 	return (1);
-}
-
-int		env_index(char *id, t_data *data)
-{
-	int		y;
-	int		x;
-
-	x = 0;
-	while (data->env[x])
-	{
-		y = 0;
-		while (data->env[x][y] && data->env[x][y] == id[y]
-		&& id[y] != '\0' && id[y] != '=' &&
-		data->env[x][y] != '\0' && data->env[x][y] != '=')
-			y++;
-		if ((data->env[x][y] == '\0' || data->env[x][y] == '=') &&
-		(id[y] == '\0' || id[y] == '='))
-			return (x);
-		x++;
-	}
-	return (-1);
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 19:29:52 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 16:42:53 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/18 11:12:35 by tpons             #+#    #+#             */
+/*   Updated: 2021/02/02 13:14:08 by tpons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**unset_env(char **env, int id)
+char	**unset_env(char **old_env, int index)
 {
 	int		i;
 	int		j;
@@ -20,40 +20,40 @@ char	**unset_env(char **env, int id)
 
 	i = 0;
 	j = 0;
-	new_env = malloc(sizeof(char *) * (env_len(env) - 1));
+	new_env = malloc(sizeof(char *) * (envlen(old_env) - 1));
 	if (!new_env)
 		exit(EXIT_FAILURE);
-	while (env[i])
+	while (old_env[i])
 	{
-		if (i != id)
+		if (i != index)
 		{
-			new_env[j] = ft_strdup(env[i]);
+			new_env[j] = ft_strdup(old_env[i]);
 			j++;
 		}
 		i++;
 	}
-	free_env(env);
+	free_env(old_env);
 	i--;
 	new_env[i] = NULL;
 	return (new_env);
 }
 
-void	ft_unset(char **inputs, t_data *data)
+void	handle_unset(char **inputs, t_data *data)
 {
 	int	i;
-	int	id;
+	int	index;
 
 	i = 1;
 	while (inputs[i])
 	{
-		if (check_exp(inputs[i]))
+		if (check_export(inputs[i]))
 		{
-			id = env_index(inputs[i], data);
-			if (id > 0)
-				data->env = unset_env(data->env, id);
+			index = var_index(inputs[i], data);
+			if (index > 0)
+				data->env = unset_env(data->env, index);
 			i++;
 		}
 		else
-			return (ft_error("unset: invalid identifier\n", 1));
+			return (error_sentence("unset: invalid identifier\n", 1));
 	}
 }

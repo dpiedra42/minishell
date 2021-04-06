@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 16:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 16:47:14 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/28 15:33:18 by tpons             #+#    #+#             */
+/*   Updated: 2021/02/04 22:14:30 by tpons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		check_num(char *str)
+void	error_sentence(char *str, int status)
+{
+	g_status = status;
+	ft_putstr_fd(str, 2);
+}
+
+int		is_number(char *str)
 {
 	int	i;
 
@@ -28,15 +34,15 @@ int		check_num(char *str)
 	return (1);
 }
 
-void	ft_exit(char **inputs, t_data *data)
+void	handle_exit(char **inputs, t_data *data)
 {
 	g_status = 0;
 	if (inputs[1])
 	{
-		if (check_num(inputs[1]))
+		if (is_number(inputs[1]))
 		{
 			if (inputs[2])
-				return (ft_error("\tminishell: too many argument\n", 2));
+				return (error_sentence("\tminishell: too many argument\n", 2));
 			g_status = ft_atoi(inputs[1]);
 			if (g_status > 255)
 				g_status = 255;
@@ -44,7 +50,7 @@ void	ft_exit(char **inputs, t_data *data)
 				g_status = 255;
 		}
 		else
-			ft_error("\t\tminishell: numeric argument is required\n", 2);
+			error_sentence("\t\tminishell: numeric argument is required\n", 2);
 	}
 	free_env(inputs);
 	free(data->pwd);

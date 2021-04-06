@@ -5,58 +5,59 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/30 15:03:32 by dpiedra           #+#    #+#              #
-#    Updated: 2021/04/05 17:00:29 by dpiedra          ###   ########.fr        #
+#    Created: 2021/04/06 14:48:03 by dpiedra           #+#    #+#              #
+#    Updated: 2021/04/06 14:53:43 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-SRCS	= main.c
-
-SRCS	+= parser/parsing.c parser/parsing_split.c parser/parsing_special.c parser/parsing_var.c parser/parsing_redir.c
-
-SRCS	+= parser/parsing_utils.c parser/parsing_error.c parser/parsing_exits.c parser/redir_utils.c
-
-SRCS	+= builtins/ft_echo.c builtins/ft_pwd.c builtins/cd_utils.c builtins/ft_cd.c builtins/ft_execute.c builtins/execute_utils.c
-
-SRCS	+= builtins/ft_env.c builtins/ft_export.c builtins/ft_unset.c builtins/ft_pipe.c builtins/ft_signal.c builtins/ft_exit.c
-
-LIBFT	= libft/libft.a
-
-OBJS	= $(SRCS:.c=.o)
 
 NAME	= minishell
 
 LIBFT	= libft/libft.a
 
-CLANG	= clang
+RM		= rm -rf
 
 FLAGS	= -Wall -Wextra -Werror
 
-INCLUDE	= -L libft -lft
+CLANG	= clang
 
+SRCS	= main.c parser/handle_basic.c parser/input_split.c parser/input_split2.c \
+		  parser/parser_delegator.c parser/parser_error.c parser/parser_redir.c   \
+		  parser/parser_redir2.c parser/parser_redir3.c parser/parser_variable.c  \
+		  parser/parser.c parser/parser2.c builtins/cd_utils.c builtins/cd.c      \
+		  builtins/echo.c builtins/env.c builtins/exec_utils.c builtins/exec.c 	  \
+		  builtins/exit.c builtins/export_utils.c builtins/export.c builtins/pwd.c \
+		  builtins/pipe.c builtins/signal.c builtins/unset.c
 
+# SRCS	= main.c parser/parsing.c parser/parsing_utils.c builtins/ft_signal.c \
+# 		  parser/parsing_split.c parser/parsing_special.c builtins/ft_echo.c  \
+# 		  builtins/ft_pwd.c builtins/ft_env.c builtins/ft_cd.c \
+# 		  builtins/ft_unset.c builtins/cd_utils.c parser/parsing_error.c \
+# 		  parser/parsing_var.c parser/parsing_redir.c parser/parsing_exits.c \
+# 		  builtins/ft_execute.c builtins/execute_utils.c builtins/ft_pipe.c \
+# 		  parser/redir_utils.c builtins/ft_exit.c builtins/ft_export.c \
+
+OBJS	= $(SRCS:.c=.o)
 
 
 all:	$(NAME)
 
-.PHONY:	clean fclean re bonus bench bclean
+.PHONY:	clean fclean re
 
 $(NAME): $(OBJS)
 	cd libft && $(MAKE)
-	$(CLANG) $(FLAGS) -o $(NAME) $(OBJS) $(INCLUDE)
+	$(CLANG) $(FLAGS) -o $(NAME) $(OBJS) -L libft -lft
 
 clean:
-	rm -f $(OBJS) $(B_OBJS)
+	$(RM) $(OBJS)
 	cd libft && $(MAKE) clean
 
 fclean: clean
-	rm -f $(NAME) $(BONUS)
+	$(RM) $(NAME)
 	cd libft && $(MAKE) fclean
 
 re: fclean all
 
 %.o: %.c
 	$(CLANG) $(FLAGS) -c $<  -o $(<:.c=.o)
-
-
+	
 # valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt ./minishell

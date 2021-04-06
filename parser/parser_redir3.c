@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   parser_redir3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/01 15:06:56 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 17:25:58 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/02/03 15:01:15 by gsmets            #+#    #+#             */
+/*   Updated: 2021/02/03 15:01:31 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-void	ft_pwd(t_data *data)
+void		should_escape(int *i, char *str)
 {
-	ft_putstr(data->pwd);
-	ft_putstr("\n");
-	g_status = 0;
+	if (str[(*i)] == '\\')
+		(*i)++;
 }

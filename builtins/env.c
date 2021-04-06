@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 15:42:18 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/14 15:03:40 by tpons             #+#    #+#             */
+/*   Updated: 2021/01/30 14:35:50 by tpons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	replace_var(char *new_pwd, t_data *data, int index)
+void	free_env(char **env)
 {
-	if (ft_strchr(new_pwd, '='))
-	{
-		free(data->env[index]);
-		data->env[index] = ft_strdup(new_pwd);
-	}
+	int	i;
+	int	env_len;
+
+	i = 0;
+	env_len = envlen(env);
+	while (i < env_len)
+		free(env[i++]);
+	free(env);
 }
 
-int		env_len(char **env)
+int		envlen(char **env)
 {
 	int	i;
 
@@ -31,25 +34,25 @@ int		env_len(char **env)
 	return (++i);
 }
 
-char	**get_env(char **env)
+char	**dup_env(char **env)
 {
-	char	**new_env;
+	char	**data_env;
 	int		i;
 
 	i = 0;
-	new_env = malloc(sizeof(char *) * env_len(env));
-	if (!new_env)
+	data_env = malloc(sizeof(char *) * envlen(env));
+	if (!data_env)
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{
-		new_env[i] = ft_strdup(env[i]);
+		data_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	new_env[i] = 0;
-	return (new_env);
+	data_env[i] = 0;
+	return (data_env);
 }
 
-void	ft_env(char **env)
+void	handle_env(char **env)
 {
 	int		i;
 	int		j;
