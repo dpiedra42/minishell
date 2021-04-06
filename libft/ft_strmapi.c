@@ -5,30 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 16:41:47 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:12:04 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/11/12 15:59:19 by dpiedra           #+#    #+#             */
+/*   Updated: 2019/11/18 14:25:07 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *str, char (*f)(unsigned int, char))
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t			len;
-	char			*newstr;
 	unsigned int	i;
+	char			*snew;
 
-	if (!str || !f)
+	if (!s || !f)
 		return (NULL);
-	len = ft_strlen(str);
-	if (!(newstr = malloc((len + 1) * sizeof(char))))
+	if (!(snew = malloc(sizeof(char) * (ft_strlen(s)) + 1)))
 		return (NULL);
 	i = 0;
-	while (str[i])
+	while (s[i] != '\0')
 	{
-		newstr[i] = (*f)(i, str[i]);
+		snew[i] = (*f)(i, s[i]);
 		i++;
 	}
-	newstr[i] = '\0';
-	return (newstr);
+	snew[i] = '\0';
+	return (snew);
 }

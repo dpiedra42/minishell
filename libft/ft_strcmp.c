@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 11:16:28 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:11:30 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/02/25 12:30:56 by dpiedra           #+#    #+#             */
+/*   Updated: 2021/03/04 16:59:50 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_strcmp(const char *str1, const char *str2)
 {

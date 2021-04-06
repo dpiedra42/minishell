@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 14:54:32 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 15:17:29 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,8 @@ void			handle_exit(char **inputs, t_data *data);
 
 #endif
 
-// void			ft_sigiq(int sig);
 // void			ft_signal(void);
 // void			signal_exec(void);
-// void			exec_sigiq(int sig);
 
 // int				ft_parse(char *command, t_data *data);
 // char			*clean_command(char *command);
@@ -108,7 +106,6 @@ void			handle_exit(char **inputs, t_data *data);
 // int				parser_filter(char *command, t_data *data, int pipe);
 
 // void			quote_len(char **command, int *i, char quote);
-// void			copy_quote(char **command, char **new_com, char quote);
 // void			escape_input(char **new_com, char **command);
 // int				command_directory(char *command, t_data *data, int pipe);
 // void			choose_builtin(char **inputs, t_data *data);

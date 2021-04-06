@@ -5,21 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 18:35:31 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:11:13 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/11/12 18:04:15 by dpiedra           #+#    #+#             */
+/*   Updated: 2021/04/02 14:35:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-void	ft_putstr_fd(char *str, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	int count;
 
-	if (str == NULL)
+	if (s == NULL)
 		return ;
 	count = 0;
-	while (str[count])
+	while (s[count])
 		count++;
-	write(fd, str, count);
+	write(fd, s, count);
 }

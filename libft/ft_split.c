@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 17:05:09 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:11:22 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/11/11 16:30:42 by dpiedra           #+#    #+#             */
+/*   Updated: 2021/03/29 13:41:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,27 @@ static char		*newsplit(char const *str, char c)
 	return (ptr);
 }
 
-char			**ft_split(char const *str, char c)
+char			**ft_split(char const *s, char c)
 {
 	char	**tab;
 	size_t	count;
 	size_t	i;
 
-	if (str == NULL)
+	if (s == NULL)
 		return (NULL);
-	count = stringcount(str, c);
+	count = stringcount(s, c);
 	tab = malloc((count + 1) * sizeof(char *));
 	if (!tab)
 		return (NULL);
 	i = 0;
 	while (i < count)
 	{
-		while (*str == c)
-			str++;
-		if (!(tab[i++] = newsplit(str, c)))
+		while (*s == c)
+			s++;
+		if (!(tab[i++] = newsplit(s, c)))
 			return (NULL);
-		while (*str != c && *str)
-			str++;
+		while (*s != c && *s)
+			s++;
 	}
 	tab[i] = NULL;
 	return (tab);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 11:47:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:11:52 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/11/08 14:47:06 by dpiedra           #+#    #+#             */
+/*   Updated: 2021/03/31 12:50:09 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*new;
+	char	*sjoin;
 	size_t	len1;
 	size_t	len2;
 
@@ -22,11 +22,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	new = malloc((len1 + len2 + 1) * sizeof(char));
-	if (!new)
+	if (!(sjoin = malloc(sizeof(char) * (len1 + len2 + 1))))
 		return (NULL);
-	ft_memmove(new, s1, len1);
-	ft_memmove(&new[len1], s2, len2);
-	new[len1 + len2] = '\0';
-	return (new);
+	ft_memmove(sjoin, s1, len1);
+	ft_memmove(sjoin + len1, s2, len2);
+	sjoin[len1 + len2] = '\0';
+	return (sjoin);
 }

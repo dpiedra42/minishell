@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/14 12:20:07 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:12:38 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/31 15:28:52 by dpiedra           #+#    #+#             */
+/*   Updated: 2021/04/02 15:18:01 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ char	*ft_strappend(char *str, char c)
 	int		len;
 	char	*new;
 	int		i;
-	int		buflen;
 
 	len = ft_strlen(str);
-	buflen = 0;
 	i = 0;
-	new = malloc((len + 2) * sizeof(char));
-	if (!new)
+	if (!(new = malloc((len + 2) * sizeof(char))))
 		exit(EXIT_FAILURE);
 	while (str[i])
 	{

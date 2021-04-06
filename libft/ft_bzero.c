@@ -5,14 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 10:51:12 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:07:59 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/11/05 16:30:56 by dpiedra           #+#    #+#             */
+/*   Updated: 2019/11/18 14:22:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *str, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	ft_memset(str, 0, n);
+	unsigned char *a;
+
+	a = (unsigned char *)s;
+	while (n--)
+	{
+		*a = 0;
+		a++;
+	}
 }

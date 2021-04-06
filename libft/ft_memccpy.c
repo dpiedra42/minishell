@@ -5,31 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 11:05:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/02 17:10:05 by dpiedra          ###   ########.fr       */
+/*   Created: 2019/11/06 13:18:06 by dpiedra           #+#    #+#             */
+/*   Updated: 2019/11/18 14:22:56 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned char *ptr1;
-	unsigned char *ptr2;
-	unsigned char stop;
+	unsigned char *dest;
+	unsigned char *source;
 
-	stop = (unsigned char)c;
-	if (dest == NULL && src == NULL)
-		return (NULL);
-	ptr1 = (unsigned char *)dest;
-	ptr2 = (unsigned char *)src;
-	while (n-- && *ptr2 != stop)
-		*(ptr1++) = *(ptr2++);
-	if (*ptr2 == stop)
+	dest = (unsigned char *)dst;
+	source = (unsigned char *)src;
+	while (n--)
 	{
-		*(ptr1++) = stop;
-		return (ptr1);
+		if (*source == (unsigned char)c)
+		{
+			*dest = *source;
+			return (dest + 1);
+		}
+		else
+			*dest = *source;
+		dest++;
+		source++;
 	}
-	else
-		return (NULL);
+	return (NULL);
 }
