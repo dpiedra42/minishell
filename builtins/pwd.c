@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 16:10:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 17:20:04 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/11 17:48:49 by tpons             #+#    #+#             */
+/*   Updated: 2021/02/04 18:58:36 by tpons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_echo(char **inputs)
-{
-	int i;
-	int flag;
+/*
+** Function handle_pwd :
+*/
 
-	i = 1;
-	flag = 0;
+void	handle_pwd(t_data *data)
+{
+	ft_putstr(data->pwd);
+	ft_putstr("\n");
 	g_status = 0;
-	while (inputs[i] && !ft_strcmp(inputs[i], "-n") && i++)
-		flag = 1;
-	while (inputs[i])
-	{
-		write(1, inputs[i], ft_strlen(inputs[i]));
-		if (inputs[i + 1])
-			write(1, " ", 1);
-		i++;
-	}
-	if (!flag)
-		write(1, "\n", 1);
 }

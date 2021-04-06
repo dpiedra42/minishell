@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 18:26:24 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
+/*   Updated: 2021/02/05 16:26:37 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdint.h>
 # include <sys/ioctl.h>
 
-# include <string.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -28,12 +28,12 @@
 # include <dirent.h>
 # include "libft/libft.h"
 
-typedef struct	s_data
+typedef	struct	s_data
 {
-	char		*pwd;
 	char		**env;
 	int			fd_in;
 	int			fd_out;
+	char		*pwd;
 	int			redir;
 }				t_data;
 
@@ -41,57 +41,57 @@ int				g_status;
 char			*g_user_input;
 int				g_quit;
 
-void			ft_signal(void);
-void			signal_exec(void);
-
-int				ft_parse(char *input, t_data *data);
-char			*clean_command(char *command);
-void			copy_command(char *new_com, char *command);
-
-void			ft_escape(int *i, char *str);
-void			quote_len(char **command, int *i, char quote);
-void			escape_input(char **new_com, char **command);
-
-void			find_variable(char **command, int *i, t_data *data);
-
-int				ft_redir(char **command, t_data *data);
-void			choose_redir(char **com, int i, t_data *data);
-char			*get_file(char *str, int *j);
-void			delete_redir(char **com, int i, int j);
-int				filename_len(char *str);
-
-int				parse_error(char *command);
-
-int				parser_filter(char *command, t_data *data, int pipe);
-
-char			**split_command(char *command);
-void			copy_split(char *command, char *new_com, char quote);
-
-int				command_directory(char *command, t_data *data, int pipe);
-void			close_fd(t_data *data);
-
-void			ft_cd(char **input, t_data *data);
-
-void			ft_echo(char **inputs);
-void			ft_env(char **env);
-char			**copy_env(char **env);
-int				e_len(char **env);
+int				envlen(char **env);
 void			free_env(char **env);
-int				env_index(char *id, t_data *data);
+char			**dup_env(char **env);
+void			close_fds(t_data *data);
 
-void			ft_exec(char **inputs, t_data *data);
+int				parser_start(char *str, t_data *data);
+void			quote_len(char **str, int *i, char quote);
+char			**input_split(char *str);
+
+int				handle_basic(char *clean_input, t_data *data, int piped);
+void			handle_echo(char **args);
+void			handle_cd(char **args, t_data *data);
+void			handle_unset(char **inputs, t_data *data);
+
+char			**export_env(char **old_env, char *export);
+void			handle_env(char **env);
+
+int				change_pwd(t_data *data, char *input);
+void			handle_pwd(t_data *data);
+
+int				is_relative(char *str);
+char			**gen_paths(int index, t_data *data, char *input);
 int				check_exec(char **inputs, t_data *data);
+void			handle_exec(char **args, t_data *data);
 
-void			ft_exit(char **inputs, t_data *data);
-void			ft_error(char *str, int status);
+void			replace_var(char *new_var, t_data *data, int index);
+int				var_index(char *name, t_data *data);
+int				print_export(char **env);
+int				check_export(char *str);
+char			**copy_export_env(char **env);
+void			handle_export(char **args, t_data *data);
 
-void			ft_export(char **inputs, t_data *data);
-char			**exp_env(char **env, char *exp);
-void			replace_var(char *new_var, t_data *data, int id);
-int				put_exp(char **env);
-int				check_exp(char *str);
+int				handle_pipe(char *input1, char *input2, t_data *data);
+int				parser_delegator(char *input, t_data *data, int piped);
+int				parser_error(char *str);
+void			parser_variable(char **input_address, int *i, t_data *data);
+int				parser_redir(char **input_address, t_data *data);
+void			should_escape(int *i, char *str);
+void			handle_redir(char **input_address, int i, t_data *data);
+void			remove_redir_input(char **input_address, int i, int j);
+int				get_name_len(char *str);
+char			*get_filename(char *str, int *j);
+void			input_copy(char *dst, char *src);
+char			*input_cleaner(char *str);
+void			copy_newsplit(char *src, char *dst, char quote);
+void			escape_char(char **dst, char **src);
 
-int				ft_pipe(char *command, char *new_com, t_data *data);
-void			ft_unset(char **inputs, t_data *data);
+void			sig_exec_init(void);
+void			sig_init(void);
+
+void			error_sentence(char *str, int status);
+void			handle_exit(char **inputs, t_data *data);
 
 #endif

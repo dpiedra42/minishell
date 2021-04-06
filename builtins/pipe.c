@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe.c                                          :+:      :+:    :+:   */
+/*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 15:50:16 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/06 17:51:06 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/05 16:02:28 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_parent(char *new_com, t_data *data, int pid, int *fd)
+void	handle_parentps(char *input2, t_data *data, int pid, int *fds)
 {
 	int		oldfd;
 	int		status;
@@ -22,37 +22,37 @@ void	ft_parent(char *new_com, t_data *data, int pid, int *fd)
 	free(g_user_input);
 	g_user_input = NULL;
 	oldfd = dup(0);
-	dup2(fd[0], 0);
-	close(fd[0]);
-	close(fd[1]);
-	ft_parse(new_com, data);
+	dup2(fds[0], 0);
+	close(fds[0]);
+	close(fds[1]);
+	parser_start(input2, data);
 	dup2(oldfd, 0);
 	close(oldfd);
 }
 
-int		ft_pipe(char *command, char *new_com, t_data *data)
+int		handle_pipe(char *input1, char *input2, t_data *data)
 {
 	pid_t	pid;
-	int		fd[2];
+	int		fds[2];
 
-	if (pipe(fd) < 0)
+	if (pipe(fds) < 0)
 		exit(EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
 	{
-		free(new_com);
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
-		command_directory(command, data, 1);
+		free(input2);
+		dup2(fds[1], 1);
+		close(fds[0]);
+		close(fds[1]);
+		handle_basic(input1, data, 1);
 	}
 	else if (pid < 0)
 		exit(EXIT_FAILURE);
 	else
 	{
-		free(command);
-		command = NULL;
-		ft_parent(new_com, data, pid, fd);
+		free(input1);
+		input1 = NULL;
+		handle_parentps(input2, data, pid, fds);
 	}
 	return (1);
 }

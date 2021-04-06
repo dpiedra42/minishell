@@ -1,56 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:11:02 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 16:37:48 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/03 14:39:41 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_escape(int *i, char *str)
+void			quote_len(char **str, int *i, char quote)
 {
-	if (str[(*i)] == '\\')
-		(*i)++;
-}
+	int slash_count;
 
-void			quote_len(char **command, int *i, char quote)
-{
-	int slash;
-
-	while (**command != quote && **command)
+	while (**str != quote && **str)
 	{
-		slash = 0;
-		while (quote == '"' && **command == '\\')
+		slash_count = 0;
+		while (quote == '"' && **str == '\\')
 		{
 			(*i)++;
-			(*command)++;
-			slash++;
+			(*str)++;
+			slash_count++;
 		}
-		if (slash && !(slash % 2))
+		if (slash_count && !(slash_count % 2))
 		{
-			(*command)--;
+			(*str)--;
 			(*i)--;
 		}
 		(*i)++;
-		(*command)++;
+		(*str)++;
 	}
 }
 
-void			escape_input(char **new_com, char **command)
+void			escape_char(char **dst, char **src)
 {
 	char	quote;
 
-	(*command)++;
-	if (**command == '\'')
+	(*src)++;
+	if (**src == '\'')
 		quote = '"';
 	else
 		quote = '\'';
-	*((*new_com)++) = quote;
-	*((*new_com)++) = *((*command)++);
-	*((*new_com)++) = quote;
+	*((*dst)++) = quote;
+	*((*dst)++) = *((*src)++);
+	*((*dst)++) = quote;
 }

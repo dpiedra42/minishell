@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:32:04 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/06 17:53:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/04 14:18:01 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_sigiq(int sig)
+void	handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -27,15 +27,15 @@ void	ft_sigiq(int sig)
 		write(2, "\b\b  \b\b", 6);
 }
 
-void	ft_signal(void)
+void	sig_init(void)
 {
-	if (signal(SIGINT, ft_sigiq) == SIG_ERR)
+	if (signal(SIGINT, handle_sig) == SIG_ERR)
 		exit(EXIT_FAILURE);
-	else if (signal(SIGQUIT, ft_sigiq) == SIG_ERR)
+	else if (signal(SIGQUIT, handle_sig) == SIG_ERR)
 		exit(EXIT_FAILURE);
 }
 
-void	exec_sigiq(int sig)
+void	handle_exec_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -52,10 +52,10 @@ void	exec_sigiq(int sig)
 	}
 }
 
-void	signal_exec(void)
+void	sig_exec_init(void)
 {
-	if (signal(SIGINT, exec_sigiq) == SIG_ERR)
+	if (signal(SIGINT, handle_exec_sig) == SIG_ERR)
 		exit(EXIT_FAILURE);
-	else if (signal(SIGQUIT, exec_sigiq) == SIG_ERR)
+	else if (signal(SIGQUIT, handle_exec_sig) == SIG_ERR)
 		exit(EXIT_FAILURE);
 }

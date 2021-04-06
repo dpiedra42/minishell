@@ -1,64 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_error.c                                    :+:      :+:    :+:   */
+/*   parser_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 13:31:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 16:43:48 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/02/03 14:49:32 by gsmets           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		redir_error(char *com, int *i, char c)
+int		error_redir(char *str, int *i, char c)
 {
 	int count;
 
 	count = 0;
-	while (com[(*i)] == c)
+	while (str[(*i)] == c)
 	{
 		count++;
 		(*i)++;
 	}
 	if ((c == '>' && count > 2) || (c == '<' && count > 1))
 		return (1);
-	while (com[(*i)] == ' ')
+	while (str[(*i)] == ' ')
 		(*i)++;
-	if (!com[(*i)])
+	if (!str[(*i)])
 		return (1);
 	return (0);
 }
 
-void	skip_quotes(char *command, int *i)
+void	skip_quotes(char *str, int *i)
 {
 	char quote;
 
-	quote = command[(*i)++];
-	while (command[(*i)] != quote)
+	quote = str[(*i)++];
+	while (str[(*i)] != quote)
 	{
-		if (command[(*i)] == '\\' && quote == '"')
+		if (str[(*i)] == '\\' && quote == '"')
 			(*i) += 2;
 		else
 			(*i)++;
 	}
 }
 
-int		parse_error(char *command)
+int		parser_error(char *str)
 {
 	int i;
 
 	i = 0;
-	while (command[i])
+	while (str[i])
 	{
-		if (command[i] == '\\')
+		if (str[i] == '\\')
 			i += 2;
-		if (command[i] == '"' || command[i] == '\'')
-			skip_quotes(command, &i);
-		if (command[i] == '>' || command[i] == '<')
+		if (str[i] == '"' || str[i] == '\'')
+			skip_quotes(str, &i);
+		if (str[i] == '>' || str[i] == '<')
 		{
-			if (redir_error(command, &i, command[i]))
+			if (error_redir(str, &i, str[i]))
 			{
 				g_status = 1;
 				ft_putstr_fd("Error: wrong or unsupported redirection\n", 2);

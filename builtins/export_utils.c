@@ -3,41 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:35:31 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/06 17:55:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/01/30 16:58:45 by tpons            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		check_exp(char *input)
+int		check_export(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(input[i]))
+	if (ft_isdigit(str[i]))
 		return (0);
-	while (input[i] && input[i] != '=')
+	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalnum(input[i]) && input[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int		put_exp(char **env)
+int		print_export(char **env)
 {
 	int	i;
 	int j;
-	int	sign;
+	int	equal;
 
 	i = -1;
 	while (env[++i])
 	{
-		sign = 1;
+		equal = 1;
 		j = 0;
 		ft_putstr("declare -x ");
 		while (env[i][j])
@@ -46,11 +46,11 @@ int		put_exp(char **env)
 			env[i][j] == '\"')
 				write(1, "\\", 1);
 			write(1, &env[i][j], 1);
-			if (env[i][j] == '=' && sign-- == 1)
+			if (env[i][j] == '=' && equal-- == 1)
 				write(1, "\"", 1);
 			j++;
 		}
-		if (sign != 1)
+		if (equal != 1)
 			write(1, "\"", 1);
 		write(1, "\n", 1);
 	}
