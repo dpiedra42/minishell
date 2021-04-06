@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:45:17 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 15:09:44 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:37:39 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_eof(char *input, t_data *data)
 
 void	init_data(t_data *data, char **env)
 {
-	data->env = get_env(env);
+	data->env = copy_env(env);
 	data->pwd = getcwd(NULL, 0);
 	data->redir = 1;
 	data->fd_in = 0;

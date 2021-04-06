@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 17:55:17 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:42:24 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void			choose_builtin(char **inputs, t_data *data);
 
 void			ft_cd(char **input, t_data *data);
 int				cd_reg(char **input, t_data *data);
-int				cd_alone(t_data *data);
+int				cd_empty(t_data *data);
 int				cd_minus(t_data *data);
 int				change_dir(t_data *data, char *str);
 void			set_oldpwd(t_data *data);
@@ -120,5 +120,6 @@ int				ft_pipe(char *command, char *new_com, t_data *data);
 void			ft_parent(char *new_com, t_data *data, int pid, int *fd);
 void			ft_unset(char **inputs, t_data *data);
 char			**unset_env(char **env, int id);
+void			ft_pwd(t_data *data);
 
 #endif

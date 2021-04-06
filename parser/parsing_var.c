@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 16:27:11 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:43:26 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char		*copy_value(char *name)
 	int		i;
 	int		j;
 
-	maxlen = ft_namelen(name) * 2;
+	maxlen = ft_strlen(name) * 2;
 	value = malloc((maxlen + 1) * sizeof(char));
 	i = 0;
 	j = 0;

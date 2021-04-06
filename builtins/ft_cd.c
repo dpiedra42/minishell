@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:15:19 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/06 17:14:20 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:42:00 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		cd_minus(t_data *data)
 	return (1);
 }
 
-int		cd_alone(t_data *data)
+int		cd_empty(t_data *data)
 {
 	if (env_index("HOME=", data) < 0 ||
 	chdir((strchr(data->env[env_index("HOME=", data)], '=') + 1)) == -1)
