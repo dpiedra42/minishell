@@ -5,43 +5,55 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/08 17:41:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 18:38:14 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/06 16:27:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	escape_char(char *src, char *dst, int *i, int *j)
+static int		file_len(char *command)
+{
+	int len;
+
+	len = 0;
+	while (ft_isalnum(command[len]) || command[len] == '_')
+		len++;
+	if (!len && command[len] == '?')
+		return (1);
+	return (len);
+}
+
+static void		escape_char(char *src, char *dst, int *i, int *j)
 {
 	dst[(*j)++] = '\\';
 	dst[(*j)++] = src[(*i)++];
 }
 
-static char	*copy_val(char *name)
+static char		*copy_value(char *name)
 {
 	int		maxlen;
-	char	*val;
+	char	*value;
 	int		i;
 	int		j;
 
-	maxlen = ft_strlen(name) * 2;
-	val = malloc((maxlen + 1) * sizeof(char));
+	maxlen = ft_namelen(name) * 2;
+	value = malloc((maxlen + 1) * sizeof(char));
 	i = 0;
 	j = 0;
 	while (name[i])
 	{
 		if (name[i] == '\\' || name[i] == '$' || name[i] == '"' ||
 			name[i] == '\'' || name[i] == '>' || name[i] == '<')
-			escape_char(name, val, &i, &j);
+			escape_char(name, value, &i, &j);
 		else
-			val[j++] = name[i++];
+			value[j++] = name[i++];
 	}
-	val[j] = '\0';
-	return (val);
+	value[j] = '\0';
+	return (value);
 }
 
-static char	*get_val(char *var_name, t_data *data)
+static char		*get_val(char *var_name, t_data *data)
 {
 	char	**env;
 	int		i;
@@ -60,25 +72,13 @@ static char	*get_val(char *var_name, t_data *data)
 			j++;
 		}
 		if (env[i][j] == '=' && !var_name[k])
-			return (copy_val(&env[i][j + 1]));
+			return (copy_value(&env[i][j + 1]));
 		i++;
 	}
 	return (NULL);
 }
 
-static int	file_len(char *command)
-{
-	int len;
-
-	len = 0;
-	while (ft_isalnum(command[len]) || command[len] == '_')
-		len++;
-	if (!len && command[len] == '?')
-		return (1);
-	return (len);
-}
-
-void		find_variable(char **command, int *i, t_data *data)
+void			find_variable(char **command, int *i, t_data *data)
 {
 	int		len;
 	char	*var_val;

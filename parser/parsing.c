@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/31 16:42:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 15:20:00 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/06 16:19:09 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		copy_command(char *new_com, char *command)
+void			copy_quote(char **command, char **new_com, char quote)
+{
+	int slash_count;
+
+	while (**command != quote)
+	{
+		slash_count = 0;
+		while (**command == '\\' && quote == '"')
+		{
+			*((*new_com)++) = *((*command)++);
+			slash_count++;
+		}
+		if (slash_count && !(slash_count % 2))
+			*((*new_com)--) = *((*command)--);
+		*((*new_com)++) = *((*command)++);
+	}
+}
+
+void			copy_command(char *new_com, char *command)
 {
 	char	quote;
 
 	while (*command)
 	{
-		if (*command == ' ' && (*(command + 1) == ' ' ||
-			*(command + 1) == '\0'))
+		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
 			command++;
 		else if (*command == '"' || *command == '\'')
 		{
@@ -36,7 +53,7 @@ void		copy_command(char *new_com, char *command)
 	*new_com = '\0';
 }
 
-static int	find_len(char *command)
+static int		find_len(char *command)
 {
 	int		i;
 	char	quote;
@@ -44,8 +61,7 @@ static int	find_len(char *command)
 	i = 0;
 	while (*command)
 	{
-		if (*command == ' ' && (*(command + 1) == ' ' ||
-			*(command + 1) == '\0'))
+		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
 			command++;
 		else if (*command == '\\' && (command += 2))
 			i += 4;
@@ -64,28 +80,28 @@ static int	find_len(char *command)
 	return (i);
 }
 
-char		*clean_command(char *command)
+char			*clean_command(char *command)
 {
 	int		len;
-	char	*new_com;
+	char	*clean_com;
 
 	while (*command == ' ' && *command)
 		command++;
 	len = find_len(command);
 	if (len == -1)
 		return (0);
-	new_com = (char *)malloc((len + 1) * sizeof(char));
-	if (!new_com)
+	clean_com = (char *)malloc((len + 1) * sizeof(char));
+	if (!clean_com)
 		exit(EXIT_FAILURE);
-	copy_command(new_com, command);
-	return (new_com);
+	copy_command(clean_com, command);
+	return (clean_com);
 }
 
-int			ft_parse(char *command, t_data *data)
+int				ft_parse(char *input, t_data *data)
 {
 	char	*clean_com;
 
-	clean_com = clean_command(command);
+	clean_com = clean_command(input);
 	g_user_input = NULL;
 	if (clean_com == 0)
 	{

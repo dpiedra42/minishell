@@ -5,33 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/08 13:13:23 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 18:51:12 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/31 13:31:30 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/06 16:43:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		redir_error(char *command, int *i, char redir)
-{
-	int count;
-
-	count = 0;
-	while (command[(*i)] == redir)
-	{
-		count++;
-		(*i)++;
-	}
-	if ((redir == '>' && count > 2) || (redir == '<' && count > 1))
-		return (1);
-	while (command[(*i)] == ' ')
-		(*i)++;
-	if (!command[(*i)])
-		return (1);
-	return (0);
-}
-
-int		error_redir(char *com, int *i, char c)
+int		redir_error(char *com, int *i, char c)
 {
 	int count;
 

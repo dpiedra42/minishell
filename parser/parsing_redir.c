@@ -5,37 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/10 13:55:20 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 19:10:59 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/06 16:36:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	redir_from(char *str, int i, char **com, t_data *data)
+void	redir_append(char *str, int i, char **com, t_data *data)
 {
 	char	*file;
 	int		fd;
 	int		j;
 
 	j = i;
+	j++;
 	if (str[j + 1] == ' ')
 		j++;
 	file = get_file(&(str[j + 1]), &j);
-	del_redir(com, i, j);
-	fd = open(file, O_RDONLY);
+	delete_redir(com, i, j);
+	fd = open(file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	free(file);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
+		ft_putstr_fd("Error: wrong permissions\n", 2);
 		g_status = 1;
 		data->redir = 0;
 		return ;
 	}
-	dup2(fd, 0);
-	if (data->fd_in != 0)
-		close(data->fd_in);
-	data->fd_in = fd;
+	dup2(fd, 1);
+	if (data->fd_out != 1)
+		close(data->fd_out);
+	data->fd_out = fd;
 	ft_redir(com, data);
 }
 
@@ -49,7 +50,7 @@ void	redir_into(char *str, int i, char **com, t_data *data)
 	if (str[j + 1] == ' ')
 		j++;
 	file = get_file(&(str[j + 1]), &j);
-	del_redir(com, i, j);
+	delete_redir(com, i, j);
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	free(file);
 	if (fd < 0)
@@ -99,7 +100,7 @@ void		redir_quotes(char *str, int *i, char quote)
 	}
 }
 
-int		ft_redir(char **command, t_data *data)
+int			ft_redir(char **command, t_data *data)
 {
 	int		i;
 	char	*str;

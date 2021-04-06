@@ -1,45 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_split.c                                    :+:      :+:    :+:   */
+/*   input_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 17:57:55 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 19:22:50 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/11 17:50:50 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/06 16:54:06 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char		*next_input(char *command)
-{
-	char	quote;
-	int		slash;
-
-	command--;
-	while (*(++command))
-	{
-		if (*command == '"' || *command == '\'')
-		{
-			quote = *(command++);
-			while (*command != quote)
-			{
-				slash = 0;
-				while (*command == '\\' && quote == '"' && ++slash)
-					command++;
-				if (slash && !(slash % 2))
-					command--;
-				command++;
-			}
-		}
-		if (*command == ' ')
-			return (command + 1);
-	}
-	return (command);
-}
-
-void			copy_split(char *command, char *new_com, char quote)
+void	copy_split(char *command, char *new_com, char quote)
 {
 	while (*command != ' ' && *command)
 	{
@@ -68,47 +41,75 @@ void			copy_split(char *command, char *new_com, char quote)
 	*new_com = '\0';
 }
 
-char			*new_str(char *commands)
+static char		*next_input(char *command)
+{
+	char	quote;
+	int		slash_count;
+
+	command--;
+	while (*(++command))
+	{
+		if (*command == '"' || *command == '\'')
+		{
+			quote = *(command++);
+			while (*command != quote)
+			{
+				slash_count = 0;
+				while (*command == '\\' && quote == '"' && ++slash_count)
+					command++;
+				if (slash_count && !(slash_count % 2))
+					command--;
+				command++;
+			}
+		}
+		if (*command == ' ')
+			return (command + 1);
+	}
+	return (command);
+}
+
+static size_t	string_num(char *command)
+{
+	int		i;
+	char	quote;
+	int		slash_count;
+
+	i = 1;
+	command--;
+	while (*(++command))
+	{
+		if (*command == '"' || *command == '\'')
+		{
+			quote = *(command++);
+			while (*command != quote)
+			{
+				slash_count = 0;
+				while (*command == '\\' && quote == '"' && ++slash_count)
+					command++;
+				if (slash_count && !(slash_count % 2))
+					command--;
+				command++;
+			}
+		}
+		if (*command == ' ')
+			i++;
+	}
+	return (i);
+}
+
+char			*new_str(char *command)
 {
 	int		len;
 	char	*new_com;
 	char	quote;
 
 	quote = 0;
-	len = ft_strlen(commands);
-	if (!(new_com = malloc(sizeof(char) * (len + 1))))
+	len = ft_strlen(command);
+	new_com = malloc((len + 1) * sizeof(char));
+	if (!new_com)
 		exit(EXIT_FAILURE);
-	copy_split(commands, new_com, quote);
+	copy_split(command, new_com, quote);
 	return (new_com);
-}
-
-static size_t	string_num(char *commands)
-{
-	int		i;
-	char	quote;
-	int		slash;
-
-	i = 1;
-	commands--;
-	while (*(++commands))
-	{
-		if (*commands == '"' || *commands == '\'')
-		{
-			quote = *(commands++);
-			while (*commands != quote)
-			{
-				slash = 0;
-				while (*commands == '\\' && quote == '"' && ++slash)
-					commands++;
-				if (slash && !(slash % 2))
-					commands--;
-				commands++;
-			}
-		}
-		if (*commands == ' ')
-			i++;
-	}
-	return (i);
 }
 
 char			**split_command(char *command)

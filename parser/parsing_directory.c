@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 15:20:27 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 15:30:13 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
+/*   Updated: 2021/04/06 16:58:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	choose_builtin(char **inputs, t_data *data)
+void		choose_builtin(char **inputs, t_data *data)
 {
 	if (!data->redir)
 	{
@@ -39,7 +39,43 @@ void	choose_builtin(char **inputs, t_data *data)
 	}
 }
 
-int		command_directory(char *command, t_data *data, int pipe)
+void		free_inputs(char **inputs)
+{
+	int	i;
+
+	i = 0;
+	while (inputs[i])
+	{
+		free(inputs[i]);
+		i++;
+	}
+	free(inputs);
+}
+
+void		close_fd(t_data *data)
+{
+	if (data->fd_in != 0)
+	{
+		close(data->fd_in);
+		data->fd_in = 0;
+	}
+	if (data->fd_out != 1)
+	{
+		close(data->fd_out);
+		data->fd_out = 1;
+	}
+}
+
+void		pipe_exit(t_data *data)
+{
+	free_inputs(data->env);
+	if (g_user_input)
+		free(g_user_input);
+	free(data->pwd);
+	exit(EXIT_SUCCESS);
+}
+
+int			command_directory(char *command, t_data *data, int pipe)
 {
 	char	**inputs;
 	int		oldfd[2];
@@ -64,6 +100,6 @@ int		command_directory(char *command, t_data *data, int pipe)
 	close(oldfd[0]);
 	close(oldfd[1]);
 	if (pipe)
-		exit_pipe(data);
+		pipe_exit(data);
 	return (0);
 }
