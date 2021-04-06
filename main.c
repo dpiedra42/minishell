@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/02/05 16:26:56 by gsmets           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:42:31 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	end_of_file(t_data *data, char *user_input)
+void	ft_eof(t_data *data, char *user_input)
 {
 	free_env(data->env);
 	free(user_input);
@@ -50,7 +50,7 @@ int		main(int ac, char **av, char **env)
 		ft_putstr_fd("minishell> ", 2);
 		gnl = get_next_line(0, &g_user_input);
 		if (!gnl)
-			end_of_file(&data, g_user_input);
+			ft_eof(&data, g_user_input);
 		else
 			parser_start(g_user_input, &data);
 	}
