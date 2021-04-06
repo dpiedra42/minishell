@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 17:42:24 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:08:34 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void			signal_exec(void);
 int				ft_parse(char *input, t_data *data);
 char			*clean_command(char *command);
 void			copy_command(char *new_com, char *command);
-void			copy_quote(char **command, char **new_com, char quote);
 
 void			ft_escape(int *i, char *str);
 void			quote_len(char **command, int *i, char quote);
@@ -56,40 +55,22 @@ void			escape_input(char **new_com, char **command);
 void			find_variable(char **command, int *i, t_data *data);
 
 int				ft_redir(char **command, t_data *data);
-void			redir_quotes(char *str, int *i, char quote);
 void			choose_redir(char **com, int i, t_data *data);
-void			redir_into(char *str, int i, char **com, t_data *data);
-void			redir_append(char *str, int i, char **com, t_data *data);
-void			redir_from(char *str, int i, char **com, t_data *data);
 char			*get_file(char *str, int *j);
 void			delete_redir(char **com, int i, int j);
-void			copy_file(char *src, char *dst, int i, int k);
 int				filename_len(char *str);
 
 int				parse_error(char *command);
-void			skip_quotes(char *command, int *i);
-int				redir_error(char *com, int *i, char c);
 
 int				parser_filter(char *command, t_data *data, int pipe);
-int				special_chars(char **command, int *i, t_data *data);
 
 char			**split_command(char *command);
-char			*new_str(char *command);
 void			copy_split(char *command, char *new_com, char quote);
 
 int				command_directory(char *command, t_data *data, int pipe);
-void			pipe_exit(t_data *data);
 void			close_fd(t_data *data);
-void			free_inputs(char **inputs);
-void			choose_builtin(char **inputs, t_data *data);
 
 void			ft_cd(char **input, t_data *data);
-int				cd_reg(char **input, t_data *data);
-int				cd_empty(t_data *data);
-int				cd_minus(t_data *data);
-int				change_dir(t_data *data, char *str);
-void			set_oldpwd(t_data *data);
-void			new_pwd(t_data *data);
 
 void			ft_echo(char **inputs);
 void			ft_env(char **env);
@@ -99,27 +80,18 @@ void			free_env(char **env);
 int				env_index(char *id, t_data *data);
 
 void			ft_exec(char **inputs, t_data *data);
-int				exec(char **inputs, t_data *data);
-int				exec_2(char **inputs, t_data *data);
-char			**make_paths(int id, t_data *data, char *input);
-int				check_path(char **inputs, t_data *data);
 int				check_exec(char **inputs, t_data *data);
 
 void			ft_exit(char **inputs, t_data *data);
-int				check_number(char *str);
 void			ft_error(char *str, int status);
 
 void			ft_export(char **inputs, t_data *data);
-void			export_a(t_data *data);
 char			**exp_env(char **env, char *exp);
 void			replace_var(char *new_var, t_data *data, int id);
 int				put_exp(char **env);
 int				check_exp(char *str);
 
 int				ft_pipe(char *command, char *new_com, t_data *data);
-void			ft_parent(char *new_com, t_data *data, int pid, int *fd);
 void			ft_unset(char **inputs, t_data *data);
-char			**unset_env(char **env, int id);
-void			ft_pwd(t_data *data);
 
 #endif
