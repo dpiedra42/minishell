@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:10:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/01/30 14:31:00 by tpons            ###   ########.fr       */
+/*   Updated: 2021/04/06 18:44:19 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-**In handle_echo :
-**	Expects an array of strings, of which the first is "echo" and last is NULL
-**	should use dup later !!!
-*/
 
 void	handle_echo(char **args)
 {

@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:01:07 by tpons             #+#    #+#             */
-/*   Updated: 2021/02/05 14:16:48 by tpons            ###   ########.fr       */
+/*   Updated: 2021/04/06 18:44:28 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-**	CUT "PATH=" if PATH envVAr exists
-**	split remaining string at every ':'
-**	try executing strjoin(paths[i], inputs[0]) for every path existing
-**	if nothing happend return (error)
-*/
 
 int		execute_2(char **inputs, t_data *data)
 {

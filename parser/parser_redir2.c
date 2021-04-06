@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parser_redir2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gsmets <gsmets@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:14:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/02/05 16:36:00 by gsmets           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:45:41 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void		should_escape(int *i, char *str)
+{
+	if (str[(*i)] == '\\')
+		(*i)++;
+}
 
 int		get_name_len(char *str)
 {

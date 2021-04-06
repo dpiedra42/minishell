@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:48:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/02/04 18:58:36 by tpons            ###   ########.fr       */
+/*   Updated: 2021/04/06 18:44:37 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-** Function handle_pwd :
-*/
 
 void	handle_pwd(t_data *data)
 {

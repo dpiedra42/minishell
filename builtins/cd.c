@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpons <tpons@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:15:19 by tpons             #+#    #+#             */
-/*   Updated: 2021/02/04 21:15:20 by tpons            ###   ########.fr       */
+/*   Updated: 2021/04/06 18:44:14 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-**	In handle_cd :
-**		chdir returns -1 if it fails to change directory
-**		return(0) === error
-*/
 
 int		cd_minus(t_data *data)
 {
