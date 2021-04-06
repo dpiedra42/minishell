@@ -5,23 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/02 17:35:45 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 15:42:18 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/14 15:03:40 by tpons             #+#    #+#             */
+/*   Updated: 2021/04/06 17:46:26 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	replace_var(char *new_pwd, t_data *data, int index)
+int		env_index(char *id, t_data *data)
 {
-	if (ft_strchr(new_pwd, '='))
+	int		y;
+	int		x;
+
+	x = 0;
+	while (data->env[x])
 	{
-		free(data->env[index]);
-		data->env[index] = ft_strdup(new_pwd);
+		y = 0;
+		while (data->env[x][y] && data->env[x][y] == id[y]
+		&& id[y] != '\0' && id[y] != '=' &&
+		data->env[x][y] != '\0' && data->env[x][y] != '=')
+			y++;
+		if ((data->env[x][y] == '\0' || data->env[x][y] == '=') &&
+		(id[y] == '\0' || id[y] == '='))
+			return (x);
+		x++;
 	}
+	return (-1);
 }
 
-int		env_len(char **env)
+void	free_env(char **env)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = e_len(env);
+	while (i < len)
+		free(env[i++]);
+	free(env);
+}
+
+int		e_len(char **env)
 {
 	int	i;
 
@@ -31,13 +55,13 @@ int		env_len(char **env)
 	return (++i);
 }
 
-char	**get_env(char **env)
+char	**copy_env(char **env)
 {
 	char	**new_env;
 	int		i;
 
 	i = 0;
-	new_env = malloc(sizeof(char *) * env_len(env));
+	new_env = malloc(sizeof(char *) * e_len(env));
 	if (!new_env)
 		exit(EXIT_FAILURE);
 	while (env[i])

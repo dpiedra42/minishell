@@ -5,39 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 17:09:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 16:27:30 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/02/03 14:26:22 by tpons             #+#    #+#             */
+/*   Updated: 2021/04/06 17:31:41 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_env(char **env)
-{
-	int	i;
-	int	e_len;
-
-	i = 0;
-	e_len = env_len(env);
-	while (i < e_len)
-		free(env[i++]);
-	free(env);
-}
-
 int		check_path(char **inputs, t_data *data)
 {
 	int			i;
-	int			index;
+	int			id;
 	char		**paths;
 	struct stat	stats;
 
 	stats.st_mode = 0;
 	i = 0;
-	index = env_index("PATH=", data);
+	id = env_index("PATH=", data);
 	if (env_index("PATH=", data) == -1)
 		return (0);
-	index = env_index("PATH=", data);
-	paths = make_paths(index, data, inputs[0]);
+	id = env_index("PATH=", data);
+	paths = make_paths(id, data, inputs[0]);
 	while (paths[i])
 	{
 		stat(paths[i], &stats);

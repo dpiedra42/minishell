@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/11 14:48:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 15:51:47 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/13 15:50:16 by tpons             #+#    #+#             */
+/*   Updated: 2021/04/06 17:51:06 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_parent(char *new_com, t_data *data, int pid, int *fds)
+void	ft_parent(char *new_com, t_data *data, int pid, int *fd)
 {
 	int		oldfd;
 	int		status;
@@ -22,9 +22,9 @@ void	ft_parent(char *new_com, t_data *data, int pid, int *fds)
 	free(g_user_input);
 	g_user_input = NULL;
 	oldfd = dup(0);
-	dup2(fds[0], 0);
-	close(fds[0]);
-	close(fds[1]);
+	dup2(fd[0], 0);
+	close(fd[0]);
+	close(fd[1]);
 	ft_parse(new_com, data);
 	dup2(oldfd, 0);
 	close(oldfd);
@@ -33,17 +33,17 @@ void	ft_parent(char *new_com, t_data *data, int pid, int *fds)
 int		ft_pipe(char *command, char *new_com, t_data *data)
 {
 	pid_t	pid;
-	int		fds[2];
+	int		fd[2];
 
-	if (pipe(fds) < 0)
+	if (pipe(fd) < 0)
 		exit(EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
 	{
 		free(new_com);
-		dup2(fds[1], 1);
-		close(fds[0]);
-		close(fds[1]);
+		dup2(fd[1], 1);
+		close(fd[0]);
+		close(fd[1]);
 		command_directory(command, data, 1);
 	}
 	else if (pid < 0)
@@ -52,7 +52,7 @@ int		ft_pipe(char *command, char *new_com, t_data *data)
 	{
 		free(command);
 		command = NULL;
-		ft_parent(new_com, data, pid, fds);
+		ft_parent(new_com, data, pid, fd);
 	}
 	return (1);
 }

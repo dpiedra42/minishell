@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/04 12:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 19:43:33 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/02/04 17:58:50 by tpons             #+#    #+#             */
+/*   Updated: 2021/04/06 17:17:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,4 @@ int		change_dir(t_data *data, char *str)
 	}
 	free(cwd);
 	return (1);
-}
-
-int		env_index(char *id, t_data *data)
-{
-	int		y;
-	int		x;
-
-	x = 0;
-	while (data->env[x])
-	{
-		y = 0;
-		while (data->env[x][y] && data->env[x][y] == id[y]
-		&& id[y] != '\0' && id[y] != '=' &&
-		data->env[x][y] != '\0' && data->env[x][y] != '=')
-			y++;
-		if ((data->env[x][y] == '\0' || data->env[x][y] == '=') &&
-		(id[y] == '\0' || id[y] == '='))
-			return (x);
-		x++;
-	}
-	return (-1);
 }

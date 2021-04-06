@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 14:33:10 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/06 17:01:10 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:55:17 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,43 @@ void			pipe_exit(t_data *data);
 void			close_fd(t_data *data);
 void			free_inputs(char **inputs);
 void			choose_builtin(char **inputs, t_data *data);
+
+void			ft_cd(char **input, t_data *data);
+int				cd_reg(char **input, t_data *data);
+int				cd_alone(t_data *data);
+int				cd_minus(t_data *data);
+int				change_dir(t_data *data, char *str);
+void			set_oldpwd(t_data *data);
+void			new_pwd(t_data *data);
+
+void			ft_echo(char **inputs);
+void			ft_env(char **env);
+char			**copy_env(char **env);
+int				e_len(char **env);
+void			free_env(char **env);
+int				env_index(char *id, t_data *data);
+
+void			ft_exec(char **inputs, t_data *data);
+int				exec(char **inputs, t_data *data);
+int				exec_2(char **inputs, t_data *data);
+char			**make_paths(int id, t_data *data, char *input);
+int				check_path(char **inputs, t_data *data);
+int				check_exec(char **inputs, t_data *data);
+
+void			ft_exit(char **inputs, t_data *data);
+int				check_number(char *str);
+void			ft_error(char *str, int status);
+
+void			ft_export(char **inputs, t_data *data);
+void			export_a(t_data *data);
+char			**exp_env(char **env, char *exp);
+void			replace_var(char *new_var, t_data *data, int id);
+int				put_exp(char **env);
+int				check_exp(char *str);
+
+int				ft_pipe(char *command, char *new_com, t_data *data);
+void			ft_parent(char *new_com, t_data *data, int pid, int *fd);
+void			ft_unset(char **inputs, t_data *data);
+char			**unset_env(char **env, int id);
 
 #endif

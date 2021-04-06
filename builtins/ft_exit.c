@@ -5,14 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 16:49:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 16:47:14 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/28 15:33:18 by tpons             #+#    #+#             */
+/*   Updated: 2021/04/06 17:34:28 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		check_num(char *str)
+void	ft_error(char *str, int status)
+{
+	g_status = status;
+	ft_putstr_fd(str, 2);
+}
+
+int		check_number(char *str)
 {
 	int	i;
 
@@ -33,7 +39,7 @@ void	ft_exit(char **inputs, t_data *data)
 	g_status = 0;
 	if (inputs[1])
 	{
-		if (check_num(inputs[1]))
+		if (check_number(inputs[1]))
 		{
 			if (inputs[2])
 				return (ft_error("\tminishell: too many argument\n", 2));

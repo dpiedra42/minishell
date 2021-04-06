@@ -5,40 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 19:17:43 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/05 15:44:46 by dpiedra          ###   ########.fr       */
+/*   Created: 2021/01/15 15:35:31 by tpons             #+#    #+#             */
+/*   Updated: 2021/04/06 17:46:54 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		put_exp(char **env)
-{
-	int	i;
-	int j;
-	int	sign;
 
-	i = -1;
-	while (env[++i])
+void	replace_var(char *new_var, t_data *data, int id)
+{
+	if (ft_strchr(new_var, '='))
 	{
-		sign = 1;
-		j = 0;
-		ft_putstr("declare -x ");
-		while (env[i][j])
-		{
-			if (env[i][j] == '\\' || env[i][j] == '$' ||
-			env[i][j] == '\"')
-				write(1, "\\", 1);
-			write(1, &env[i][j], 1);
-			if (env[i][j] == '=' && sign-- == 1)
-				write(1, "\"", 1);
-			j++;
-		}
-		if (sign != 1)
-			write(1, "\"", 1);
-		write(1, "\n", 1);
+		free(data->env[id]);
+		data->env[id] = ft_strdup(new_var);
 	}
-	return (1);
+}
+
+char	**exp_env(char **env, char *exp)
+{
+	int		i;
+	char	**new_env;
+
+	i = 0;
+	new_env = malloc(sizeof(char *) * (e_len(env) + 1));
+	if (!new_env)
+		exit(EXIT_FAILURE);
+	while (env[i])
+	{
+		new_env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	free_env(env);
+	new_env[i] = ft_strdup(exp);
+	i++;
+	new_env[i] = NULL;
+	return (new_env);
 }
 
 void	export_a(t_data *data)
@@ -49,7 +51,7 @@ void	export_a(t_data *data)
 	char	*swap;
 
 	i = 0;
-	tmp = get_env(data->env);
+	tmp = copy_env(data->env);
 	while (tmp[i + 1])
 	{
 		j = i + 1;
@@ -67,56 +69,19 @@ void	export_a(t_data *data)
 	free_env(tmp);
 }
 
-char	**exp_env(char **env, char *exp)
-{
-	int		i;
-	char	**new_env;
-
-	i = 0;
-	new_env = malloc(sizeof(char *) * (env_len(env) + 1));
-	if (!new_env)
-		exit(EXIT_FAILURE);
-	while (env[i])
-	{
-		new_env[i] = ft_strdup(env[i]);
-		i++;
-	}
-	free_env(env);
-	new_env[i] = ft_strdup(exp);
-	i++;
-	new_env[i] = NULL;
-	return (new_env);
-}
-
-int		check_exp(char *input)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(input[i]))
-		return (0);
-	while (input[i] && input[i] != '=')
-	{
-		if (!ft_isalnum(input[i]) && input[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 void	ft_export(char **inputs, t_data *data)
 {
 	int	i;
-	int	index;
+	int	id;
 
 	i = 1;
 	if (inputs[i])
 	{
 		while (inputs[i])
 		{
-			index = env_index(inputs[i], data);
-			if (index >= 0 && check_exp(inputs[i]))
-				replace_var(inputs[i], data, index);
+			id = env_index(inputs[i], data);
+			if (id >= 0 && check_exp(inputs[i]))
+				replace_var(inputs[i], data, id);
 			else if (check_exp(inputs[i]))
 			{
 				data->env = exp_env(data->env, inputs[i]);
