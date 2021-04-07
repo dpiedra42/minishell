@@ -1,18 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_redir2.c                                   :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:14:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 14:58:19 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:47:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		get_name_len(char *str)
+void		make_file(char *str, char *file, int i, int k)
+{
+	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>' &&
+			str[i] != '<' && str[i])
+	{
+		if (str[i] == '\'')
+		{
+			while (str[++i] != '\'')
+				file[k++] = str[i];
+			i++;
+		}
+		else if (str[i] == '"')
+		{
+			while (str[++i] != '"')
+			{
+				if (str[i] == '\\')
+					i++;
+				file[k++] = str[i];
+			}
+			i++;
+		}
+		else
+			file[k++] = str[i++];
+	}
+	file[k] = '\0';
+}
+
+int		get_file_len(char *str)
 {
 	int i;
 
@@ -41,74 +68,48 @@ int		get_name_len(char *str)
 	return (i);
 }
 
-void	redir_to(char *str, int i, char **input, t_data *data)
+char		*get_file(char *str, int *j)
 {
-	char	*filename;
-	int		fd;
-	int		j;
+	int		i;
+	int		k;
+	char	*file;
 
-	j = i;
-	if (str[j + 1] == ' ')
-		j++;
-	filename = get_filename(&(str[j + 1]), &j);
-	remove_redir_input(input, i, j);
-	fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	free(filename);
-	if (fd < 0)
-	{
-		ft_putstr_fd("Error: wrong permissions\n", 2);
-		g_status = 1;
-		data->redir = 0;
-		return ;
-	}
-	dup2(fd, 1);
-	if (data->fd_out != 1)
-		close(data->fd_out);
-	data->fd_out = fd;
-	parser_redir(input, data);
+	i = get_file_len(str);
+	*j += i;
+	file = malloc((i + 1) * sizeof(char));
+	if (!file)
+		return (NULL);
+	i = 0;
+	k = 0;
+	make_file(str, file, i, k);
+	return (file);
 }
 
-void	redir_to_append(char *str, int i, char **input, t_data *data)
+void		remove_redir(char **command, int i, int j)
 {
-	char	*filename;
-	int		fd;
-	int		j;
+	char *tmp;
+	char *new_com;
 
-	j = i;
-	j++;
-	if (str[j + 1] == ' ')
-		j++;
-	filename = get_filename(&(str[j + 1]), &j);
-	remove_redir_input(input, i, j);
-	fd = open(filename, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-	free(filename);
-	if (fd < 0)
-	{
-		ft_putstr_fd("Error: wrong permissions\n", 2);
-		g_status = 1;
-		data->redir = 0;
-		return ;
-	}
-	dup2(fd, 1);
-	if (data->fd_out != 1)
-		close(data->fd_out);
-	data->fd_out = fd;
-	parser_redir(input, data);
+	tmp = ft_substr(command[0], 0, i);
+	new_com = ft_strjoin(tmp, &(command[0][j + 1]));
+	free(tmp);
+	free(*command);
+	*command = new_com;
 }
 
-void	redir_from(char *str, int i, char **input, t_data *data)
+void	redir_from(char *str, int i, char **command, t_data *data)
 {
-	char	*filename;
+	char	*file;
 	int		fd;
 	int		j;
 
 	j = i;
 	if (str[j + 1] == ' ')
 		j++;
-	filename = get_filename(&(str[j + 1]), &j);
-	remove_redir_input(input, i, j);
-	fd = open(filename, O_RDONLY);
-	free(filename);
+	file = get_file(&(str[j + 1]), &j);
+	remove_redir(command, i, j);
+	fd = open(file, O_RDONLY);
+	free(file);
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
@@ -120,20 +121,6 @@ void	redir_from(char *str, int i, char **input, t_data *data)
 	if (data->fd_in != 0)
 		close(data->fd_in);
 	data->fd_in = fd;
-	parser_redir(input, data);
+	ft_redir(command, data);
 }
 
-void	handle_redir(char **input, int i, t_data *data)
-{
-	char	*str;
-	int		j;
-
-	str = *input;
-	j = i;
-	if (str[i] == '>' && str[i + 1] != '>')
-		redir_to(str, i, input, data);
-	else if (str[i] == '>' && str[i + 1] == '>')
-		redir_to_append(str, i, input, data);
-	else if (str[i] == '<' && str[i + 1] != '<')
-		redir_from(str, i, input, data);
-}

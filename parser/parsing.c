@@ -6,75 +6,76 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:07:00 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:14:50 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			copy_quote(char **src, char **dst, char quote)
+void			copy_quote(char **command, char **clean_com, char quote)
 {
-	int slash_count;
+	int slash;
 
-	while (**src != quote)
+	while (**command != quote)
 	{
-		slash_count = 0;
-		while (**src == '\\' && quote == '"')
+		slash = 0;
+		while (**command == '\\' && quote == '"')
 		{
-			*((*dst)++) = *((*src)++);
-			slash_count++;
+			*((*clean_com)++) = *((*command)++);
+			slash++;
 		}
-		if (slash_count && !(slash_count % 2))
-			*((*dst)--) = *((*src)--);
-		*((*dst)++) = *((*src)++);
+		if (slash && !(slash % 2))
+			*((*clean_com)--) = *((*command)--);
+		*((*clean_com)++) = *((*command)++);
 	}
 }
 
-void			copy_command(char *dst, char *src)
+void			copy_command(char *clean_com, char *command)
 {
 	char	quote;
 
-	while (*src)
+	while (*command)
 	{
-		if (*src == ' ' && (*(src + 1) == ' ' || *(src + 1) == '\0'))
-			src++;
-		else if (*src == '"' || *src == '\'')
+		if (*command == ' ' && (*(command + 1) == ' ' ||
+			*(command + 1) == '\0'))
+			command++;
+		else if (*command == '"' || *command == '\'')
 		{
-			*(dst++) = *src;
-			quote = *(src++);
-			copy_quote(&src, &dst, quote);
-			*(dst++) = *(src++);
+			*(clean_com++) = *command;
+			quote = *(command++);
+			copy_quote(&command, &clean_com, quote);
+			*(clean_com++) = *(command++);
 		}
-		else if (*src == '\\' && *(src + 1))
-			escape_input(&dst, &src);
+		else if (*command == '\\' && *(command + 1))
+			escape_input(&clean_com, &command);
 		else
-			*(dst++) = *(src++);
+			*(clean_com++) = *(command++);
 	}
-	*dst = '\0';
+	*clean_com = '\0';
 }
 
-static int		command_len(char *str)
+static int		command_len(char *command)
 {
 	int		i;
 	char	quote;
 
 	i = 0;
-	while (*str)
+	while (*command)
 	{
-		if (*str == ' ' && (*(str + 1) == ' ' || *(str + 1) == '\0'))
-			str++;
-		else if (*str == '\\' && (str += 2))
+		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
+			command++;
+		else if (*command == '\\' && (command += 2))
 			i += 4;
-		else if (*str == '"' || *str == '\'')
+		else if (*command == '"' || *command == '\'')
 		{
-			quote = *(str++);
-			quote_len(&str, &i, quote);
-			if (!*str)
+			quote = *(command++);
+			quote_len(&command, &i, quote);
+			if (!*command)
 				return (-1);
-			str++;
+			command++;
 			i = i + 2;
 		}
-		else if (str++)
+		else if (command++)
 			i++;
 	}
 	return (i);
@@ -115,5 +116,5 @@ int				ft_parse(char *command, t_data *data)
 		free(clean_com);
 		return (0);
 	}
-	return (parser_delegator(clean_com, data, 0));
+	return (parsing_filter(clean_com, data, 0));
 }

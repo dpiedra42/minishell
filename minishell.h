@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 15:04:44 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:54:50 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,47 @@ int				g_quit;
 
 int				ft_parse(char *str, t_data *data);
 char			*clean_command(char *str);
-void			quote_len(char **str, int *i, char quote);
 void			copy_command(char *dst, char *src);
+void			copy_quote(char **src, char **dst, char quote);
+
+void			ft_escape(int *i, char *str);
 void			escape_input(char **dst, char **src);
+void			quote_len(char **str, int *i, char quote);
+
+int				parsing_filter(char *input, t_data *data, int piped);
+void			find_variable(char **command, int *i, t_data *data);
+int				special_chars(char **input, int *i, t_data *data);
+
+int				command_directory(char *clean_input, t_data *data, int piped);
+void			pipe_exit(t_data *data);
+void			close_fd(t_data *data);
+void			free_inputs(char **inputs);
+void			choose_builtin(char **inputs, t_data *data);
+
+int				parsing_error(char *str);
+void			skip_quotes(char *str, int *i);
+int				redir_error(char *str, int *i, char c);
+
+int				ft_redir(char **input_address, t_data *data);
+void			redir_quotes(char *str, int *i, char quote);
+void			choose_redir(char **input_address, int i, t_data *data);
+void			redir_into(char *str, int i, char **input, t_data *data);
+void			redir_append(char *str, int i, char **input, t_data *data);
+
+void			redir_from(char *str, int i, char **input, t_data *data);
+void			remove_redir(char **input, int i, int j);
+char			*get_file(char *str, int *j);
+int				get_file_len(char *str);
+void			make_file(char *str, char *file, int i, int k);
+
+char			**split_command(char *str);
+char			*new_strs(char *command);
+void			copy_split(char *command, char *new_str, char quote);
 
 int				envlen(char **env);
 void			free_env(char **env);
 char			**dup_env(char **env);
-void			close_fds(t_data *data);
 
-char			**input_split(char *str);
-
-int				handle_basic(char *clean_input, t_data *data, int piped);
 void			handle_echo(char **args);
 void			handle_cd(char **args, t_data *data);
 void			handle_unset(char **inputs, t_data *data);
@@ -78,15 +107,6 @@ char			**copy_export_env(char **env);
 void			handle_export(char **args, t_data *data);
 
 int				handle_pipe(char *input1, char *input2, t_data *data);
-int				parser_delegator(char *input, t_data *data, int piped);
-int				parser_error(char *str);
-void			parser_variable(char **input_address, int *i, t_data *data);
-int				parser_redir(char **input_address, t_data *data);
-void			should_escape(int *i, char *str);
-void			handle_redir(char **input_address, int i, t_data *data);
-void			remove_redir_input(char **input_address, int i, int j);
-int				get_name_len(char *str);
-char			*get_filename(char *str, int *j);
 void			copy_newsplit(char *src, char *dst, char quote);
 
 void			sig_exec_init(void);
