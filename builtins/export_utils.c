@@ -6,38 +6,38 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:35:31 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:27:27 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 17:53:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		check_export(char *str)
+int		check_exp(char *exp)
 {
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(str[i]))
+	if (ft_isdigit(exp[i]))
 		return (0);
-	while (str[i] && str[i] != '=')
+	while (exp[i] && exp[i] != '=')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(exp[i]) && exp[i] != '_')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int		print_export(char **env)
+int		put_exp(char **env)
 {
 	int	i;
 	int j;
-	int	equal;
+	int	sign;
 
 	i = -1;
 	while (env[++i])
 	{
-		equal = 1;
+		sign = 1;
 		j = 0;
 		ft_putstr("declare -x ");
 		while (env[i][j])
@@ -46,11 +46,11 @@ int		print_export(char **env)
 			env[i][j] == '\"')
 				write(1, "\\", 1);
 			write(1, &env[i][j], 1);
-			if (env[i][j] == '=' && equal-- == 1)
+			if (env[i][j] == '=' && sign-- == 1)
 				write(1, "\"", 1);
 			j++;
 		}
-		if (equal != 1)
+		if (sign != 1)
 			write(1, "\"", 1);
 		write(1, "\n", 1);
 	}

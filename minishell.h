@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 15:54:50 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 18:06:52 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,39 +80,47 @@ char			**split_command(char *str);
 char			*new_strs(char *command);
 void			copy_split(char *command, char *new_str, char quote);
 
-int				envlen(char **env);
-void			free_env(char **env);
-char			**dup_env(char **env);
-
-void			handle_echo(char **args);
-void			handle_cd(char **args, t_data *data);
-void			handle_unset(char **inputs, t_data *data);
-
-char			**export_env(char **old_env, char *export);
+void			ft_echo(char **args);
+void			ft_pwd(t_data *data);
 void			handle_env(char **env);
 
-int				change_pwd(t_data *data, char *input);
-void			handle_pwd(t_data *data);
+void			ft_cd(char **args, t_data *data);
+int				cd_empty(t_data *data);
+int				reg_cd(char **inputs, t_data *data);
+int				change_dir(t_data *data, char *input);
+void			set_oldpwd(t_data *data);
+void			new_pwd(t_data *data);
 
-int				is_relative(char *str);
-char			**gen_paths(int index, t_data *data, char *input);
+char			**copy_env(char **env);
+int				e_len(char **env);
+void			free_env(char **env);
+
+void			ft_error(char *error, int status);
+void			ft_exit(char **inputs, t_data *data);
+int				check_num(char *str);
+
+void			ft_export(char **args, t_data *data);
+void			reg_export(t_data *data);
+char			**exp_env(char **env, char *exp);
+void			replace_var(char *var, t_data *data, int id);
+int				env_index(char *name, t_data *data);
+int				put_exp(char **env);
+int				check_exp(char *str);
+
+void			ft_unset(char **inputs, t_data *data);
+char			**unset_env(char **env, int id);
+
+void			ft_exec(char **args, t_data *data);
 int				check_exec(char **inputs, t_data *data);
-void			handle_exec(char **args, t_data *data);
+int				check_path(char **inputs, t_data *data);
+char			**make_paths(int index, t_data *data, char *input);
+int				exec(char **inputs, t_data *data);
+int				exec_2(char **inputs, t_data *data);
 
-void			replace_var(char *new_var, t_data *data, int index);
-int				var_index(char *name, t_data *data);
-int				print_export(char **env);
-int				check_export(char *str);
-char			**copy_export_env(char **env);
-void			handle_export(char **args, t_data *data);
+int				ft_pipe(char *input1, char *input2, t_data *data);
+void			ft_parent(char *new_com, t_data *data, int pid, int *fds);
 
-int				handle_pipe(char *input1, char *input2, t_data *data);
-void			copy_newsplit(char *src, char *dst, char quote);
-
-void			sig_exec_init(void);
-void			sig_init(void);
-
-void			error_sentence(char *str, int status);
-void			handle_exit(char **inputs, t_data *data);
+void			signal_exec(void);
+void			ft_signal(void);
 
 #endif

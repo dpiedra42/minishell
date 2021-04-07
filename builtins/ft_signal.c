@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:32:04 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:36 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 18:06:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_sig(int sig)
+void	ft_sigiq(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -27,15 +27,15 @@ void	handle_sig(int sig)
 		write(2, "\b\b  \b\b", 6);
 }
 
-void	sig_init(void)
+void	ft_signal(void)
 {
-	if (signal(SIGINT, handle_sig) == SIG_ERR)
+	if (signal(SIGINT, ft_sigiq) == SIG_ERR)
 		exit(EXIT_FAILURE);
-	else if (signal(SIGQUIT, handle_sig) == SIG_ERR)
+	else if (signal(SIGQUIT, ft_sigiq) == SIG_ERR)
 		exit(EXIT_FAILURE);
 }
 
-void	handle_exec_sig(int sig)
+void	exec_sigiq(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -52,10 +52,10 @@ void	handle_exec_sig(int sig)
 	}
 }
 
-void	sig_exec_init(void)
+void	signal_exec(void)
 {
-	if (signal(SIGINT, handle_exec_sig) == SIG_ERR)
+	if (signal(SIGINT, exec_sigiq) == SIG_ERR)
 		exit(EXIT_FAILURE);
-	else if (signal(SIGQUIT, handle_exec_sig) == SIG_ERR)
+	else if (signal(SIGQUIT, exec_sigiq) == SIG_ERR)
 		exit(EXIT_FAILURE);
 }

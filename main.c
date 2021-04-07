@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 15:03:00 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 18:07:17 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_eof(t_data *data, char *user_input)
 void	init_data(t_data *data, char **env)
 {
 	data->pwd = getcwd(NULL, 0);
-	data->env = dup_env(env);
+	data->env = copy_env(env);
 	data->fd_in = 0;
 	data->fd_out = 1;
 	data->redir = 1;
@@ -46,7 +46,7 @@ int		main(int ac, char **av, char **env)
 	{
 		g_quit = 0;
 		free(g_user_input);
-		sig_init();
+		ft_signal();
 		ft_putstr_fd("minishell> ", 2);
 		read = get_next_line(0, &g_user_input);
 		if (!read)

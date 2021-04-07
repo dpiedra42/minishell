@@ -6,66 +6,112 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:01:07 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:14 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 18:02:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		execute_2(char **inputs, t_data *data)
+int		check_path(char **inputs, t_data *data)
 {
 	int			i;
+	int			id;
 	char		**paths;
-	int			index;
-	struct stat	statounet;
+	struct stat	stats;
 
+	stats.st_mode = 0;
 	i = 0;
-	statounet.st_mode = 0;
-	index = var_index("PATH=", data);
-	paths = gen_paths(index, data, inputs[0]);
+	id = env_index("PATH=", data);
+	if (env_index("PATH=", data) == -1)
+		return (0);
+	id = env_index("PATH=", data);
+	paths = make_paths(id, data, inputs[0]);
 	while (paths[i])
 	{
-		stat(paths[i], &statounet);
-		if ((statounet.st_mode & S_IXUSR) &&
-		(execve(paths[i], inputs, data->env) != -1))
-			return (0);
+		stat(paths[i], &stats);
+		if ((stats.st_mode & S_IXUSR) && !(stats.st_mode & __S_IFDIR))
+		{
+			free_env(paths);
+			return (1);
+		}
 		i++;
 	}
 	free_env(paths);
+	return (0);
+}
+
+int		check_exec(char **inputs, t_data *data)
+{
+	int			i;
+	int			r;
+	struct stat	stats;
+
+	i = 0;
+	stats.st_mode = 0;
+	r = 0;
+	stat(inputs[0], &stats);
+	if (ft_strchr(inputs[0], '/') && (stats.st_mode & S_IXUSR) &&
+	!(stats.st_mode & __S_IFDIR))
+		r = 1;
+	else
+		r = check_path(inputs, data);
+	return (r);
+}
+
+int		exec_2(char **inputs, t_data *data)
+{
+	int			i;
+	char		**path;
+	int			id;
+	struct stat	stats;
+
+	i = 0;
+	stats.st_mode = 0;
+	id = env_index("PATH=", data);
+	path = make_paths(id, data, inputs[0]);
+	while (path[i])
+	{
+		stat(path[i], &stats);
+		if ((stats.st_mode & S_IXUSR) &&
+		(execve(path[i], inputs, data->env) != -1))
+			return (0);
+		i++;
+	}
+	free_env(path);
 	return (1);
 }
 
-int		execute(char **inputs, t_data *data)
+int		exec(char **inputs, t_data *data)
 {
-	int			index;
-	struct stat	statounet;
+	int			id;
+	struct stat	stats;
 
-	statounet.st_mode = 0;
-	index = var_index("PATH=", data);
-	stat(inputs[0], &statounet);
-	if (ft_strchr(inputs[0], '/') && (statounet.st_mode & S_IXUSR) &&
+	stats.st_mode = 0;
+	id = env_index("PATH=", data);
+	stat(inputs[0], &stats);
+	if (ft_strchr(inputs[0], '/') && (stats.st_mode & S_IXUSR) &&
 	(execve(inputs[0], &inputs[0], data->env) != -1))
 		return (0);
-	else if (index >= 0)
+	else if (id >= 0)
 	{
-		if (!execute_2(inputs, data))
+		if (!exec_2(inputs, data))
 			return (0);
 	}
 	return (1);
 }
 
-void	handle_exec(char **inputs, t_data *data)
+void	ft_exec(char **inputs, t_data *data)
 {
 	pid_t	pid;
-	int		status;
+	int		stat;
 
-	status = 0;
+	stat = 0;
 	if (!check_exec(inputs, data))
-		return (error_sentence("\t\tminishell: Unknown command\n", 127));
+		return (ft_error("\t\tminishell: Unknown command\n", 127));
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execute(inputs, data) != 0)
+		if (exec(inputs, data) != 0)
 			exit(errno);
 		exit(EXIT_SUCCESS);
 	}
@@ -73,10 +119,10 @@ void	handle_exec(char **inputs, t_data *data)
 		exit(EXIT_FAILURE);
 	else
 	{
-		sig_exec_init();
-		waitpid(pid, &status, 0);
+		signal_exec();
+		waitpid(pid, &stat, 0);
 	}
-	g_status = WEXITSTATUS(status);
+	g_status = WEXITSTATUS(stat);
 	if (g_quit)
 		g_status = 130;
 }

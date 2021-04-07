@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 11:12:35 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:38 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 17:56:00 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**unset_env(char **old_env, int index)
+char	**unset_env(char **env, int id)
 {
 	int		i;
 	int		j;
@@ -20,40 +20,39 @@ char	**unset_env(char **old_env, int index)
 
 	i = 0;
 	j = 0;
-	new_env = malloc(sizeof(char *) * (envlen(old_env) - 1));
-	if (!new_env)
+	if (!(new_env = malloc(sizeof(char *) * (e_len(env) - 1))))
 		exit(EXIT_FAILURE);
-	while (old_env[i])
+	while (env[i])
 	{
-		if (i != index)
+		if (i != id)
 		{
-			new_env[j] = ft_strdup(old_env[i]);
+			new_env[j] = ft_strdup(env[i]);
 			j++;
 		}
 		i++;
 	}
-	free_env(old_env);
+	free_env(env);
 	i--;
 	new_env[i] = NULL;
 	return (new_env);
 }
 
-void	handle_unset(char **inputs, t_data *data)
+void	ft_unset(char **inputs, t_data *data)
 {
 	int	i;
-	int	index;
+	int	id;
 
 	i = 1;
 	while (inputs[i])
 	{
-		if (check_export(inputs[i]))
+		if (check_exp(inputs[i]))
 		{
-			index = var_index(inputs[i], data);
-			if (index > 0)
-				data->env = unset_env(data->env, index);
+			id = env_index(inputs[i], data);
+			if (id > 0)
+				data->env = unset_env(data->env, id);
 			i++;
 		}
 		else
-			return (error_sentence("unset: invalid identifier\n", 1));
+			return (ft_error("unset: invalid identifier\n", 1));
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:48:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:33 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 17:28:33 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_pwd(t_data *data)
+void	ft_pwd(t_data *data)
 {
 	ft_putstr(data->pwd);
 	ft_putstr("\n");

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 15:47:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:27:54 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 18:03:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	special_pipe(char *command, int pipe, t_data *data)
 		space = 1;
 	new_com = ft_strdup(&command[pipe + 1]);
 	command[pipe - space] = '\0';
-	return (handle_pipe(command, new_com, data));
+	return (ft_pipe(command, new_com, data));
 }
 
 static int	ft_semi(char *command, int semi, t_data *data)

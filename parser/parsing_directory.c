@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:47:30 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 17:56:08 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ void		choose_builtin(char **inputs, t_data *data)
 		return ;
 	}
 	if (!ft_strcmp(inputs[0], "echo"))
-		handle_echo(inputs);
+		ft_echo(inputs);
 	else if (!ft_strcmp(inputs[0], "pwd"))
-		handle_pwd(data);
+		ft_pwd(data);
 	else if (!ft_strcmp(inputs[0], "cd"))
-		handle_cd(inputs, data);
+		ft_cd(inputs, data);
 	else if (!ft_strcmp(inputs[0], "env"))
-		handle_env(data->env);
+		ft_env(data->env);
 	else if (!ft_strcmp(inputs[0], "exit"))
-		handle_exit(inputs, data);
+		ft_exit(inputs, data);
 	else if (!ft_strcmp(inputs[0], "export"))
-		handle_export(inputs, data);
+		ft_export(inputs, data);
 	else if (!ft_strcmp(inputs[0], "unset"))
-		handle_unset(inputs, data);
+		ft_unset(inputs, data);
 	else
 	{
-		handle_exec(inputs, data);
+		ft_exec(inputs, data);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 15:03:40 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:00 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 17:41:23 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	free_env(char **env)
 {
 	int	i;
-	int	env_len;
+	int	len;
 
 	i = 0;
-	env_len = envlen(env);
-	while (i < env_len)
+	len = e_len(env);
+	while (i < len)
 		free(env[i++]);
 	free(env);
 }
 
-int		envlen(char **env)
+int		e_len(char **env)
 {
 	int	i;
 
@@ -34,25 +34,24 @@ int		envlen(char **env)
 	return (++i);
 }
 
-char	**dup_env(char **env)
+char	**copy_env(char **env)
 {
-	char	**data_env;
+	char	**new_env;
 	int		i;
 
 	i = 0;
-	data_env = malloc(sizeof(char *) * envlen(env));
-	if (!data_env)
+	if (!(new_env = malloc(sizeof(char *) * e_len(env))))
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{
-		data_env[i] = ft_strdup(env[i]);
+		new_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	data_env[i] = 0;
-	return (data_env);
+	new_env[i] = 0;
+	return (new_env);
 }
 
-void	handle_env(char **env)
+void	ft_env(char **env)
 {
 	int		i;
 	int		j;
