@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 13:31:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:31:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 16:00:09 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		parsing_error(char *command)
 			skip_quotes(command, &i);
 		if (command[i] == '>' || command[i] == '<')
 		{
-			if (error_redir(command, &i, command[i]))
+			if (redir_error(command, &i, command[i]))
 			{
 				g_status = 1;
 				ft_putstr_fd("Error: wrong or unsupported redirection\n", 2);
