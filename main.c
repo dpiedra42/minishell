@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:10:10 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:40:33 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_eof(t_data *data, char *user_input)
 	exit(EXIT_SUCCESS);
 }
 
-void	data_init(t_data *data, char **env)
+void	init_data(t_data *data, char **env)
 {
 	data->env = dup_env(env);
 	data->pwd = getcwd(NULL, 0);
@@ -37,7 +37,7 @@ int		main(int ac, char **av, char **env)
 
 	ac = 0;
 	av = NULL;
-	data_init(&data, env);
+	init_data(&data, env);
 	g_status = 0;
 	g_user_input = NULL;
 	if (!data.env)
@@ -52,7 +52,7 @@ int		main(int ac, char **av, char **env)
 		if (!gnl)
 			ft_eof(&data, g_user_input);
 		else
-			parser_start(g_user_input, &data);
+			ft_parse(g_user_input, &data);
 	}
 	return (0);
 }

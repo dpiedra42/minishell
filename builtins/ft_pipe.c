@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 15:50:16 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:28:25 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:38:00 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	handle_parentps(char *input2, t_data *data, int pid, int *fds)
 	dup2(fds[0], 0);
 	close(fds[0]);
 	close(fds[1]);
-	parser_start(input2, data);
+	ft_parse(input2, data);
 	dup2(oldfd, 0);
 	close(oldfd);
 }

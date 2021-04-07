@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 14:29:22 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:54:36 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			copy_inside_quotes(char **src, char **dst, char quote)
 	}
 }
 
-void			input_copy(char *dst, char *src)
+void			copy_command(char *dst, char *src)
 {
 	char	quote;
 
@@ -53,7 +53,7 @@ void			input_copy(char *dst, char *src)
 	*dst = '\0';
 }
 
-static int		input_len(char *str)
+static int		command_len(char *str)
 {
 	int		i;
 	char	quote;
@@ -80,41 +80,41 @@ static int		input_len(char *str)
 	return (i);
 }
 
-char			*input_cleaner(char *str)
+char			*clean_command(char *command)
 {
 	int		len;
 	char	*clean_input;
-	char	*str_start;
+	char	*command_start;
 
-	str_start = str;
-	while (*str == ' ' && *str)
-		str++;
-	len = input_len(str);
+	command_start = command;
+	while (*command == ' ' && *command)
+		command++;
+	len = command_len(command);
 	if (len == -1)
 		return (0);
 	clean_input = (char *)malloc((len + 1) * sizeof(char));
 	if (!clean_input)
 		exit(EXIT_FAILURE);
-	input_copy(clean_input, str);
-	free(str_start);
+	copy_command(clean_input, command);
+	free(command_start);
 	return (clean_input);
 }
 
-int				parser_start(char *input, t_data *data)
+int				ft_parse(char *command, t_data *data)
 {
-	char	*clean_input;
+	char	*clean_com;
 
-	clean_input = input_cleaner(input);
+	clean_com = clean_command(command);
 	g_user_input = NULL;
-	if (clean_input == 0)
+	if (clean_com == 0)
 	{
 		ft_putstr("This minishell does not support multiline\n");
 		return (0);
 	}
-	if (!*clean_input)
+	if (!*clean_com)
 	{
-		free(clean_input);
+		free(clean_com);
 		return (0);
 	}
-	return (parser_delegator(clean_input, data, 0));
+	return (parser_delegator(clean_com, data, 0));
 }
