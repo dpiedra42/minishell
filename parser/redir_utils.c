@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:14:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:47:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:58:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ char		*get_file(char *str, int *j)
 
 	i = get_file_len(str);
 	*j += i;
-	file = malloc((i + 1) * sizeof(char));
-	if (!file)
+	if (!(file = malloc(sizeof(char) * (i + 1))))
 		return (NULL);
 	i = 0;
 	k = 0;

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:50:50 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:54:23 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:56:42 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ char			*new_strs(char *command)
 
 	quote = 0;
 	len = ft_strlen(command);
-	new_str = malloc((len + 1) * sizeof(char));
-	if (!new_str)
+	if (!(new_str = malloc(sizeof(char) * (len + 1))))
 		exit(EXIT_FAILURE);
 	copy_split(command, new_str, quote);
 	return (new_str);
@@ -119,8 +118,7 @@ char			**split_command(char *command)
 	size_t	i;
 
 	num = string_num(command);
-	inputs = malloc((num + 1) * sizeof(char *));
-	if (!inputs)
+	if (!(inputs = malloc(sizeof(char *) * (num + 1))))
 		exit(EXIT_FAILURE);
 	i = 0;
 	while (i < num)

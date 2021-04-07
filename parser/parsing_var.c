@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:23:48 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:57:23 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static char		*copy_value(char *env)
 	int		j;
 
 	maxlen = ft_strlen(env) * 2;
-	value = malloc((maxlen + 1) * sizeof(char));
+	if (!(value = malloc(sizeof(char) * (maxlen + 1))))
+		exit(EXIT_FAILURE);
 	i = 0;
 	j = 0;
 	while (env[i])
