@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 14:54:36 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:07:00 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			copy_inside_quotes(char **src, char **dst, char quote)
+void			copy_quote(char **src, char **dst, char quote)
 {
 	int slash_count;
 
@@ -42,11 +42,11 @@ void			copy_command(char *dst, char *src)
 		{
 			*(dst++) = *src;
 			quote = *(src++);
-			copy_inside_quotes(&src, &dst, quote);
+			copy_quote(&src, &dst, quote);
 			*(dst++) = *(src++);
 		}
 		else if (*src == '\\' && *(src + 1))
-			escape_char(&dst, &src);
+			escape_input(&dst, &src);
 		else
 			*(dst++) = *(src++);
 	}
@@ -83,7 +83,7 @@ static int		command_len(char *str)
 char			*clean_command(char *command)
 {
 	int		len;
-	char	*clean_input;
+	char	*clean_com;
 	char	*command_start;
 
 	command_start = command;
@@ -92,12 +92,11 @@ char			*clean_command(char *command)
 	len = command_len(command);
 	if (len == -1)
 		return (0);
-	clean_input = (char *)malloc((len + 1) * sizeof(char));
-	if (!clean_input)
+	if (!(clean_com = (char *)malloc(sizeof(char) * (len + 1))))
 		exit(EXIT_FAILURE);
-	copy_command(clean_input, command);
+	copy_command(clean_com, command);
 	free(command_start);
-	return (clean_input);
+	return (clean_com);
 }
 
 int				ft_parse(char *command, t_data *data)

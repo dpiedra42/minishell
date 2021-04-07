@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:11:02 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 14:58:46 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 15:04:56 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ void		should_escape(int *i, char *str)
 
 void			quote_len(char **str, int *i, char quote)
 {
-	int slash_count;
+	int slash;
 
 	while (**str != quote && **str)
 	{
-		slash_count = 0;
+		slash = 0;
 		while (quote == '"' && **str == '\\')
 		{
 			(*i)++;
 			(*str)++;
-			slash_count++;
+			slash++;
 		}
-		if (slash_count && !(slash_count % 2))
+		if (slash && !(slash % 2))
 		{
 			(*str)--;
 			(*i)--;
@@ -41,7 +41,7 @@ void			quote_len(char **str, int *i, char quote)
 	}
 }
 
-void			escape_char(char **dst, char **src)
+void			escape_input(char **dst, char **src)
 {
 	char	quote;
 
