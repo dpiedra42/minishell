@@ -6,31 +6,31 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 14:02:40 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:07:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			copy_quotes(char **src, char **dst, char quote)
+void			copy_inside_quotes(char **src, char **dst, char quote)
 {
-	int slash;
+	int slash_count;
 
 	while (**src != quote)
 	{
-		slash = 0;
+		slash_count = 0;
 		while (**src == '\\' && quote == '"')
 		{
 			*((*dst)++) = *((*src)++);
-			slash++;
+			slash_count++;
 		}
-		if (slash && !(slash % 2))
+		if (slash_count && !(slash_count % 2))
 			*((*dst)--) = *((*src)--);
 		*((*dst)++) = *((*src)++);
 	}
 }
 
-void			copy_command(char *dst, char *src)
+void			input_copy(char *dst, char *src)
 {
 	char	quote;
 
@@ -42,76 +42,76 @@ void			copy_command(char *dst, char *src)
 		{
 			*(dst++) = *src;
 			quote = *(src++);
-			copy_quotes(&src, &dst, quote);
+			copy_inside_quotes(&src, &dst, quote);
 			*(dst++) = *(src++);
 		}
 		else if (*src == '\\' && *(src + 1))
-			escape_input(&dst, &src);
+			escape_char(&dst, &src);
 		else
 			*(dst++) = *(src++);
 	}
 	*dst = '\0';
 }
 
-static int		command_len(char *command)
+static int		input_len(char *str)
 {
 	int		i;
 	char	quote;
 
 	i = 0;
-	while (*command)
+	while (*str)
 	{
-		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
-			command++;
-		else if (*command == '\\' && (command += 2))
+		if (*str == ' ' && (*(str + 1) == ' ' || *(str + 1) == '\0'))
+			str++;
+		else if (*str == '\\' && (str += 2))
 			i += 4;
-		else if (*command == '"' || *command == '\'')
+		else if (*str == '"' || *str == '\'')
 		{
-			quote = *(command++);
-			quote_len(&command, &i, quote);
-			if (!*command)
+			quote = *(str++);
+			quote_len(&str, &i, quote);
+			if (!*str)
 				return (-1);
-			command++;
+			str++;
 			i = i + 2;
 		}
-		else if (command++)
+		else if (str++)
 			i++;
 	}
 	return (i);
 }
 
-char			*clean_command(char *command)
+char			*input_cleaner(char *str)
 {
 	int		len;
-	char	*clean_com;
+	char	*clean_input;
 
-	while (*command == ' ' && *command)
-		command++;
-	len = command_len(command);
+	while (*str == ' ' && *str)
+		str++;
+	len = input_len(str);
 	if (len == -1)
 		return (0);
-	clean_com = (char *)malloc((len + 1) * sizeof(char));
-	if (!clean_com)
+	clean_input = (char *)malloc((len + 1) * sizeof(char));
+	if (!clean_input)
 		exit(EXIT_FAILURE);
-	copy_command(clean_com, command);
-	return (clean_com);
+	input_copy(clean_input, str);
+	return (clean_input);
 }
 
-int				ft_parse(char *command, t_data *data)
+int				parser_start(char *input, t_data *data)
 {
-	char	*clean_com;
+	char	*clean_input;
 
-	clean_com = clean_command(command);
+	clean_input = input_cleaner(input);
 	g_user_input = NULL;
-	if (clean_com == 0)
+	if (clean_input == 0)
 	{
 		ft_putstr("This minishell does not support multiline\n");
 		return (0);
 	}
-	if (!*clean_com)
+	if (!*clean_input)
 	{
-		free(clean_com);
+		free(clean_input);
 		return (0);
 	}
-	return (parser_delegator(clean_com, data, 0));
+	return (parser_delegator(clean_input, data, 0));
 }

@@ -25,7 +25,7 @@ void	handle_parentps(char *input2, t_data *data, int pid, int *fds)
 	dup2(fds[0], 0);
 	close(fds[0]);
 	close(fds[1]);
-	ft_parse(input2, data);
+	parser_start(input2, data);
 	dup2(oldfd, 0);
 	close(oldfd);
 }

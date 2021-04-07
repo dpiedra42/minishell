@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 13:43:24 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:10:10 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_eof(t_data *data, char *user_input)
 	exit(EXIT_SUCCESS);
 }
 
-void	init_data(t_data *data, char **env)
+void	data_init(t_data *data, char **env)
 {
 	data->env = dup_env(env);
 	data->pwd = getcwd(NULL, 0);
@@ -33,11 +33,11 @@ void	init_data(t_data *data, char **env)
 int		main(int ac, char **av, char **env)
 {
 	t_data	data;
-	int		read;
+	int		gnl;
 
 	ac = 0;
 	av = NULL;
-	init_data(&data, env);
+	data_init(&data, env);
 	g_status = 0;
 	g_user_input = NULL;
 	if (!data.env)
@@ -48,11 +48,11 @@ int		main(int ac, char **av, char **env)
 		free(g_user_input);
 		sig_init();
 		ft_putstr_fd("minishell> ", 2);
-		read = get_next_line(0, &g_user_input);
-		if (!read)
+		gnl = get_next_line(0, &g_user_input);
+		if (!gnl)
 			ft_eof(&data, g_user_input);
 		else
-			ft_parse(g_user_input, &data);
+			parser_start(g_user_input, &data);
 	}
 	return (0);
 }
