@@ -6,7 +6,7 @@
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/06 14:48:03 by dpiedra           #+#    #+#              #
-#    Updated: 2021/04/06 19:04:26 by dpiedra          ###   ########.fr        #
+#    Updated: 2021/04/07 13:34:01 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,6 @@ RM		= rm -rf
 FLAGS	= -Wall -Wextra -Werror
 
 CLANG	= clang
-
-# SRCS	= main.c parser/handle_basic.c parser/input_split.c parser/input_split2.c \
-# 		  parser/parser_delegator.c parser/parser_error.c parser/parser_redir.c   \
-# 		  parser/parser_redir2.c parser/parser_variable.c  \
-# 		  parser/parser.c parser/parser2.c builtins/cd_utils.c builtins/cd.c      \
-# 		  builtins/echo.c builtins/env.c builtins/exec_utils.c builtins/exec.c 	  \
-# 		  builtins/exit.c builtins/export_utils.c builtins/export.c builtins/pwd.c \
-# 		  builtins/pipe.c builtins/signal.c builtins/unset.c
 
 SRCS	= main.c parser/parsing.c parser/parsing_utils.c builtins/ft_signal.c \
 		  parser/parsing_split.c parser/parsing_filter.c builtins/ft_echo.c  \

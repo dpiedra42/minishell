@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 18:45:19 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:02:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			copy_inside_quotes(char **src, char **dst, char quote)
+void			copy_quotes(char **src, char **dst, char quote)
 {
-	int slash_count;
+	int slash;
 
 	while (**src != quote)
 	{
-		slash_count = 0;
+		slash = 0;
 		while (**src == '\\' && quote == '"')
 		{
 			*((*dst)++) = *((*src)++);
-			slash_count++;
+			slash++;
 		}
-		if (slash_count && !(slash_count % 2))
+		if (slash && !(slash % 2))
 			*((*dst)--) = *((*src)--);
 		*((*dst)++) = *((*src)++);
 	}
 }
 
-void			input_copy(char *dst, char *src)
+void			copy_command(char *dst, char *src)
 {
 	char	quote;
 
@@ -42,79 +42,76 @@ void			input_copy(char *dst, char *src)
 		{
 			*(dst++) = *src;
 			quote = *(src++);
-			copy_inside_quotes(&src, &dst, quote);
+			copy_quotes(&src, &dst, quote);
 			*(dst++) = *(src++);
 		}
 		else if (*src == '\\' && *(src + 1))
-			escape_char(&dst, &src);
+			escape_input(&dst, &src);
 		else
 			*(dst++) = *(src++);
 	}
 	*dst = '\0';
 }
 
-static int		input_len(char *str)
+static int		command_len(char *command)
 {
 	int		i;
 	char	quote;
 
 	i = 0;
-	while (*str)
+	while (*command)
 	{
-		if (*str == ' ' && (*(str + 1) == ' ' || *(str + 1) == '\0'))
-			str++;
-		else if (*str == '\\' && (str += 2))
+		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
+			command++;
+		else if (*command == '\\' && (command += 2))
 			i += 4;
-		else if (*str == '"' || *str == '\'')
+		else if (*command == '"' || *command == '\'')
 		{
-			quote = *(str++);
-			quote_len(&str, &i, quote);
-			if (!*str)
+			quote = *(command++);
+			quote_len(&command, &i, quote);
+			if (!*command)
 				return (-1);
-			str++;
+			command++;
 			i = i + 2;
 		}
-		else if (str++)
+		else if (command++)
 			i++;
 	}
 	return (i);
 }
 
-char			*input_cleaner(char *str)
+char			*clean_command(char *command)
 {
 	int		len;
-	char	*clean_input;
-	char	*str_start;
+	char	*clean_com;
 
-	str_start = str;
-	while (*str == ' ' && *str)
-		str++;
-	len = input_len(str);
+	while (*command == ' ' && *command)
+		command++;
+	len = command_len(command);
 	if (len == -1)
 		return (0);
-	clean_input = (char *)malloc((len + 1) * sizeof(char));
-	if (!clean_input)
+	clean_com = (char *)malloc((len + 1) * sizeof(char));
+	if (!clean_com)
 		exit(EXIT_FAILURE);
-	input_copy(clean_input, str);
-	free(str_start);
-	return (clean_input);
+	copy_command(clean_com, command);
+	return (clean_com);
 }
 
-int				parser_start(char *input, t_data *data)
+int				ft_parse(char *command, t_data *data)
 {
-	char	*clean_input;
+	char	*clean_com;
 
-	clean_input = input_cleaner(input);
+	clean_com = clean_command(command);
 	g_user_input = NULL;
-	if (clean_input == 0)
+	if (clean_com == 0)
 	{
 		ft_putstr("This minishell does not support multiline\n");
 		return (0);
 	}
-	if (!*clean_input)
+	if (!*clean_com)
 	{
-		free(clean_input);
+		free(clean_com);
 		return (0);
 	}
-	return (parser_delegator(clean_input, data, 0));
+	return (parser_delegator(clean_com, data, 0));
 }

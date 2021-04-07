@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser2.c                                          :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:11:02 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 18:45:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:03:17 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			quote_len(char **str, int *i, char quote)
+void			quote_len(char **command, int *i, char quote)
 {
 	int slash_count;
 
-	while (**str != quote && **str)
+	while (**command != quote && **command)
 	{
 		slash_count = 0;
-		while (quote == '"' && **str == '\\')
+		while (quote == '"' && **command == '\\')
 		{
 			(*i)++;
-			(*str)++;
+			(*command)++;
 			slash_count++;
 		}
 		if (slash_count && !(slash_count % 2))
 		{
-			(*str)--;
+			(*command)--;
 			(*i)--;
 		}
 		(*i)++;
-		(*str)++;
+		(*command)++;
 	}
 }
 
-void			escape_char(char **dst, char **src)
+void			escape_input(char **dst, char **src)
 {
 	char	quote;
 

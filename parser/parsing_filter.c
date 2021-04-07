@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_delegator.c                                 :+:      :+:    :+:   */
+/*   parsing_filter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 15:47:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 18:45:03 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 13:36:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	parser_semi(char *input, int semi_pos, t_data *data)
 	input[semi_pos - space] = '\0';
 	handle_basic(input, data, 0);
 	if (g_status != 130)
-		return (parser_start(new_input, data));
+		return (ft_parse(new_input, data));
 	else
 		free(new_input);
 	return (0);

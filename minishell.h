@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/06 19:01:59 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:02:14 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ void			free_env(char **env);
 char			**dup_env(char **env);
 void			close_fds(t_data *data);
 
-int				parser_start(char *str, t_data *data);
+int				ft_parse(char *str, t_data *data);
+char			*clean_command(char *str);
 void			quote_len(char **str, int *i, char quote);
+void			copy_command(char *dst, char *src);
+void			escape_input(char **dst, char **src);
+
 char			**input_split(char *str);
 
 int				handle_basic(char *clean_input, t_data *data, int piped);
@@ -85,10 +89,7 @@ void			handle_redir(char **input_address, int i, t_data *data);
 void			remove_redir_input(char **input_address, int i, int j);
 int				get_name_len(char *str);
 char			*get_filename(char *str, int *j);
-void			input_copy(char *dst, char *src);
-char			*input_cleaner(char *str);
 void			copy_newsplit(char *src, char *dst, char quote);
-void			escape_char(char **dst, char **src);
 
 void			sig_exec_init(void);
 void			sig_init(void);

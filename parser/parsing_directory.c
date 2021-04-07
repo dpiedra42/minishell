@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_basic.c                                     :+:      :+:    :+:   */
+/*   parsing_directory.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/06 18:44:47 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 13:38:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int			handle_basic(char *clean_input, t_data *data, int piped)
 	}
 	oldfd[0] = dup(1);
 	oldfd[1] = dup(0);
-	clean_input = input_cleaner(clean_input);
+	clean_input = clean_command(clean_input);
 	parser_redir(&clean_input, data);
-	clean_input = input_cleaner(clean_input);
+	clean_input = clean_command(clean_input);
 	inputs = input_split(clean_input);
 	free(clean_input);
 	choose_action(inputs, data);
