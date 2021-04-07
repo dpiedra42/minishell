@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 14:07:11 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:29:22 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ char			*input_cleaner(char *str)
 {
 	int		len;
 	char	*clean_input;
+	char	*str_start;
 
+	str_start = str;
 	while (*str == ' ' && *str)
 		str++;
 	len = input_len(str);
@@ -94,6 +96,7 @@ char			*input_cleaner(char *str)
 	if (!clean_input)
 		exit(EXIT_FAILURE);
 	input_copy(clean_input, str);
+	free(str_start);
 	return (clean_input);
 }
 
