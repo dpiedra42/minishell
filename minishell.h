@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 14:10:05 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/07 14:18:28 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ int				print_export(char **env);
 int				check_export(char *str);
 char			**copy_export_env(char **env);
 void			handle_export(char **args, t_data *data);
-int				check_export(char *str);
-int				print_export(char **env);
 
 int				handle_pipe(char *input1, char *input2, t_data *data);
 int				parser_delegator(char *input, t_data *data, int piped);
