@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/12 17:21:29 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/12 18:38:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,21 @@ void	minishell(t_data *data)
 
 void	init_data(t_data *data, char **env)
 {
-	char 	*term;
+	// char 	*term;
 	
+	// term = getenv("TERM");
+	// if (!term)
+	// 	term = ft_strdup("xterm-256color");
+	// if (tgetent(NULL, term) <= 0)
+	// 	return ;
+	// free(term);
 	data->pwd = getcwd(NULL, 0);
 	data->env = copy_env(env);
 	data->fd_in = 0;
 	data->fd_out = 1;
 	data->redir = 1;
-	term = getenv("TERM");
-	if (tgetent(NULL, term) <= 0)
-		exit(EXIT_FAILURE);
-	free(term);
-	data->left = tgetstr("left", NULL);
-	data->right tgetstr("right", NULL);
+	//data->left = tgetstr("left", NULL);
+	//data->right tgetstr("right", NULL);
 }
 
 int		main(int ac, char **av, char **env)
@@ -67,7 +69,7 @@ int		main(int ac, char **av, char **env)
 	g_user_input = NULL;
 	if (!data.env)
 		exit(EXIT_FAILURE);
-	get_history
+	get_history();
 	minishell(&data);
 	return (0);
 }

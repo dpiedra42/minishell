@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:01:07 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/12 17:04:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/12 18:31:22 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ int		check_path(char **inputs, t_data *data)
 
 int		check_exec(char **inputs, t_data *data)
 {
-	int			i;
 	int			r;
 	struct stat	stats;
 
-	i = 0;
 	stats.st_mode = 0;
 	r = 0;
 	stat(inputs[0], &stats);

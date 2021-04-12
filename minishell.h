@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/12 17:26:06 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/12 18:24:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 # define MINISHELL_H
 
 # include <term.h>
+# include <termcap.h>
 # include <curses.h>
 # include <termios.h>
 # include <stdint.h>
 # include <sys/ioctl.h>
 
-# include <stdlib.h>
-# include <unistd.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <errno.h>
@@ -41,10 +40,15 @@ typedef	struct	s_data
 }				t_data;
 
 int				g_status;
-char			g_history[HISTORY_SIZE];
+char			*g_history[HISTORY_SIZE];
 int				g_last;
 char			*g_user_input;
 int				g_quit;
+
+int				main(int ac, char **av, char **env);
+void			init_data(t_data *data, char **env);
+void			minishell(t_data *data);
+void			ft_eof(t_data *data, char *user_input);
 
 int				ft_parse(char *str, t_data *data);
 char			*clean_command(char *str);

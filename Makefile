@@ -6,7 +6,7 @@
 #    By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/06 14:48:03 by dpiedra           #+#    #+#              #
-#    Updated: 2021/04/12 17:25:41 by dpiedra          ###   ########.fr        #
+#    Updated: 2021/04/12 18:35:55 by dpiedra          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT	= libft/libft.a
 
 RM		= rm -rf
 
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror 
 
 CLANG	= clang
 
@@ -38,7 +38,7 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	cd libft && $(MAKE)
-	$(CLANG) $(FLAGS) -o $(NAME) $(OBJS) -L libft -lft
+	$(CLANG) $(FLAGS) -o $(NAME) $(OBJS) -L libft -lft -ltermcap
 
 clean:
 	$(RM) $(OBJS)
