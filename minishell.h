@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 18:09:08 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/12 17:26:06 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # include <dirent.h>
 # include "libft/libft.h"
 
+# define HISTORY_SIZE 1000
+# define HISTORY_FILE "minishell_history"
+
 typedef	struct	s_data
 {
 	char		**env;
@@ -38,6 +41,8 @@ typedef	struct	s_data
 }				t_data;
 
 int				g_status;
+char			g_history[HISTORY_SIZE];
+int				g_last;
 char			*g_user_input;
 int				g_quit;
 
@@ -122,5 +127,7 @@ void			ft_parent(char *new_com, t_data *data, int pid, int *fds);
 
 void			signal_exec(void);
 void			ft_signal(void);
+
+void			get_history(void);
 
 #endif
