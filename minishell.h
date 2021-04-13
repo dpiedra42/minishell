@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/12 18:24:57 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/13 17:45:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef	struct	s_data
 	int			fd_out;
 	char		*pwd;
 	int			redir;
+	char		*reset;
 }				t_data;
 
 int				g_status;
@@ -133,5 +134,8 @@ void			signal_exec(void);
 void			ft_signal(void);
 
 void			get_history(void);
+
+int				reset_terminal(struct termios *backup, t_data *data);
+int				mini_putchar(int c);
 
 #endif
