@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/12 18:38:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/13 16:13:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,15 @@ void	minishell(t_data *data)
 
 void	init_data(t_data *data, char **env)
 {
-	// char 	*term;
+	char 	*term;
 	
-	// term = getenv("TERM");
-	// if (!term)
-	// 	term = ft_strdup("xterm-256color");
-	// if (tgetent(NULL, term) <= 0)
-	// 	return ;
-	// free(term);
+	term = getenv("TERM");
+	term = NULL;
+	if (!term)
+		term = ft_strdup("xterm-256color");
+	if (tgetent(NULL, term) <= 0)
+		return ;
+	free(term);
 	data->pwd = getcwd(NULL, 0);
 	data->env = copy_env(env);
 	data->fd_in = 0;
