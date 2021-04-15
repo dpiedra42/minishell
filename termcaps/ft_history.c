@@ -6,11 +6,27 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 17:09:37 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/12 17:19:19 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/15 16:03:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void		add_command(char *command)
+{
+	if (!(command && ft_strlen(command)))
+		return ;
+	if (g_last >= HISTORY_SIZE - 1)
+	{
+		free (g_history[0]);
+		ft_memmove(g_history, g_history + 1, (HISTORY_SIZE - 1)
+			* sizeof(char *));
+		g_history[g_last] = ft_strdup(command);
+		g_last = HISTORY_SIZE - 1;
+	}
+	else
+		g_history[++g_last] = ft_strdup(command);
+}
 
 static void	read_history(int fd, char **current)
 {

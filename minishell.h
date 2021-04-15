@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/13 17:45:48 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/15 16:14:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 # define HISTORY_SIZE 1000
 # define HISTORY_FILE "minishell_history"
 
+typedef struct	s_line
+{
+	size_t		cursor;
+	char		*buffer;
+	char		*old_buff;
+	int			reset;
+}				t_line;
+
 typedef	struct	s_data
 {
 	char		**env;
@@ -38,6 +46,11 @@ typedef	struct	s_data
 	char		*pwd;
 	int			redir;
 	char		*reset;
+	char		*del;
+	char		*left;
+	char		*right;
+	char		*restore;
+	char		*save;
 }				t_data;
 
 int				g_status;
@@ -134,8 +147,19 @@ void			signal_exec(void);
 void			ft_signal(void);
 
 void			get_history(void);
+void			add_command(char *command);
 
 int				reset_terminal(struct termios *backup, t_data *data);
 int				mini_putchar(int c);
+int				max_int(int a, int b);
+int				test_check(int test, int *a, int *b);
+char			*reset_line(t_data *data, t_line line);
+
+char			*ft_getline(t_data *data);
+
+void			ft_line(t_data *data, t_line *line, char *command);
+int				ft_arrow(char *command);
+char			*ft_delete(char *str, int i);
+char			*ft_add(char *str, int i, char *c);
 
 #endif
