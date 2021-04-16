@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/15 16:14:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/16 18:36:36 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "libft/libft.h"
 
 # define HISTORY_SIZE 1000
-# define HISTORY_FILE "minishell_history"
+# define HISTORY_FILE ".minishell_history"
 
 typedef struct	s_line
 {
@@ -148,11 +148,12 @@ void			ft_signal(void);
 
 void			get_history(void);
 void			add_command(char *command);
+void			write_history(void);
 
 int				reset_terminal(struct termios *backup, t_data *data);
 int				mini_putchar(int c);
 int				max_int(int a, int b);
-int				test_check(int test, int *a, int *b);
+void			*test_check(int test, void *a, void *b);
 char			*reset_line(t_data *data, t_line line);
 
 char			*ft_getline(t_data *data);
@@ -161,5 +162,7 @@ void			ft_line(t_data *data, t_line *line, char *command);
 int				ft_arrow(char *command);
 char			*ft_delete(char *str, int i);
 char			*ft_add(char *str, int i, char *c);
+
+unsigned long	ul_testcheck(int test, unsigned long a, unsigned long b);
 
 #endif

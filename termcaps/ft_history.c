@@ -6,11 +6,28 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 17:09:37 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/15 16:03:16 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/16 18:09:18 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void		write_history(void)
+{
+	int		fd;
+	int		i;
+
+	fd = open(HISTORY_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	i = 0;
+	while (i <= g_last)
+	{
+		write(fd, g_history[i], ft_strlen(g_history[i]));
+		write(fd, "\n", 1);
+		free(g_history[i]);
+		i++;
+	}
+	close(fd);
+}
 
 void		add_command(char *command)
 {
@@ -55,7 +72,8 @@ void		get_history(void)
 	g_last = -1;
 	if (fd == -1)
 		return ;
-	current = g_history;	
+	current = g_history;
+	g_last = -1;	
 	read_history(fd, current);
 	if (!ft_strlen(*current))
 	{

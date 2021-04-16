@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 16:51:09 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/15 16:06:17 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/16 18:16:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char		*ft_delete(char *str, int i)
 static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
 {
 	if (key == 0)
-		*cur = test_check(*cur == -1, g_last, max_int(*cur - 1, 0));
+		*cur = ul_testcheck(*cur == -1, g_last, max_int(*cur - 1, 0));
 	else if (key == 1 && *cur != -1)
 		*cur += 1;
 	if (*cur > g_last)
@@ -65,7 +65,7 @@ static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
 	}
 	line->cursor = ft_strlen(line->buffer);
 	tputs(data->del, 1, mini_putchar);
-	ft_putstr_fd("minishell> ", 2);
+	ft_putstr_fd("minishell> ", 1);
 	write(1, line->buffer, ft_strlen(line->buffer));
 }
 
@@ -82,7 +82,7 @@ void		ft_line(t_data *data, t_line *line, char *command)
 	static int	current = -1;
 	int			key;
 
-	if (data->reset)
+	if (line->reset)
 	{
 		current = -1;
 		return ;

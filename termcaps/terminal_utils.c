@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 17:34:18 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/15 16:15:29 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/16 17:21:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*reset_line(t_data *data, t_line line)
 	return(line.buffer);
 }
 
-int		test_check(int test, int *a, int *b)
+void		*test_check(int test, void *a, void *b)
 {
 	if (test)
 		return (a);
@@ -30,7 +30,7 @@ int		test_check(int test, int *a, int *b)
 
 int		max_int(int a, int b)
 {
-	return (test_check(a > b, a, b));
+	return (ul_testcheck(a > b, a, b));
 }
 
 int	mini_putchar(int c)
