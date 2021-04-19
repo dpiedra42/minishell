@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:32:04 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 18:06:57 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/19 19:06:27 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_sigiq(int sig)
 	{
 		g_status = 130;
 		if (g_user_input)
-			ft_putstr_fd("\nminishell> ", 2);
+			ft_putstr_fd("\nminishell>", 2);
 		if (g_user_input)
 			free(g_user_input);
 		g_user_input = ft_strdup("\0");

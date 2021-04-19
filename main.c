@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/16 19:34:09 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/19 19:04:53 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		init_termios(struct termios *backup)
 
 void	minishell(t_data *data)
 {
-	char 			*command;
 	struct termios	backup;
 
 	while (1)
@@ -49,15 +48,13 @@ void	minishell(t_data *data)
 		g_quit = 0;
 		free(g_user_input);
 		ft_signal();
-		command = ft_getline(data);
+		g_user_input = ft_getline(data);
 		if (!reset_terminal(&backup, data))
 		 	return ;
-		add_command(command);
-		g_user_input = command;
+		add_command(g_user_input);
 		if (!g_user_input)
 			ft_eof(data, g_user_input);
-		else
-			ft_parse(g_user_input, data);
+		ft_parse(g_user_input, data);
 	}
 }
 
@@ -77,12 +74,12 @@ void	init_data(t_data *data, char **env)
 	data->fd_in = 0;
 	data->fd_out = 1;
 	data->redir = 1;
-	data->reset = tgetstr("reset", NULL);
-	data->del = tgetstr("del", NULL);
-	data->left = tgetstr("left", NULL);
-	data->right = tgetstr("right", NULL);
-	data->restore = tgetstr("restore", NULL);
-	data->save = tgetstr("save", NULL);
+	data->reset = tgetstr("me", NULL);
+	data->del = tgetstr("dl", NULL);
+	data->left = tgetstr("le", NULL);
+	data->right = tgetstr("nd", NULL);
+	data->restore = tgetstr("rc", NULL);
+	data->save = tgetstr("sc", NULL);
 }
 
 int		main(int ac, char **av, char **env)

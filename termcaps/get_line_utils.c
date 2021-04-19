@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 16:51:09 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/16 18:16:49 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/19 19:26:01 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
 int			ft_arrow(char *command)
 {
 	command += 2;
-	if (*command == 'A' || *command == 'B')
+	if ((*command >= 'A' && *command <= 'D'))
+	{
 		return (*command - 65);
+	}
 	return (-1);
 }
 
@@ -88,6 +90,16 @@ void		ft_line(t_data *data, t_line *line, char *command)
 		return ;
 	}
 	key = ft_arrow(command);
+	if (key == 3 && line->cursor >= 1)
+	{
+		tputs(data->left, 1, mini_putchar);
+		line->cursor--;
+	}
+	if (key == 2 && line->cursor < ft_strlen(line->buffer))
+	{
+		tputs(data->right, 1, mini_putchar);
+		line->cursor++;
+	}
 	if (key == 0 || key == 1)
 		ft_loop_history(data, line, key, &current);
 }

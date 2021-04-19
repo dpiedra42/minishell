@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 17:09:37 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/16 18:09:18 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/19 17:22:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		get_history(void)
 	char	**current;
 	int		fd;
 
-	ft_bzero(g_history, HISTORY_SIZE + 1);
+	ft_memset(g_history, 0, HISTORY_SIZE + 1);
 	fd = open(HISTORY_FILE, O_RDONLY);
 	g_last = -1;
 	if (fd == -1)

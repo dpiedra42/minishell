@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/16 18:30:50 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/19 19:17:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	print_frame(t_data *data, t_line *line, char *command)
 	if (line->cursor < ft_strlen(line->buffer))
 		tputs(data->save, 1, mini_putchar);
 	tputs(data->del, 1, mini_putchar);
-	//ft_putstr_fd("minishelldee> ", 1);
+	ft_putstr_fd("minishell> ", 1);
 	write(1, line->buffer, ft_strlen(line->buffer));
 	if (line->cursor < ft_strlen(line->buffer))
 	{
@@ -61,7 +61,7 @@ static void	init_getline(t_line *line)
 	line->buffer = ft_strdup("");
 	line->old_buff = NULL;
 	line->reset = 0;
-	ft_putstr_fd("minishell> ", 2);
+	ft_putstr_fd("minishell> ", 1);
 }
 
 char		*ft_getline(t_data *data)
@@ -71,6 +71,8 @@ char		*ft_getline(t_data *data)
 	size_t	i;
 
 	i = 1;
+	if (g_status == 130)
+		return (0);
 	init_getline(&line);
 	while (1)
 	{
