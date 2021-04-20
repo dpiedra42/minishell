@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/16 18:36:36 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:20:21 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 typedef struct	s_line
 {
-	size_t		cursor;
+	size_t		length;
 	char		*buffer;
 	char		*old_buff;
 	int			reset;

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 16:51:09 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/19 19:26:01 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 16:52:44 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
 			free(line->buffer);
 		line->buffer = ft_strdup(g_history[*cur]);
 	}
-	line->cursor = ft_strlen(line->buffer);
+	line->length = ft_strlen(line->buffer);
 	tputs(data->del, 1, mini_putchar);
 	ft_putstr_fd("minishell> ", 1);
 	write(1, line->buffer, ft_strlen(line->buffer));
@@ -90,15 +90,15 @@ void		ft_line(t_data *data, t_line *line, char *command)
 		return ;
 	}
 	key = ft_arrow(command);
-	if (key == 3 && line->cursor >= 1)
+	if (key == 3 && line->length >= 1)
 	{
 		tputs(data->left, 1, mini_putchar);
-		line->cursor--;
+		line->length--;
 	}
-	if (key == 2 && line->cursor < ft_strlen(line->buffer))
+	if (key == 2 && line->length < ft_strlen(line->buffer))
 	{
 		tputs(data->right, 1, mini_putchar);
-		line->cursor++;
+		line->length++;
 	}
 	if (key == 0 || key == 1)
 		ft_loop_history(data, line, key, &current);
