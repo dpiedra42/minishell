@@ -6,23 +6,23 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/20 17:26:22 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:39:14 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	print_frame(t_data *data, t_line *line, char *command)
+static void	put_command(t_data *data, t_line *line, char *command)
 {
-	if (line->length < ft_strlen(line->buffer))
+	if (line->length < ft_strlen(line->com))
 		tputs(data->save, 1, mini_putchar);
 	tputs(data->del, 1, mini_putchar);
 	ft_putstr_fd("minishell> ", 1);
-	write(1, line->buffer, ft_strlen(line->buffer));
-	if (line->length < ft_strlen(line->buffer))
+	write(1, line->com, ft_strlen(line->com));
+	if (line->length < ft_strlen(line->com))
 	{
 		tputs(data->restore, 1, mini_putchar);
-		if (command[0] != 0x7f)
+		if (command[0] != 127)
 			tputs(data->right, 1, mini_putchar);
 	}
 }
@@ -41,8 +41,8 @@ static int	ft_exception(t_line *line, char *command)
 	}
 	else
 	{
-		tmp = line->buffer;
-		line->buffer = ft_add(line->buffer, line->length, command);
+		tmp = line->com;
+		line->com = ft_add(line->com, line->length, command);
 		line->length++;
 		free(tmp);
 	}
@@ -53,12 +53,12 @@ static int	ft_edit(t_data *data, t_line *line, char *command)
 {
 	char *tmp;
 
-	if ((ft_strlen(line->buffer) > 0) && line->length == 0)
+	if ((ft_strlen(line->com) > 0) && line->length == 0)
 			return(ft_exception(line, command));
-	else if (command[0] == 0x7f)
+	else if (command[0] == 127)
 	{
-		tmp = line->buffer;
-		line->buffer = ft_delete(line->buffer, line->length);
+		tmp = line->com;
+		line->com = ft_delete(line->com, line->length);
 		line->length--;
 		tputs(data->left, 1, mini_putchar);
 		free(tmp);
@@ -71,20 +71,20 @@ static int	ft_edit(t_data *data, t_line *line, char *command)
 	}
 	else
 	{
-		tmp = line->buffer;
-		line->buffer = ft_add(line->buffer, line->length, command);
+		tmp = line->com;
+		line->com = ft_add(line->com, line->length, command);
 		line->length++;
 		free(tmp);
 	}
 	return (1);
 }
 
-static void	init_getline(t_line *line)
+static void	start_line(t_line *line)
 {
-	line->length = 0;
-	line->buffer = ft_strdup("");
-	line->old_buff = NULL;
 	line->reset = 0;
+	line->length = 0;
+	line->old_com = NULL;
+	line->com = ft_strdup("");
 	ft_putstr_fd("minishell> ", 1);
 }
 
@@ -95,7 +95,7 @@ char		*ft_getline(t_data *data)
 	size_t	i;
 
 	i = 1;
-	init_getline(&line);
+	start_line(&line);
 	while (1)
 	{
 		i = read(0, command, 16);
@@ -107,12 +107,12 @@ char		*ft_getline(t_data *data)
 			ft_line(data, &line, command);
 			continue ;
 		}
-		if ((ft_strlen(line.buffer) == 0 && command[0] == 0x7f) 
+		if ((ft_strlen(line.com) == 0 && command[0] == 127) 
 			|| (command[0] == 4 && line.length))
 			continue ;
 		else if (!ft_edit(data, &line, command))
 			break ;
-		print_frame(data, &line, command);
+		put_command(data, &line, command);
 	}
-	return (reset_line(data, line));
+	return (restart_line(data, line));
 }

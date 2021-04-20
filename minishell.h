@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/20 15:20:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:38:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 typedef struct	s_line
 {
 	size_t		length;
-	char		*buffer;
-	char		*old_buff;
+	char		*com;
+	char		*old_com;
 	int			reset;
 }				t_line;
 
@@ -154,7 +154,7 @@ int				reset_terminal(struct termios *backup, t_data *data);
 int				mini_putchar(int c);
 int				max_int(int a, int b);
 void			*test_check(int test, void *a, void *b);
-char			*reset_line(t_data *data, t_line line);
+char			*restart_line(t_data *data, t_line line);
 
 char			*ft_getline(t_data *data);
 

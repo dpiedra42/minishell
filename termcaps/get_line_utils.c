@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 16:51:09 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/20 16:52:44 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:33:37 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,24 @@ static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
 		*cur += 1;
 	if (*cur > g_last)
 		*cur = -1;
-	if (*cur == -1 && line->old_buff)
+	if (*cur == -1 && line->old_com)
 	{
-		free(line->buffer);
-		line->buffer = line->old_buff;
-		line->old_buff = NULL;
+		free(line->com);
+		line->com = line->old_com;
+		line->old_com = NULL;
 	}
 	else if (*cur != -1)
 	{
-		if (!line->old_buff)
-			line->old_buff = line->buffer;
-		else if (line->buffer != line->old_buff)
-			free(line->buffer);
-		line->buffer = ft_strdup(g_history[*cur]);
+		if (!line->old_com)
+			line->old_com = line->com;
+		else if (line->com != line->old_com)
+			free(line->com);
+		line->com = ft_strdup(g_history[*cur]);
 	}
-	line->length = ft_strlen(line->buffer);
+	line->length = ft_strlen(line->com);
 	tputs(data->del, 1, mini_putchar);
 	ft_putstr_fd("minishell> ", 1);
-	write(1, line->buffer, ft_strlen(line->buffer));
+	write(1, line->com, ft_strlen(line->com));
 }
 
 int			ft_arrow(char *command)
@@ -95,7 +95,7 @@ void		ft_line(t_data *data, t_line *line, char *command)
 		tputs(data->left, 1, mini_putchar);
 		line->length--;
 	}
-	if (key == 2 && line->length < ft_strlen(line->buffer))
+	if (key == 2 && line->length < ft_strlen(line->com))
 	{
 		tputs(data->right, 1, mini_putchar);
 		line->length++;
