@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/12 18:30:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:50:54 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	redir_into(char *str, int i, char **command, t_data *data)
 void	choose_redir(char **command, int i, t_data *data)
 {
 	char	*str;
-	
+
 	str = *command;
 	if (str[i] == '>' && str[i + 1] != '>')
 		redir_into(str, i, command, data);
@@ -80,7 +80,7 @@ void	choose_redir(char **command, int i, t_data *data)
 		redir_from(str, i, command, data);
 }
 
-void		redir_quotes(char *str, int *i, char quote)
+void	redir_quotes(char *str, int *i, char quote)
 {
 	int slash;
 
@@ -98,7 +98,7 @@ void		redir_quotes(char *str, int *i, char quote)
 	}
 }
 
-int			ft_redir(char **command, t_data *data)
+int		ft_redir(char **command, t_data *data)
 {
 	int		i;
 	char	*str;

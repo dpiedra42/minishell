@@ -6,19 +6,19 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:11:02 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:36:55 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:50:05 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_escape(int *i, char *str)
+void	ft_escape(int *i, char *str)
 {
 	if (str[(*i)] == '\\')
 		(*i)++;
 }
 
-void			quote_len(char **command, int *i, char quote)
+void	quote_len(char **command, int *i, char quote)
 {
 	int slash;
 
@@ -41,7 +41,7 @@ void			quote_len(char **command, int *i, char quote)
 	}
 }
 
-void			escape_input(char **clean_com, char **command)
+void	escape_input(char **clean_com, char **command)
 {
 	char	quote;
 

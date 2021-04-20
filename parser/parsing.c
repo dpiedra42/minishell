@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:14:50 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:51:19 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static int		command_len(char *command)
 	i = 0;
 	while (*command)
 	{
-		if (*command == ' ' && (*(command + 1) == ' ' || *(command + 1) == '\0'))
+		if (*command == ' ' && (*(command + 1) == ' '
+			|| *(command + 1) == '\0'))
 			command++;
 		else if (*command == '\\' && (command += 2))
 			i += 4;

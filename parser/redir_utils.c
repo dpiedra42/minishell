@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:14:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:58:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:48:43 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		make_file(char *str, char *file, int i, int k)
+void	make_file(char *str, char *file, int i, int k)
 {
 	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>' &&
 			str[i] != '<' && str[i])
@@ -68,7 +68,7 @@ int		get_file_len(char *str)
 	return (i);
 }
 
-char		*get_file(char *str, int *j)
+char	*get_file(char *str, int *j)
 {
 	int		i;
 	int		k;
@@ -84,7 +84,7 @@ char		*get_file(char *str, int *j)
 	return (file);
 }
 
-void		remove_redir(char **command, int i, int j)
+void	remove_redir(char **command, int i, int j)
 {
 	char *tmp;
 	char *new_com;
@@ -122,4 +122,3 @@ void	redir_from(char *str, int i, char **command, t_data *data)
 	data->fd_in = fd;
 	ft_redir(command, data);
 }
-

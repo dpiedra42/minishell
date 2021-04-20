@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 17:09:37 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/19 17:22:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:46:36 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		add_command(char *command)
 		return ;
 	if (g_last >= HISTORY_SIZE - 1)
 	{
-		free (g_history[0]);
+		free(g_history[0]);
 		ft_memmove(g_history, g_history + 1, (HISTORY_SIZE - 1)
 			* sizeof(char *));
 		g_history[g_last] = ft_strdup(command);
@@ -55,7 +55,7 @@ static void	read_history(int fd, char **current)
 		current++;
 		g_last++;
 		if (g_last + 1 == HISTORY_SIZE)
-			break;
+			break ;
 		red = get_next_line(fd, current);
 		if (red == 0)
 			free(*current);
@@ -73,7 +73,7 @@ void		get_history(void)
 	if (fd == -1)
 		return ;
 	current = g_history;
-	g_last = -1;	
+	g_last = -1;
 	read_history(fd, current);
 	if (!ft_strlen(*current))
 	{

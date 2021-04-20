@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/20 17:39:14 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:54:22 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_exception(t_line *line, char *command)
 	char *tmp;
 
 	if (command[0] == 0x7f)
-			return (1);
+		return (1);
 	else if (command[0] == '\n' || (command[0] == 4 && line->length))
 	{
 		if (command[0] == '\n')
@@ -54,12 +54,11 @@ static int	ft_edit(t_data *data, t_line *line, char *command)
 	char *tmp;
 
 	if ((ft_strlen(line->com) > 0) && line->length == 0)
-			return(ft_exception(line, command));
+		return (ft_exception(line, command));
 	else if (command[0] == 127)
 	{
 		tmp = line->com;
-		line->com = ft_delete(line->com, line->length);
-		line->length--;
+		line->com = ft_delete(line->com, line->length--);
 		tputs(data->left, 1, mini_putchar);
 		free(tmp);
 	}
@@ -72,8 +71,7 @@ static int	ft_edit(t_data *data, t_line *line, char *command)
 	else
 	{
 		tmp = line->com;
-		line->com = ft_add(line->com, line->length, command);
-		line->length++;
+		line->com = ft_add(line->com, line->length++, command);
 		free(tmp);
 	}
 	return (1);
@@ -107,7 +105,7 @@ char		*ft_getline(t_data *data)
 			ft_line(data, &line, command);
 			continue ;
 		}
-		if ((ft_strlen(line.com) == 0 && command[0] == 127) 
+		if ((ft_strlen(line.com) == 0 && command[0] == 127)
 			|| (command[0] == 4 && line.length))
 			continue ;
 		else if (!ft_edit(data, &line, command))

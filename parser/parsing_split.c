@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:50:50 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 15:56:42 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/20 17:49:32 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char		*next_input(char *command)
 	return (command);
 }
 
-void	copy_split(char *command, char *new_str, char quote)
+void			copy_split(char *command, char *new_str, char quote)
 {
 	while (*command != ' ' && *command)
 	{
