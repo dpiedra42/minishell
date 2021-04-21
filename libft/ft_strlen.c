@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 13:12:18 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:41:35 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:45:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *str)
 	int i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (*str)
 	{
 		if (!(*(str + 1)))

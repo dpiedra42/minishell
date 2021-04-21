@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:47:06 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/31 12:50:09 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/21 13:44:09 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
-	if (!s1 || !s2)
-		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	if (!(sjoin = malloc(sizeof(char) * (len1 + len2 + 1))))
+	sjoin = malloc((len1 + len2 + 1) * sizeof(char));
+	if (!sjoin)
+	{
+		free((char *)s1);
+		free((char *)s2);
 		return (NULL);
+	}
 	ft_memmove(sjoin, s1, len1);
-	ft_memmove(sjoin + len1, s2, len2);
+	ft_memmove(&sjoin[len1], s2, len2);
 	sjoin[len1 + len2] = '\0';
 	return (sjoin);
 }
