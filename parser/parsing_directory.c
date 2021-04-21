@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 17:56:08 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/21 19:10:45 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void		choose_builtin(char **inputs, t_data *data)
 	else if (!ft_strcmp(inputs[0], "unset"))
 		ft_unset(inputs, data);
 	else
-	{
 		ft_exec(inputs, data);
-	}
 }
 
 void		free_inputs(char **inputs)

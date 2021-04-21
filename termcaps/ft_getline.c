@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/20 17:54:22 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/21 19:01:03 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_exception(t_line *line, char *command)
 {
 	char *tmp;
 
-	if (command[0] == 0x7f)
+	if (command[0] == 127)
 		return (1);
 	else if (command[0] == '\n' || (command[0] == 4 && line->length))
 	{
@@ -83,7 +83,6 @@ static void	start_line(t_line *line)
 	line->length = 0;
 	line->old_com = NULL;
 	line->com = ft_strdup("");
-	ft_putstr_fd("minishell> ", 1);
 }
 
 char		*ft_getline(t_data *data)
