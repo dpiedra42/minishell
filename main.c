@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/21 19:00:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/22 17:59:32 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	minishell(t_data *data)
 		if (!init_termios(&backup))
 			return ;
 		g_quit = 0;
-		free(g_user_input);
 		ft_signal();
+		free(g_user_input);
 		ft_putstr_fd("minishell> ", 1);
 		g_user_input = ft_getline(data);
 		if (!reset_terminal(&backup, data))
@@ -81,6 +81,9 @@ void	init_data(t_data *data, char **env)
 	data->right = tgetstr("nd", NULL);
 	data->restore = tgetstr("rc", NULL);
 	data->save = tgetstr("sc", NULL);
+	data->dc = tgetstr("dc", NULL);
+	data->dm = tgetstr("dm", NULL);
+	data->ed = tgetstr("ed", NULL);
 }
 
 int		main(int ac, char **av, char **env)

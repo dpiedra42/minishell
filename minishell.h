@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/21 19:00:30 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/22 18:36:08 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ typedef	struct	s_data
 	char		*right;
 	char		*restore;
 	char		*save;
+	char		*dm;
+	char		*dc;
+	char		*ed;
+	char		*e_flag;
 }				t_data;
 
 int				g_status;
@@ -164,5 +168,6 @@ char			*ft_delete(char *str, int i);
 char			*ft_add(char *str, int i, char *c);
 
 unsigned long	ul_testcheck(int test, unsigned long a, unsigned long b);
+void			check_status(t_line *line);
 
 #endif

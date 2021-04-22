@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/21 19:01:03 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/22 18:32:50 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ char		*ft_getline(t_data *data)
 	start_line(&line);
 	while (1)
 	{
-		i = read(0, command, 16);
-		if (i <= 0)
+		if ((i = read(0, command, 16)) <= 0)
 			break ;
 		command[i] = 0;
+		check_status(&line);
 		if (i > 1)
 		{
 			ft_line(data, &line, command);
