@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/21 13:38:01 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/23 15:54:27 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void			find_variable(char **command, int *i, t_data *data)
 	free(var_name);
 	new_com = ft_substr(*command, 0, *i);
 	tmp = ft_strjoin(new_com, var_val);
-	//tmp is problem;
 	free(new_com);
 	new_com = ft_strjoin(tmp, &(command[0][*i + 1 + len]));
 	len = ft_strlen(var_val);

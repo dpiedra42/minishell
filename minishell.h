@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/22 18:36:08 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/23 17:24:47 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ typedef	struct	s_data
 	char		*right;
 	char		*restore;
 	char		*save;
-	char		*dm;
-	char		*dc;
-	char		*ed;
-	char		*e_flag;
+	char 		*echo;
 }				t_data;
 
 int				g_status;
@@ -84,7 +81,7 @@ int				special_chars(char **input, int *i, t_data *data);
 int				command_directory(char *clean_input, t_data *data, int piped);
 void			pipe_exit(t_data *data);
 void			close_fd(t_data *data);
-void			free_inputs(char **inputs);
+void			free_inputs(t_data *data, char **inputs);
 void			choose_builtin(char **inputs, t_data *data);
 
 int				parsing_error(char *str);
@@ -107,7 +104,7 @@ char			**split_command(char *str);
 char			*new_strs(char *command);
 void			copy_split(char *command, char *new_str, char quote);
 
-void			ft_echo(char **args);
+void			ft_echo(t_data *data, char **args);
 void			ft_pwd(t_data *data);
 void			ft_env(char **env);
 
@@ -154,7 +151,7 @@ void			get_history(void);
 void			add_command(char *command);
 void			write_history(void);
 
-int				reset_terminal(struct termios *backup, t_data *data);
+int				reset_terminal(void);
 int				mini_putchar(int c);
 int				max_int(int a, int b);
 void			*test_check(int test, void *a, void *b);

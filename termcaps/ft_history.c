@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 17:09:37 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/20 17:46:36 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/23 16:33:05 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void		get_history(void)
 	if (fd == -1)
 		return ;
 	current = g_history;
-	g_last = -1;
 	read_history(fd, current);
 	if (!ft_strlen(*current))
 	{
