@@ -6,11 +6,30 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:10:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/23 17:21:39 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/26 19:18:58 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static char	*copy_args(char *dst, char *src)
+{
+	int len;
+	int i;
+
+	printf("src = %s\n", src);
+	printf("dst= %s\n", dst);
+	len = ft_strlen(src);
+	i = 0;
+	dst = malloc(sizeof(char) * len + 1);
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
 
 void	ft_echo(t_data *data, char **args)
 {
@@ -20,11 +39,12 @@ void	ft_echo(t_data *data, char **args)
 	i = 1;
 	flag = 0;
 	g_status = 0;
-	data->echo = ft_strdup("\0");
+	data->echo = NULL;
 	while (args[i] && !ft_strcmp(args[i], "-n") && i++)
 		flag = 1;
-	if (flag == 1)
-		data->echo = args[i];
+	if (flag == 1 && args[i])
+		data->echo = copy_args(data->echo, args[i]);
+	printf("echo = %s\n", data->echo);
 	while (args[i])
 	{
 		ft_putstr(args[i]);
