@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/23 19:22:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/26 19:30:22 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		choose_builtin(char **inputs, t_data *data)
 		return ;
 	}
 	if (!ft_strcmp(inputs[0], "echo"))
-		ft_echo(inputs);
+		ft_echo(data, inputs);
 	else if (!ft_strcmp(inputs[0], "pwd"))
 		ft_pwd(data);
 	else if (!ft_strcmp(inputs[0], "cd"))

@@ -6,13 +6,12 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:10:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/26 19:22:29 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/26 19:32:26 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-<<<<<<< HEAD
 static char	*copy_args(char *dst, char *src)
 {
 	int len;
@@ -33,9 +32,6 @@ static char	*copy_args(char *dst, char *src)
 }
 
 void	ft_echo(t_data *data, char **args)
-=======
-void	ft_echo(char **args)
->>>>>>> 876a007cb1236719a6933565e05e09feaea5f862
 {
 	int i;
 	int flag;
@@ -43,20 +39,11 @@ void	ft_echo(char **args)
 	i = 1;
 	flag = 0;
 	g_status = 0;
-<<<<<<< HEAD
 	data->echo = NULL;
 	while (args[i] && !ft_strcmp(args[i], "-n") && i++)
 		flag = 1;
 	if (flag == 1 && args[i])
 		data->echo = copy_args(data->echo, args[i]);
-	printf("echo = %s\n", data->echo);
-=======
-	g_echo = ft_strdup("\0");
-	while (args[i] && !ft_strcmp(args[i], "-n") && i++)
-		flag = 1;
-	if (flag == 1)
-		g_echo = ft_strdup(args[i]);
->>>>>>> 876a007cb1236719a6933565e05e09feaea5f862
 	while (args[i])
 	{
 		ft_putstr(args[i]);

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/23 18:58:07 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/26 19:30:18 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef	struct	s_data
 int				g_status;
 char			*g_history[HISTORY_SIZE];
 int				g_last;
-char			*g_echo;
 char			*g_user_input;
 int				g_quit;
 
@@ -105,7 +104,7 @@ char			**split_command(char *str);
 char			*new_strs(char *command);
 void			copy_split(char *command, char *new_str, char quote);
 
-void			ft_echo( char **args);
+void			ft_echo(t_data *data, char **args);
 void			ft_pwd(t_data *data);
 void			ft_env(char **env);
 

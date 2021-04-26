@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/23 18:59:15 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/26 19:30:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	put_command(t_data *data, t_line *line, char *command)
 	if (line->length < ft_strlen(line->com))
 		tputs(data->save, 1, mini_putchar);
 	tputs(data->del, 1, mini_putchar);
-	ft_putstr_fd(g_echo, 1);
+	ft_putstr_fd(data->echo, 1);
 	ft_putstr_fd("minishell> ", 1);
 	write(1, line->com, ft_strlen(line->com));
 	if (line->length < ft_strlen(line->com))
@@ -112,6 +112,6 @@ char		*ft_getline(t_data *data)
 			break ;
 		put_command(data, &line, command);
 	}
-	g_echo = strdup("\0");
+	data->echo = NULL;
 	return (restart_line(data, line));
 }
