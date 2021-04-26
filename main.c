@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/26 19:11:27 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/26 19:22:13 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		main(int ac, char **av, char **env)
 	av = NULL;
 	init_data(&data, env);
 	g_status = 0;
+	g_echo = NULL;
 	g_user_input = NULL;
 	if (!data.env)
 		exit(EXIT_FAILURE);

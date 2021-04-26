@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/23 17:27:25 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/23 19:22:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		choose_builtin(char **inputs, t_data *data)
 		return ;
 	}
 	if (!ft_strcmp(inputs[0], "echo"))
-		ft_echo(data, inputs);
+		ft_echo(inputs);
 	else if (!ft_strcmp(inputs[0], "pwd"))
 		ft_pwd(data);
 	else if (!ft_strcmp(inputs[0], "cd"))
@@ -37,12 +37,11 @@ void		choose_builtin(char **inputs, t_data *data)
 		ft_exec(inputs, data);
 }
 
-void		free_inputs(t_data *data, char **inputs)
+void		free_inputs(char **inputs)
 {
 	int	i;
 
 	i = 0;
-	printf("data = %s\n", data->echo);
 	while (inputs[i])
 	{
 		free(inputs[i]);
@@ -67,7 +66,7 @@ void		close_fd(t_data *data)
 
 void		pipe_exit(t_data *data)
 {
-	free_inputs(data, data->env);
+	free_inputs(data->env);
 	if (g_user_input)
 		free(g_user_input);
 	free(data->pwd);
@@ -92,7 +91,7 @@ int			command_directory(char *command, t_data *data, int pipe)
 	inputs = split_command(command);
 	free(command);
 	choose_builtin(inputs, data);
-	//free_inputs(data, inputs);
+	free_inputs(inputs);
 	dup2(oldfd[0], 1);
 	dup2(oldfd[1], 0);
 	close_fd(data);
