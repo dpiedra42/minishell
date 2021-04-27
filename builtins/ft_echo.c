@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:10:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/26 19:32:26 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/26 20:01:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static char	*copy_args(char *dst, char *src)
 	int len;
 	int i;
 
-	printf("src = %s\n", src);
-	printf("dst= %s\n", dst);
 	len = ft_strlen(src);
 	i = 0;
 	dst = malloc(sizeof(char) * len + 1);

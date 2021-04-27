@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:32:04 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/22 18:20:50 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/27 16:33:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ void	ft_sigiq(int sig)
 		g_user_input = ft_strdup("\0");
 	}
 	else if (sig == SIGQUIT)
-		write(2, "\b\b  \b\b", 6);
+	{
+		if (!g_user_input || g_status == 130)
+			return ;
+		else	
+			write(2, "\b\b  \b\b", 6);
+	}
 }
 
 void	ft_signal(void)

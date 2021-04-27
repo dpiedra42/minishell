@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/26 19:30:59 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/27 16:31:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,21 @@ static void	start_line(t_line *line)
 	line->com = ft_strdup("");
 }
 
-char		*ft_getline(t_data *data)
+char		*ft_getline(t_data *data, int *red)
 {
 	t_line	line;
 	char	command[16];
-	size_t	i;
-
-	i = 1;
+	
 	start_line(&line);
 	while (1)
 	{
-		if ((i = read(0, command, 16)) <= 0)
+		if ((*red = read(0, command, 16)) <= 0)
 			break ;
-		command[i] = 0;
+		if (command[0] == '\n')
+			*red = -1;
+		command[(*red)] = 0;
 		check_status(&line);
-		if (i > 1)
+		if (*red > 1)
 		{
 			ft_line(data, &line, command);
 			continue ;
@@ -112,6 +112,5 @@ char		*ft_getline(t_data *data)
 			break ;
 		put_command(data, &line, command);
 	}
-	data->echo = NULL;
 	return (restart_line(data, line));
 }
