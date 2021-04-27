@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/27 16:31:40 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/27 16:55:04 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	start_line(t_line *line)
 	line->reset = 0;
 	line->length = 0;
 	line->old_com = NULL;
-	line->com = ft_strdup("");
+	line->com = NULL;
 }
 
 char		*ft_getline(t_data *data, int *red)

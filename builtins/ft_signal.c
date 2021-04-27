@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:32:04 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/27 16:33:57 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/27 16:54:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_sigiq(int sig)
 			ft_putstr_fd("minishell>", 2);
 			free(g_user_input);
 		}
-		g_user_input = ft_strdup("\0");
+		g_user_input = NULL;
 	}
 	else if (sig == SIGQUIT)
 	{

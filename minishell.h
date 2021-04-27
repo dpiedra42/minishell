@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/27 16:37:58 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/27 17:10:12 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char			*new_strs(char *command);
 void			copy_split(char *command, char *new_str, char quote);
 
 void			ft_echo(t_data *data, char **args);
+char			*copy_args(char *dst, char *src);
 void			ft_pwd(t_data *data);
 void			ft_env(char **env);
 

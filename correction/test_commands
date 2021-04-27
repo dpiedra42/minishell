@@ -44,8 +44,8 @@ echo $?
 
 - SEMICOLONS:
 ls . ; ls .. ; cat correction/test_commands ; ls parser
-cat ; cat ; echo -n "salut " ; echo cher correcteur ; ls
-cat;cat;echo -n "salut "; echo cher correcteur ;ls
+cat ; cat ; echo "salut " ; echo cher correcteur ; ls
+cat;cat;echo "salut "; echo cher correcteur ;ls
 
 
 - SIGNALS (blocking command to test):
