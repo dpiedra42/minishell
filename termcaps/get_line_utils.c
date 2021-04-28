@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 16:51:09 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/21 17:51:03 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/28 16:19:52 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
 	}
 	line->length = ft_strlen(line->com);
 	tputs(data->del, 1, mini_putchar);
+	ft_putstr_fd(data->echo, 1);
 	ft_putstr_fd("minishell> ", 1);
 	write(1, line->com, ft_strlen(line->com));
 }

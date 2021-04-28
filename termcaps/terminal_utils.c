@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 17:34:18 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/27 16:37:54 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/28 14:31:32 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*restart_line(t_data *data, t_line line)
 {
 	line.reset = 1;
-	data->echo = NULL;
 	ft_line(data, &line, NULL);
 	free(line.old_com);
 	return (line.com);
@@ -43,5 +42,5 @@ int		mini_putchar(int c)
 int		reset_terminal(struct termios *backup, t_data *data)
 {
 	tputs(data->reset, 1, mini_putchar);
-	return(!tcsetattr(STDIN_FILENO, TCSANOW, backup));
+	return (!tcsetattr(STDIN_FILENO, TCSANOW, backup));
 }

@@ -6,16 +6,17 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:10:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/27 17:14:28 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:37:23 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*copy_args(char *dst, char *src)
+char	*copy_args(char *src)
 {
-	int len;
-	int i;
+	char	*dst;
+	int		len;
+	int		i;
 
 	len = ft_strlen(src);
 	i = 0;
@@ -38,11 +39,10 @@ void	ft_echo(t_data *data, char **args)
 	i = 1;
 	flag = 0;
 	g_status = 0;
-	data->echo = NULL;
 	while (args[i] && !ft_strcmp(args[i], "-n") && i++)
 		flag = 1;
 	if (flag == 1 && args[i])
-		data->echo = copy_args(data->echo, args[i]);
+		data->echo = copy_args(args[i]);
 	while (args[i])
 	{
 		ft_putstr(args[i]);

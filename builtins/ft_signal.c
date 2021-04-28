@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 14:32:04 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/27 16:54:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/28 16:16:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,20 @@ void	ft_sigiq(int sig)
 		{
 			ft_putstr_fd("^C", 1);
 			ft_putstr_fd("\nminishell>", 2);
-			free(g_user_input);
 		}
-		if (!g_user_input)
+		else if (!g_user_input)
 		{
 			ft_putstr_fd("\b^C\n", 1);
 			ft_putstr_fd("minishell>", 2);
-			free(g_user_input);
 		}
+		free(g_user_input);
 		g_user_input = NULL;
 	}
 	else if (sig == SIGQUIT)
 	{
 		if (!g_user_input || g_status == 130)
 			return ;
-		else	
+		else
 			write(2, "\b\b  \b\b", 6);
 	}
 }

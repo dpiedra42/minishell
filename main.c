@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/27 16:37:46 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/04/28 15:58:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		init_termios(struct termios *backup)
 void	minishell(t_data *data)
 {
 	struct termios	backup;
-	int red;
+	int				red;
 
 	red = 0;
 	while (1)
@@ -54,6 +54,8 @@ void	minishell(t_data *data)
 		g_user_input = ft_getline(data, &red);
 		if (!reset_terminal(&backup, data))
 			return ;
+		free(data->echo);
+		data->echo = NULL;
 		add_command(g_user_input);
 		if (red == 1)
 			ft_eof(data, g_user_input);
