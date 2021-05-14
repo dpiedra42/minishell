@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:15:19 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 17:34:47 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:55:07 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ void	ft_cd(char **inputs, t_data *data)
 		if (!reg_cd(inputs, data))
 			return (ft_error("cd: no such file or directory\n", 1));
 	}
-	g_status = 0;
+	g_gl->status = 0;
 }

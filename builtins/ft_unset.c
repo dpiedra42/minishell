@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 11:12:35 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 17:56:00 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/05 17:27:20 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_unset(char **inputs, t_data *data)
 		if (check_exp(inputs[i]))
 		{
 			id = env_index(inputs[i], data);
-			if (id > 0)
+			if (id >= 0)
 				data->env = unset_env(data->env, id);
 			i++;
 		}

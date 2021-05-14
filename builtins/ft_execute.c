@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:01:07 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/27 17:31:20 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:55:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	ft_exec(char **inputs, t_data *data)
 		signal_exec();
 		waitpid(pid, &stat, 0);
 	}
-	g_status = WEXITSTATUS(stat);
-	if (g_quit)
-		g_status = 130;
+	g_gl->status = WEXITSTATUS(stat);
+	if (g_gl->quit)
+		g_gl->status = 130;
 }

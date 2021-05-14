@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:14:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/20 17:48:43 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:59:55 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	redir_from(char *str, int i, char **command, t_data *data)
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: Wrong file name or wrong permissions\n", 2);
-		g_status = 1;
+		g_gl->status = 1;
 		data->redir = 0;
 		return ;
 	}

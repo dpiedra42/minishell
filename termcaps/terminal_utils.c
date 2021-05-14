@@ -6,16 +6,16 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 17:34:18 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/28 14:31:32 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 21:10:04 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*restart_line(t_data *data, t_line line)
+char	*restart_line(t_data *data, t_line line, t_global *g)
 {
 	line.reset = 1;
-	ft_line(data, &line, NULL);
+	ft_line(data, &line, NULL, g);
 	free(line.old_com);
 	return (line.com);
 }

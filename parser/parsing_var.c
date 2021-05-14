@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/23 15:54:27 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 23:07:44 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,29 +81,29 @@ static char		*get_val(char *var, t_data *data)
 
 void			find_variable(char **command, int *i, t_data *data)
 {
-	int		len;
 	char	*var_val;
 	char	*var_name;
 	char	*new_com;
-	char	*tmp;
 
-	len = file_len(&(command[0][*i + 1]));
-	var_name = ft_substr(*command, *i + 1, len);
-	if (len == 1 && command[0][*i + 1] == '?')
-		var_val = ft_itoa(g_status);
-	else if (len)
+	data->vlen = file_len(&(command[0][*i + 1]));
+	var_name = ft_substr(*command, *i + 1, data->vlen);
+	if (data->vlen == 1 && command[0][*i + 1] == '?')
+		var_val = ft_itoa(g_gl->status);
+	else if (data->vlen)
 		var_val = get_val(var_name, data);
 	else
 		var_val = ft_strdup("$");
 	free(var_name);
 	new_com = ft_substr(*command, 0, *i);
-	tmp = ft_strjoin(new_com, var_val);
+	data->tmp = ft_strjoin(new_com, var_val);
 	free(new_com);
-	new_com = ft_strjoin(tmp, &(command[0][*i + 1 + len]));
-	len = ft_strlen(var_val);
-	free(tmp);
+	new_com = ft_strjoin(data->tmp, &(command[0][*i + 1 + data->vlen]));
+	data->vlen = ft_strlen(var_val);
+	free(data->tmp);
 	free(var_val);
 	free(*command);
 	*command = new_com;
-	*i += len - 1;
+	if (data->vlen == 0)
+		data->vlen = 1;
+	*i += data->vlen - 1;
 }

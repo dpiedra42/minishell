@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/20 17:51:19 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:59:44 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ char			*clean_command(char *command)
 	return (clean_com);
 }
 
-int				ft_parse(char *command, t_data *data)
+int				ft_parse(char *command, t_data *data, t_global *g)
 {
 	char	*clean_com;
 
 	clean_com = clean_command(command);
-	g_user_input = NULL;
+	g_gl->user_input = NULL;
 	if (clean_com == 0)
 	{
 		ft_putstr("This minishell does not support multiline\n");
@@ -117,5 +117,5 @@ int				ft_parse(char *command, t_data *data)
 		free(clean_com);
 		return (0);
 	}
-	return (parsing_filter(clean_com, data, 0));
+	return (parsing_filter(clean_com, data, 0, g));
 }

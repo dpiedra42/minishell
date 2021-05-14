@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:35:31 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 17:51:36 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:56:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,5 @@ void	ft_export(char **inputs, t_data *data)
 	}
 	else
 		reg_export(data);
-	g_status = 0;
+	g_gl->status = 0;
 }

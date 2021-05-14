@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/26 19:30:22 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:58:17 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		choose_builtin(char **inputs, t_data *data)
+void		choose_builtin(char **inputs, t_data *data, t_global *g)
 {
 	if (!data->redir)
 	{
@@ -28,7 +28,7 @@ void		choose_builtin(char **inputs, t_data *data)
 	else if (!ft_strcmp(inputs[0], "env"))
 		ft_env(data->env);
 	else if (!ft_strcmp(inputs[0], "exit"))
-		ft_exit(inputs, data);
+		ft_exit(inputs, data, g);
 	else if (!ft_strcmp(inputs[0], "export"))
 		ft_export(inputs, data);
 	else if (!ft_strcmp(inputs[0], "unset"))
@@ -67,13 +67,14 @@ void		close_fd(t_data *data)
 void		pipe_exit(t_data *data)
 {
 	free_inputs(data->env);
-	if (g_user_input)
-		free(g_user_input);
+	if (g_gl->user_input)
+		free(g_gl->user_input);
 	free(data->pwd);
 	exit(EXIT_SUCCESS);
 }
 
-int			command_directory(char *command, t_data *data, int pipe)
+int			command_directory(char *command, t_data *data, int pipe,
+								t_global *g)
 {
 	char	**inputs;
 	int		oldfd[2];
@@ -90,7 +91,7 @@ int			command_directory(char *command, t_data *data, int pipe)
 	command = clean_command(command);
 	inputs = split_command(command);
 	free(command);
-	choose_builtin(inputs, data);
+	choose_builtin(inputs, data, g);
 	free_inputs(inputs);
 	dup2(oldfd[0], 1);
 	dup2(oldfd[1], 0);

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/20 17:50:54 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 23:01:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	redir_append(char *str, int i, char **command, t_data *data)
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: wrong permissions\n", 2);
-		g_status = 1;
+		g_gl->status = 1;
 		data->redir = 0;
 		return ;
 	}
@@ -56,7 +56,7 @@ void	redir_into(char *str, int i, char **command, t_data *data)
 	if (fd < 0)
 	{
 		ft_putstr_fd("Error: wrong permissions\n", 2);
-		g_status = 1;
+		g_gl->status = 1;
 		data->redir = 0;
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 19:01:40 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/28 16:12:43 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 21:09:47 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static void	put_command(t_data *data, t_line *line, char *command)
 {
 	if (line->length < ft_strlen(line->com))
 		tputs(data->save, 1, mini_putchar);
-	tputs(data->del, 1, mini_putchar);
+	if (line->length >= (data->end - 11))
+		tputs(data->cl, 1, mini_putchar);
+	else
+		tputs(data->del, 1, mini_putchar);
 	if (data->echo)
 		ft_putstr_fd(data->echo, 1);
 	ft_putstr_fd("minishell> ", 1);
@@ -85,11 +88,9 @@ static void	start_line(t_line *line)
 	line->length = 0;
 	line->old_com = NULL;
 	line->com = ft_strdup("\0");
-	free(line->com);
-	line->com = ft_strdup("\0");
 }
 
-char		*ft_getline(t_data *data, int *red)
+char		*ft_getline(t_data *data, int *red, t_global *g)
 {
 	t_line	line;
 	char	command[16];
@@ -105,7 +106,7 @@ char		*ft_getline(t_data *data, int *red)
 		check_status(&line);
 		if (*red > 1)
 		{
-			ft_line(data, &line, command);
+			ft_line(data, &line, command, g);
 			continue ;
 		}
 		if ((ft_strlen(line.com) == 0 && command[0] == 127)
@@ -115,5 +116,5 @@ char		*ft_getline(t_data *data, int *red)
 			break ;
 		put_command(data, &line, command);
 	}
-	return (restart_line(data, line));
+	return (restart_line(data, line, g));
 }

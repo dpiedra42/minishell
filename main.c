@@ -6,11 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/28 15:58:11 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:54:30 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_vars	*g_gl;
 
 void	ft_eof(t_data *data, char *user_input)
 {
@@ -37,7 +39,7 @@ int		init_termios(struct termios *backup)
 	return (1);
 }
 
-void	minishell(t_data *data)
+void	minishell(t_data *data, t_global *g)
 {
 	struct termios	backup;
 	int				red;
@@ -47,20 +49,20 @@ void	minishell(t_data *data)
 	{
 		if (!init_termios(&backup))
 			return ;
-		g_quit = 0;
-		free(g_user_input);
+		g_gl->quit = 0;
+		free(g_gl->user_input);
 		ft_signal();
 		ft_putstr_fd("minishell> ", 1);
-		g_user_input = ft_getline(data, &red);
+		g_gl->user_input = ft_getline(data, &red, g);
 		if (!reset_terminal(&backup, data))
 			return ;
 		free(data->echo);
 		data->echo = NULL;
-		add_command(g_user_input);
+		add_command(g_gl->user_input, g);
 		if (red == 1)
-			ft_eof(data, g_user_input);
+			ft_eof(data, g_gl->user_input);
 		else
-			ft_parse(g_user_input, data);
+			ft_parse(g_gl->user_input, data, g);
 	}
 }
 
@@ -80,20 +82,25 @@ void	init_data(t_data *data, char **env)
 	data->right = tgetstr("nd", NULL);
 	data->restore = tgetstr("rc", NULL);
 	data->save = tgetstr("sc", NULL);
+	data->cl = tgetstr("cl", NULL);
+	data->end = tgetnum("co");
 }
 
 int		main(int ac, char **av, char **env)
 {
-	t_data	data;
+	t_data		data;
+	t_global	g;
 
 	ac = 0;
 	av = NULL;
+	if (!(g_gl = malloc(sizeof(t_vars))))
+		exit(EXIT_FAILURE);
 	init_data(&data, env);
-	g_status = 0;
-	g_user_input = NULL;
+	g_gl->status = 0;
+	g_gl->user_input = NULL;
 	if (!data.env)
 		exit(EXIT_FAILURE);
-	get_history();
-	minishell(&data);
+	get_history(&g);
+	minishell(&data, &g);
 	return (0);
 }

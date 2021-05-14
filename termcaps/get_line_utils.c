@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 16:51:09 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/28 16:19:52 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 21:57:43 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ char		*ft_delete(char *str, int i)
 	return (str);
 }
 
-static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
+static void	ft_loop_history(t_data *data, t_line *line, int *cur, t_global *g)
 {
-	if (key == 0)
-		*cur = ul_testcheck(*cur == -1, g_last, max_int(*cur - 1, 0));
-	else if (key == 1 && *cur != -1)
+	if (line->key == 0)
+		*cur = ul_testcheck(*cur == -1, g->last, max_int(*cur - 1, 0));
+	else if (line->key == 1 && *cur != -1)
 		*cur += 1;
-	if (*cur > g_last)
+	if (*cur > g->last)
 		*cur = -1;
 	if (*cur == -1 && line->old_com)
 	{
@@ -61,13 +61,10 @@ static void	ft_loop_history(t_data *data, t_line *line, int key, int *cur)
 			line->old_com = line->com;
 		else if (line->com != line->old_com)
 			free(line->com);
-		line->com = ft_strdup(g_history[*cur]);
+		line->com = ft_strdup(g->history[*cur]);
 	}
 	line->length = ft_strlen(line->com);
-	tputs(data->del, 1, mini_putchar);
-	ft_putstr_fd(data->echo, 1);
-	ft_putstr_fd("minishell> ", 1);
-	write(1, line->com, ft_strlen(line->com));
+	ft_write_com(data, line);
 }
 
 int			ft_arrow(char *command)
@@ -80,27 +77,26 @@ int			ft_arrow(char *command)
 	return (-1);
 }
 
-void		ft_line(t_data *data, t_line *line, char *command)
+void		ft_line(t_data *data, t_line *line, char *command, t_global *g)
 {
 	static int	current = -1;
-	int			key;
 
 	if (line->reset)
 	{
 		current = -1;
 		return ;
 	}
-	key = ft_arrow(command);
-	if (key == 3 && line->length >= 1)
+	line->key = ft_arrow(command);
+	if (line->key == 3 && line->length >= 1)
 	{
 		tputs(data->left, 1, mini_putchar);
 		line->length--;
 	}
-	if (key == 2 && line->length < ft_strlen(line->com))
+	if (line->key == 2 && line->length < ft_strlen(line->com))
 	{
 		tputs(data->right, 1, mini_putchar);
 		line->length++;
 	}
-	if (key == 0 || key == 1)
-		ft_loop_history(data, line, key, &current);
+	if (line->key == 0 || line->key == 1)
+		ft_loop_history(data, line, &current, g);
 }

@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 15:47:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/07 18:03:49 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/14 22:58:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	special_pipe(char *command, int pipe, t_data *data)
+static int	special_pipe(char *command, int pipe, t_data *data, t_global *g)
 {
 	char	*new_com;
 	int		space;
@@ -22,10 +22,10 @@ static int	special_pipe(char *command, int pipe, t_data *data)
 		space = 1;
 	new_com = ft_strdup(&command[pipe + 1]);
 	command[pipe - space] = '\0';
-	return (ft_pipe(command, new_com, data));
+	return (ft_pipe(command, new_com, data, g));
 }
 
-static int	ft_semi(char *command, int semi, t_data *data)
+static int	ft_semi(char *command, int semi, t_data *data, t_global *g)
 {
 	char	*new_com;
 	int		space;
@@ -35,15 +35,15 @@ static int	ft_semi(char *command, int semi, t_data *data)
 		space = 1;
 	new_com = ft_strdup(&command[semi + 1]);
 	command[semi - space] = '\0';
-	command_directory(command, data, 0);
-	if (g_status != 130)
-		return (ft_parse(new_com, data));
+	command_directory(command, data, 0, g);
+	if (g_gl->status != 130)
+		return (ft_parse(new_com, data, g));
 	else
 		free(new_com);
 	return (0);
 }
 
-int			special_chars(char **command, int *i, t_data *data)
+int			special_chars(char **command, int *i, t_data *data, t_global *g)
 {
 	if ((*command)[*i] == '\'')
 	{
@@ -53,12 +53,12 @@ int			special_chars(char **command, int *i, t_data *data)
 	}
 	else if ((*command)[*i] == '|')
 	{
-		special_pipe((*command), *i, data);
+		special_pipe((*command), *i, data, g);
 		return (1);
 	}
 	else if ((*command)[*i] == ';')
 	{
-		ft_semi((*command), *i, data);
+		ft_semi((*command), *i, data, g);
 		return (1);
 	}
 	else if ((*command)[*i] == '$')
@@ -67,7 +67,7 @@ int			special_chars(char **command, int *i, t_data *data)
 	return (0);
 }
 
-int			parsing_filter(char *command, t_data *data, int piped)
+int			parsing_filter(char *command, t_data *data, int piped, t_global *g)
 {
 	int		i;
 	int		slash;
@@ -90,8 +90,8 @@ int			parsing_filter(char *command, t_data *data, int piped)
 				i++;
 			}
 		}
-		if (special_chars(&command, &i, data))
+		if (special_chars(&command, &i, data, g))
 			return (0);
 	}
-	return (command_directory(command, data, piped));
+	return (command_directory(command, data, piped, g));
 }
