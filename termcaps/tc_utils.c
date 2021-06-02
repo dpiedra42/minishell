@@ -6,15 +6,15 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:59 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/05/14 23:00:37 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:54:37 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			ft_write_com(t_data *data, t_line *line)
+void	ft_write_com(t_data *data, t_line *line)
 {
-	if (line->length >= (data->end - 11))
+	if (line->l >= (data->end - 11))
 		tputs(data->cl, 1, mini_putchar);
 	else
 		tputs(data->del, 1, mini_putchar);
@@ -24,13 +24,13 @@ void			ft_write_com(t_data *data, t_line *line)
 	write(1, line->com, ft_strlen(line->com));
 }
 
-void			check_status(t_line *line)
+void	check_status(t_line *line)
 {
 	if (g_gl->status == 130)
 	{
 		free(line->com);
 		line->com = strdup("\0");
-		line->length = 0;
+		line->l = 0;
 		g_gl->status = 0;
 	}
 }

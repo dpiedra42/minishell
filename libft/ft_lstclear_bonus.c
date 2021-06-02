@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:02:58 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 13:47:59 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:08:39 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	t_list *element;
-	t_list *successor;
+	t_list	*element;
+	t_list	*successor;
 
 	if (!lst || !*lst || !del)
 		return ;

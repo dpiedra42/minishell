@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:10:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 22:55:19 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:44:52 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*copy_args(char *src)
 
 	len = ft_strlen(src);
 	i = 0;
-	if (!(dst = malloc(sizeof(char) * (len + 1))))
+	dst = malloc(sizeof(char) * (len + 1));
+	if (!(dst))
 		return (NULL);
 	while (src[i])
 	{
@@ -33,8 +34,8 @@ char	*copy_args(char *src)
 
 void	ft_echo(t_data *data, char **args)
 {
-	int i;
-	int flag;
+	int	i;
+	int	flag;
 
 	i = 1;
 	flag = 0;

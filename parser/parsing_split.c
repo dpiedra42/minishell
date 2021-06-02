@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:50:50 by gsmets            #+#    #+#             */
-/*   Updated: 2021/04/20 17:49:32 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:29:29 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char		*next_input(char *command)
+static char	*next_input(char *command)
 {
 	char	quote;
 	int		slash;
@@ -39,7 +39,7 @@ static char		*next_input(char *command)
 	return (command);
 }
 
-void			copy_split(char *command, char *new_str, char quote)
+void	copy_split(char *command, char *new_str, char quote)
 {
 	while (*command != ' ' && *command)
 	{
@@ -55,8 +55,8 @@ void			copy_split(char *command, char *new_str, char quote)
 			quote = *(command++);
 			while (*command != quote)
 			{
-				if (*command == '\\' && (*(command + 1) == quote ||
-					*(command + 1) == '\\' || *(command + 1) == '$'))
+				if (*command == '\\' && (*(command + 1) == quote
+						|| *(command + 1) == '\\' || *(command + 1) == '$'))
 					command++;
 				*(new_str++) = *(command++);
 			}
@@ -68,7 +68,7 @@ void			copy_split(char *command, char *new_str, char quote)
 	*new_str = '\0';
 }
 
-char			*new_strs(char *command)
+char	*new_strs(char *command)
 {
 	int		len;
 	char	*new_str;
@@ -76,7 +76,8 @@ char			*new_strs(char *command)
 
 	quote = 0;
 	len = ft_strlen(command);
-	if (!(new_str = malloc(sizeof(char) * (len + 1))))
+	new_str = malloc(sizeof(char) * (len + 1));
+	if (!(new_str))
 		exit(EXIT_FAILURE);
 	copy_split(command, new_str, quote);
 	return (new_str);
@@ -111,14 +112,15 @@ static size_t	string_num(char *command)
 	return (i);
 }
 
-char			**split_command(char *command)
+char	**split_command(char *command)
 {
 	char	**inputs;
 	size_t	num;
 	size_t	i;
 
 	num = string_num(command);
-	if (!(inputs = malloc(sizeof(char *) * (num + 1))))
+	inputs = malloc(sizeof(char *) * (num + 1));
+	if (!(inputs))
 		exit(EXIT_FAILURE);
 	i = 0;
 	while (i < num)

@@ -6,15 +6,15 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 13:31:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 22:58:28 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:30:24 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		redir_error(char *command, int *i, char c)
+int	redir_error(char *command, int *i, char c)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	while (command[(*i)] == c)
@@ -33,7 +33,7 @@ int		redir_error(char *command, int *i, char c)
 
 void	skip_quotes(char *command, int *i)
 {
-	char quote;
+	char	quote;
 
 	quote = command[(*i)++];
 	while (command[(*i)] != quote)
@@ -45,9 +45,9 @@ void	skip_quotes(char *command, int *i)
 	}
 }
 
-int		parsing_error(char *command)
+int	parsing_error(char *command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (command[i])

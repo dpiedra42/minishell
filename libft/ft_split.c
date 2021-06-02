@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 16:30:42 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/29 13:41:59 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:20:28 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static size_t	stringcount(char const *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (*str == c && *str)
@@ -29,7 +29,7 @@ static size_t	stringcount(char const *str, char c)
 	return (i);
 }
 
-static char		*newsplit(char const *str, char c)
+static char	*newsplit(char const *str, char c)
 {
 	size_t	i;
 	char	*ptr;
@@ -45,7 +45,7 @@ static char		*newsplit(char const *str, char c)
 	return (ptr);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**tab;
 	size_t	count;
@@ -62,7 +62,8 @@ char			**ft_split(char const *s, char c)
 	{
 		while (*s == c)
 			s++;
-		if (!(tab[i++] = newsplit(s, c)))
+		tab[i++] = newsplit(s, c);
+		if (!(tab))
 			return (NULL);
 		while (*s != c && *s)
 			s++;

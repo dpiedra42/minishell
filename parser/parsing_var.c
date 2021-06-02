@@ -6,15 +6,15 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 23:07:44 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/06/02 15:34:27 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int		file_len(char *command)
+static int	file_len(char *command)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (ft_isalnum(command[len]) || command[len] == '_')
@@ -24,13 +24,13 @@ static int		file_len(char *command)
 	return (len);
 }
 
-static void		add_escape(char *env, char *value, int *i, int *j)
+static void	add_escape(char *env, char *value, int *i, int *j)
 {
 	value[(*j)++] = '\\';
 	value[(*j)++] = env[(*i)++];
 }
 
-static char		*copy_value(char *env)
+static char	*copy_value(char *env)
 {
 	int		maxlen;
 	char	*value;
@@ -38,14 +38,15 @@ static char		*copy_value(char *env)
 	int		j;
 
 	maxlen = ft_strlen(env) * 2;
-	if (!(value = malloc(sizeof(char) * (maxlen + 1))))
+	value = malloc(sizeof(char) * (maxlen + 1));
+	if (!(value))
 		exit(EXIT_FAILURE);
 	i = 0;
 	j = 0;
 	while (env[i])
 	{
-		if (env[i] == '\\' || env[i] == '$' || env[i] == '"' ||
-			env[i] == '\'' || env[i] == '>' || env[i] == '<')
+		if (env[i] == '\\' || env[i] == '$' || env[i] == '"'
+			|| env[i] == '\'' || env[i] == '>' || env[i] == '<')
 			add_escape(env, value, &i, &j);
 		else
 			value[j++] = env[i++];
@@ -54,7 +55,7 @@ static char		*copy_value(char *env)
 	return (value);
 }
 
-static char		*get_val(char *var, t_data *data)
+static char	*get_val(char *var, t_data *data)
 {
 	char	**env;
 	int		i;
@@ -79,7 +80,7 @@ static char		*get_val(char *var, t_data *data)
 	return (NULL);
 }
 
-void			find_variable(char **command, int *i, t_data *data)
+void	find_variable(char **command, int *i, t_data *data)
 {
 	char	*var_val;
 	char	*var_name;
@@ -103,7 +104,7 @@ void			find_variable(char **command, int *i, t_data *data)
 	free(var_val);
 	free(*command);
 	*command = new_com;
-	if (data->vlen == 0)
+	if (data->vlen == 0 && (ft_strchr(*command, '\\')))
 		data->vlen = 1;
 	*i += data->vlen - 1;
 }

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 17:34:18 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/05/14 21:10:04 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 14:56:16 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ void	*test_check(int test, void *a, void *b)
 		return (b);
 }
 
-int		max_int(int a, int b)
+int	max_int(int a, int b)
 {
 	return (ul_testcheck(a > b, a, b));
 }
 
-int		mini_putchar(int c)
+int	mini_putchar(int c)
 {
 	write(1, &c, 1);
 	return (c);
 }
 
-int		reset_terminal(struct termios *backup, t_data *data)
+int	reset_terminal(struct termios *backup, t_data *data)
 {
 	tputs(data->reset, 1, mini_putchar);
 	return (!tcsetattr(STDIN_FILENO, TCSANOW, backup));

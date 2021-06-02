@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:35:31 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/14 22:56:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:38:57 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		env_index(char *id, t_data *data)
+int	env_index(char *id, t_data *data)
 {
 	int		y;
 	int		x;
@@ -48,7 +48,8 @@ char	**exp_env(char **env, char *exp)
 	char	**new_env;
 
 	i = 0;
-	if (!(new_env = malloc(sizeof(char *) * (e_len(env) + 1))))
+	new_env = malloc(sizeof(char *) * (e_len(env) + 1));
+	if (!(new_env))
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{

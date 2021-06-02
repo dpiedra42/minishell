@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:15:19 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/14 22:55:07 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:43:48 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		change_dir(t_data *data, char *input)
+int	change_dir(t_data *data, char *input)
 {
 	char	*pwd;
 	char	*cwd;
@@ -34,7 +34,7 @@ int		change_dir(t_data *data, char *input)
 	return (1);
 }
 
-int		reg_cd(char **inputs, t_data *data)
+int	reg_cd(char **inputs, t_data *data)
 {
 	if (chdir(inputs[1]) == -1)
 		return (0);
@@ -42,19 +42,21 @@ int		reg_cd(char **inputs, t_data *data)
 	return (1);
 }
 
-int		cd_sign(t_data *data)
+int	cd_sign(t_data *data)
 {
-	if (env_index("OLDPWD=", data) < 0 ||
-	chdir((strchr(data->env[env_index("OLDPWD=", data)], '=') + 1)) == -1)
+	if (env_index("OLDPWD=", data) < 0
+		|| chdir((strchr(data->env[env_index("OLDPWD=", data)], '=') + 1))
+		== -1)
 		return (0);
 	change_dir(data, NULL);
 	return (1);
 }
 
-int		cd_empty(t_data *data)
+int	cd_empty(t_data *data)
 {
-	if (env_index("HOME=", data) < 0 ||
-	chdir((strchr(data->env[env_index("HOME=", data)], '=') + 1)) == -1)
+	if (env_index("HOME=", data) < 0
+		|| chdir((strchr(data->env[env_index("HOME=", data)], '=') + 1))
+		== -1)
 		return (0);
 	change_dir(data, NULL);
 	return (1);

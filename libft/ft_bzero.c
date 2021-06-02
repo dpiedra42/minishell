@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 16:30:56 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:22:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:10:36 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char *a;
+	unsigned char	*a;
 
 	a = (unsigned char *)s;
 	while (n--)

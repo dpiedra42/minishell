@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:35:31 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 17:53:12 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:46:06 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		check_exp(char *exp)
+int	check_exp(char *exp)
 {
 	int	i;
 
@@ -28,10 +28,10 @@ int		check_exp(char *exp)
 	return (1);
 }
 
-int		put_exp(char **env)
+int	put_exp(char **env)
 {
 	int	i;
-	int j;
+	int	j;
 	int	sign;
 
 	i = -1;

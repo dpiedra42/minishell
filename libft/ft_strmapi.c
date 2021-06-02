@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 15:59:19 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:25:07 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:11:27 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 
 	if (!s || !f)
 		return (NULL);
-	if (!(snew = malloc(sizeof(char) * (ft_strlen(s)) + 1)))
+	snew = malloc(sizeof(char) * (ft_strlen(s)) + 1);
+	if (!(snew))
 		return (NULL);
 	i = 0;
 	while (s[i] != '\0')

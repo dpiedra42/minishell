@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 17:09:37 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/05/14 21:59:24 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 14:56:55 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		write_history(t_global *g)
+void	write_history(t_global *g)
 {
 	int			fd;
 	int			i;
@@ -29,7 +29,7 @@ void		write_history(t_global *g)
 	close(fd);
 }
 
-void		add_command(char *command, t_global *g)
+void	add_command(char *command, t_global *g)
 {
 	if (!(command && ft_strlen(command)))
 		return ;
@@ -47,7 +47,7 @@ void		add_command(char *command, t_global *g)
 
 static void	read_history(int fd, char **current, t_global *g)
 {
-	int red;
+	int	red;
 
 	red = get_next_line(fd, current);
 	while (red > 0)
@@ -62,7 +62,7 @@ static void	read_history(int fd, char **current, t_global *g)
 	}
 }
 
-void		get_history(t_global *g)
+void	get_history(t_global *g)
 {
 	char	**current;
 	int		fd;

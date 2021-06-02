@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 15:47:26 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 22:58:49 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/27 15:51:05 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_semi(char *command, int semi, t_data *data, t_global *g)
 	return (0);
 }
 
-int			special_chars(char **command, int *i, t_data *data, t_global *g)
+int	special_chars(char **command, int *i, t_data *data, t_global *g)
 {
 	if ((*command)[*i] == '\'')
 	{
@@ -67,7 +67,7 @@ int			special_chars(char **command, int *i, t_data *data, t_global *g)
 	return (0);
 }
 
-int			parsing_filter(char *command, t_data *data, int piped, t_global *g)
+int	parsing_filter(char *command, t_data *data, int piped, t_global *g)
 {
 	int		i;
 	int		slash;

@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 11:40:21 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 13:48:15 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:10:22 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list *element;
+	t_list	*element;
 
-	if (!(element = malloc(sizeof(t_list))))
+	element = malloc(sizeof(t_list));
+	if (!(element))
 		return (NULL);
 	element->content = content;
 	element->next = NULL;

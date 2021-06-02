@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:48:58 by dpiedra           #+#    #+#             */
-/*   Updated: 2020/02/06 10:49:37 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:05:11 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_neg_nbr(int neg, int base, int nbr)
+int	ft_neg_nbr(int neg, int base, int nbr)
 {
 	if (base == 10 && nbr < 0)
 		neg = 1;
@@ -21,7 +21,7 @@ int		ft_neg_nbr(int neg, int base, int nbr)
 	return (neg);
 }
 
-int		ft_count_space(int base, int i)
+int	ft_count_space(int base, int i)
 {
 	if (i == 0)
 		return (1);
@@ -42,7 +42,7 @@ char	*ft_itoa_base(int nbr, int base)
 		nbr *= -1;
 	while (ft_count_space(base, i) - 1 < nbr)
 		i++;
-	str = (char*)malloc(sizeof(str) * i);
+	str = (char *)malloc(sizeof(str) * i);
 	str[i] = '\0';
 	while (i-- > 0)
 	{

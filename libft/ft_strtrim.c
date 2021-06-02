@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 17:24:54 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 15:16:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 14:58:34 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_setcheck(char const c, char const *set)
 	return (0);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*new;
 	size_t	newlen;
@@ -38,7 +38,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 	newlen = ft_strlen(s1);
 	while (ft_setcheck(s1[newlen - 1], set))
 		newlen--;
-	if (!(new = malloc((newlen + 1) * sizeof(char))))
+	new = malloc((newlen + 1) * sizeof(char));
+	if (!(new))
 		return (NULL);
 	ft_memmove(new, s1, newlen);
 	new[newlen] = '\0';

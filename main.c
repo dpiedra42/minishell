@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:04:28 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/14 22:54:30 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 14:50:20 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_eof(t_data *data, char *user_input)
 	exit(EXIT_SUCCESS);
 }
 
-int		init_termios(struct termios *backup)
+int	init_termios(struct termios *backup)
 {
-	struct termios tattr;
+	struct termios	tattr;
 
 	if (tcgetattr(STDIN_FILENO, &tattr))
 		return (0);
@@ -86,14 +86,15 @@ void	init_data(t_data *data, char **env)
 	data->end = tgetnum("co");
 }
 
-int		main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	t_data		data;
 	t_global	g;
 
 	ac = 0;
 	av = NULL;
-	if (!(g_gl = malloc(sizeof(t_vars))))
+	g_gl = malloc(sizeof(t_vars));
+	if (!(g_gl))
 		exit(EXIT_FAILURE);
 	init_data(&data, env);
 	g_gl->status = 0;

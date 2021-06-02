@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 16:51:09 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/05/14 21:57:43 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/06/02 18:43:40 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char		*ft_add(char *str, int i, char *c)
+char	*ft_add(char *str, int i, char *c)
 {
 	char	*substr;
 	char	*substr1;
@@ -28,7 +28,7 @@ char		*ft_add(char *str, int i, char *c)
 	return (substr);
 }
 
-char		*ft_delete(char *str, int i)
+char	*ft_delete(char *str, int i)
 {
 	char	*substr;
 	char	*tmp;
@@ -63,11 +63,11 @@ static void	ft_loop_history(t_data *data, t_line *line, int *cur, t_global *g)
 			free(line->com);
 		line->com = ft_strdup(g->history[*cur]);
 	}
-	line->length = ft_strlen(line->com);
+	line->l = ft_strlen(line->com);
 	ft_write_com(data, line);
 }
 
-int			ft_arrow(char *command)
+int	ft_arrow(char *command)
 {
 	command += 2;
 	if ((*command >= 'A' && *command <= 'D'))
@@ -77,7 +77,7 @@ int			ft_arrow(char *command)
 	return (-1);
 }
 
-void		ft_line(t_data *data, t_line *line, char *command, t_global *g)
+void	ft_line(t_data *data, t_line *line, char *command, t_global *g)
 {
 	static int	current = -1;
 
@@ -87,15 +87,15 @@ void		ft_line(t_data *data, t_line *line, char *command, t_global *g)
 		return ;
 	}
 	line->key = ft_arrow(command);
-	if (line->key == 3 && line->length >= 1)
+	if (line->key == 3 && line->l >= 1)
 	{
 		tputs(data->left, 1, mini_putchar);
-		line->length--;
+		line->l--;
 	}
-	if (line->key == 2 && line->length < ft_strlen(line->com))
+	if (line->key == 2 && line->l < ft_strlen(line->com))
 	{
 		tputs(data->right, 1, mini_putchar);
-		line->length++;
+		line->l++;
 	}
 	if (line->key == 0 || line->key == 1)
 		ft_loop_history(data, line, &current, g);

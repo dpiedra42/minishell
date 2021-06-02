@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 17:58:50 by tpons             #+#    #+#             */
-/*   Updated: 2021/04/07 18:07:27 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:45:45 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	new_pwd(t_data *data)
 {
-	char *pwd;
+	char	*pwd;
 
 	data->pwd = getcwd(NULL, 0);
 	if (env_index("PWD", data) >= 0)
@@ -33,8 +33,8 @@ void	new_pwd(t_data *data)
 
 void	set_oldpwd(t_data *data)
 {
-	char *pwd;
-	char *oldpwd;
+	char	*pwd;
+	char	*oldpwd;
 
 	if (env_index("OLDPWD", data) >= 0)
 	{

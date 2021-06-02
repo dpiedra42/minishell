@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 14:41:08 by dpiedra           #+#    #+#             */
-/*   Updated: 2019/11/18 14:26:33 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 14:59:38 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (!alst || !new)
 		return ;

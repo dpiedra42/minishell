@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 19:01:43 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 22:58:17 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 17:26:08 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		choose_builtin(char **inputs, t_data *data, t_global *g)
+void	choose_builtin(char **inputs, t_data *data, t_global *g)
 {
 	if (!data->redir)
 	{
@@ -37,7 +37,7 @@ void		choose_builtin(char **inputs, t_data *data, t_global *g)
 		ft_exec(inputs, data);
 }
 
-void		free_inputs(char **inputs)
+void	free_inputs(char **inputs)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ void		free_inputs(char **inputs)
 	free(inputs);
 }
 
-void		close_fd(t_data *data)
+void	close_fd(t_data *data)
 {
 	if (data->fd_in != 0)
 	{
@@ -64,7 +64,7 @@ void		close_fd(t_data *data)
 	}
 }
 
-void		pipe_exit(t_data *data)
+void	pipe_exit(t_data *data)
 {
 	free_inputs(data->env);
 	if (g_gl->user_input)
@@ -73,8 +73,7 @@ void		pipe_exit(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-int			command_directory(char *command, t_data *data, int pipe,
-								t_global *g)
+int	command_directory(char *command, t_data *data, int pipe, t_global *g)
 {
 	char	**inputs;
 	int		oldfd[2];

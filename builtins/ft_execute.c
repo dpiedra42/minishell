@@ -6,13 +6,13 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:01:07 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/14 22:55:51 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 17:23:59 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		check_path(char **inputs, t_data *data)
+int	check_path(char **inputs, t_data *data)
 {
 	int			i;
 	int			id;
@@ -40,7 +40,7 @@ int		check_path(char **inputs, t_data *data)
 	return (0);
 }
 
-int		check_exec(char **inputs, t_data *data)
+int	check_exec(char **inputs, t_data *data)
 {
 	int			r;
 	struct stat	stats;
@@ -48,15 +48,15 @@ int		check_exec(char **inputs, t_data *data)
 	stats.st_mode = 0;
 	r = 0;
 	stat(inputs[0], &stats);
-	if (ft_strchr(inputs[0], '/') && (stats.st_mode & S_IXUSR) &&
-	!(stats.st_mode & __S_IFDIR))
+	if (ft_strchr(inputs[0], '/') && (stats.st_mode & S_IXUSR)
+		&& !(stats.st_mode & __S_IFDIR))
 		r = 1;
 	else
 		r = check_path(inputs, data);
 	return (r);
 }
 
-int		exec_2(char **inputs, t_data *data)
+int	exec_2(char **inputs, t_data *data)
 {
 	int			i;
 	char		**path;
@@ -70,8 +70,8 @@ int		exec_2(char **inputs, t_data *data)
 	while (path[i])
 	{
 		stat(path[i], &stats);
-		if ((stats.st_mode & S_IXUSR) &&
-		(execve(path[i], inputs, data->env) != -1))
+		if ((stats.st_mode & S_IXUSR)
+			&& (execve(path[i], inputs, data->env) != -1))
 			return (0);
 		i++;
 	}
@@ -79,7 +79,7 @@ int		exec_2(char **inputs, t_data *data)
 	return (1);
 }
 
-int		exec(char **inputs, t_data *data)
+int	exec(char **inputs, t_data *data)
 {
 	int			id;
 	struct stat	stats;
@@ -87,8 +87,8 @@ int		exec(char **inputs, t_data *data)
 	stats.st_mode = 0;
 	id = env_index("PATH=", data);
 	stat(inputs[0], &stats);
-	if (ft_strchr(inputs[0], '/') && (stats.st_mode & S_IXUSR) &&
-	(execve(inputs[0], &inputs[0], data->env) != -1))
+	if (ft_strchr(inputs[0], '/') && (stats.st_mode & S_IXUSR)
+		&& (execve(inputs[0], &inputs[0], data->env) != -1))
 		return (0);
 	else if (id >= 0)
 	{

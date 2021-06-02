@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:33:18 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/14 23:02:08 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 16:47:49 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_error(char *error, int status)
 	ft_putstr_fd(error, 2);
 }
 
-int		check_num(char *input)
+int	check_num(char *input)
 {
 	int	i;
 
@@ -45,9 +45,9 @@ void	ft_exit(char **inputs, t_data *data, t_global *g)
 				return (ft_error("\tminishell: too many argument\n", 2));
 			g_gl->status = ft_atoi(inputs[1]);
 			if (g_gl->status > 255)
-				g_gl->status = 255;
+				g_gl->status = g_gl->status % 256;
 			else if (g_gl->status < 0)
-				g_gl->status = 255;
+				g_gl->status = 256 + g_gl->status;
 		}
 		else
 			ft_error("\t\tminishell: numeric argument is required\n", 2);

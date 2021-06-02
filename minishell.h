@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 12:03:49 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/14 23:07:21 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/27 16:34:54 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,29 @@
 # define SET 0
 # define HISTORY_FILE ".minishell_history"
 
-typedef struct	s_global
+typedef struct s_global
 {
 	char		*history[HISTORY_SIZE];
 	int			last;
 }				t_global;
 
-typedef struct	s_vars
+typedef struct s_vars
 {
 	int			quit;
 	int			status;
 	char		*user_input;
 }				t_vars;
 
-typedef struct	s_line
+typedef struct s_line
 {
-	size_t		length;
+	size_t		l;
 	char		*com;
 	char		*old_com;
 	int			reset;
 	int			key;
 }				t_line;
 
-typedef	struct	s_data
+typedef struct s_data
 {
 	char		**env;
 	int			vlen;
@@ -91,12 +91,12 @@ void			escape_input(char **dst, char **src);
 void			quote_len(char **str, int *i, char quote);
 
 int				parsing_filter(char *input, t_data *data, int piped,
-								t_global *g);
+					t_global *g);
 void			find_variable(char **command, int *i, t_data *data);
 int				special_chars(char **input, int *i, t_data *data, t_global *g);
 
 int				command_directory(char *clean_input, t_data *data, int piped,
-									t_global *g);
+					t_global *g);
 void			pipe_exit(t_data *data);
 void			close_fd(t_data *data);
 void			free_inputs(char **inputs);
@@ -185,5 +185,6 @@ char			*ft_add(char *str, int i, char *c);
 unsigned long	ul_testcheck(int test, unsigned long a, unsigned long b);
 void			check_status(t_line *line);
 void			ft_write_com(t_data *data, t_line *line);
+int				check_semi(char *com);
 
 #endif

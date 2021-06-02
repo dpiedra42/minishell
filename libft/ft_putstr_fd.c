@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 18:04:15 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/04/02 14:35:58 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:10:51 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int count;
+	int	count;
 
 	if (s == NULL)
 		return ;

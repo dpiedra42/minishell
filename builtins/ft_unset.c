@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 11:12:35 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/05 17:27:20 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:45:25 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	**unset_env(char **env, int id)
 
 	i = 0;
 	j = 0;
-	if (!(new_env = malloc(sizeof(char *) * (e_len(env) - 1))))
+	new_env = malloc(sizeof(char *) * (e_len(env) - 1));
+	if (!(new_env))
 		exit(EXIT_FAILURE);
 	while (env[i])
 	{

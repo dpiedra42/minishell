@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 15:50:16 by tpons             #+#    #+#             */
-/*   Updated: 2021/05/14 22:57:15 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:44:23 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_parent(char *new_com, t_data *data, int pid, t_global *g)
 	close(oldfd);
 }
 
-int		ft_pipe(char *command, char *new_com, t_data *data, t_global *g)
+int	ft_pipe(char *command, char *new_com, t_data *data, t_global *g)
 {
 	pid_t	pid;
 

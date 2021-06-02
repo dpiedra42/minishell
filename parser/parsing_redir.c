@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:35:13 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 23:01:49 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 17:32:45 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	redir_into(char *str, int i, char **command, t_data *data)
 	int		j;
 
 	j = i;
+	if (!(str[j - 1]))
+		data->redir = 0;
 	if (str[j + 1] == ' ')
 		j++;
 	file = get_file(&(str[j + 1]), &j);
@@ -82,7 +84,7 @@ void	choose_redir(char **command, int i, t_data *data)
 
 void	redir_quotes(char *str, int *i, char quote)
 {
-	int slash;
+	int	slash;
 
 	while (str[*i] != quote)
 	{
@@ -98,7 +100,7 @@ void	redir_quotes(char *str, int *i, char quote)
 	}
 }
 
-int		ft_redir(char **command, t_data *data)
+int	ft_redir(char **command, t_data *data)
 {
 	int		i;
 	char	*str;

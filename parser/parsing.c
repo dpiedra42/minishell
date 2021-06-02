@@ -6,15 +6,15 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 22:59:44 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/06/02 18:46:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			copy_quote(char **command, char **clean_com, char quote)
+void	copy_quote(char **command, char **clean_com, char quote)
 {
-	int slash;
+	int	slash;
 
 	while (**command != quote)
 	{
@@ -30,14 +30,14 @@ void			copy_quote(char **command, char **clean_com, char quote)
 	}
 }
 
-void			copy_command(char *clean_com, char *command)
+void	copy_command(char *clean_com, char *command)
 {
 	char	quote;
 
 	while (*command)
 	{
-		if (*command == ' ' && (*(command + 1) == ' ' ||
-			*(command + 1) == '\0'))
+		if (*command == ' ' && (*(command + 1) == ' '
+				|| *(command + 1) == '\0'))
 			command++;
 		else if (*command == '"' || *command == '\'')
 		{
@@ -54,56 +54,61 @@ void			copy_command(char *clean_com, char *command)
 	*clean_com = '\0';
 }
 
-static int		command_len(char *command)
+static int	command_len(char *com, int i)
 {
-	int		i;
 	char	quote;
 
-	i = 0;
-	while (*command)
+	while (*com)
 	{
-		if (*command == ' ' && (*(command + 1) == ' '
-			|| *(command + 1) == '\0'))
-			command++;
-		else if (*command == '\\' && (command += 2))
-			i += 4;
-		else if (*command == '"' || *command == '\'')
+		if (*com == ' ' && (*(com + 1) == ' ' || *(com + 1) == '\0'))
+			com++;
+		else if (*com == '\\')
 		{
-			quote = *(command++);
-			quote_len(&command, &i, quote);
-			if (!*command)
+			com += 2;
+			if (com)
+				i += 4;
+		}
+		else if (*com == '"' || *com == '\'')
+		{
+			quote = *(com++);
+			quote_len(&com, &i, quote);
+			if (!*com)
 				return (-1);
-			command++;
+			com++;
 			i = i + 2;
 		}
-		else if (command++)
+		else if (com++)
 			i++;
 	}
 	return (i);
 }
 
-char			*clean_command(char *command)
+char	*clean_command(char *command)
 {
 	int		len;
 	char	*clean_com;
 	char	*command_start;
+	int		i;
 
+	i = 0;
 	command_start = command;
 	while (*command == ' ' && *command)
 		command++;
-	len = command_len(command);
+	len = command_len(command, i);
 	if (len == -1)
 		return (0);
-	if (!(clean_com = (char *)malloc(sizeof(char) * (len + 1))))
+	clean_com = (char *)malloc(sizeof(char) * (len + 1));
+	if (!(clean_com))
 		exit(EXIT_FAILURE);
 	copy_command(clean_com, command);
 	free(command_start);
 	return (clean_com);
 }
 
-int				ft_parse(char *command, t_data *data, t_global *g)
+int	ft_parse(char *command, t_data *data, t_global *g)
 {
 	char	*clean_com;
+	int		semi;
 
 	clean_com = clean_command(command);
 	g_gl->user_input = NULL;
@@ -114,6 +119,13 @@ int				ft_parse(char *command, t_data *data, t_global *g)
 	}
 	if (!*clean_com)
 	{
+		free(clean_com);
+		return (0);
+	}
+	semi = check_semi(clean_com);
+	if (semi == -1)
+	{
+		ft_error("\t\tsyntax error near unexpected token ';;'\n", 2);
 		free(clean_com);
 		return (0);
 	}

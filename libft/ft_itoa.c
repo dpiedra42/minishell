@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 11:21:00 by dpiedra           #+#    #+#             */
-/*   Updated: 2021/03/25 15:12:33 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:14:32 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,32 @@ static size_t	getitoalen(long n)
 		i++;
 		n *= -1;
 	}
-	while (n /= 10)
+	n /= 10;
+	while (n)
+	{
 		i++;
+		n /= 10;
+	}
 	return (i);
 }
 
-static int		itoa_divpow(long n)
+static int	itoa_divpow(long n)
 {
 	int	div;
 
 	div = 1;
 	if (n < 0)
 		n = -n;
-	while (n /= 10)
+	n /= 10;
+	while (n)
+	{
 		div *= 10;
+		n /= 10;
+	}
 	return (div);
 }
 
-static void		itoa_assign(char *str, size_t len, int div, long n)
+static void	itoa_assign(char *str, size_t len, int div, long n)
 {
 	size_t	i;
 
@@ -58,7 +66,7 @@ static void		itoa_assign(char *str, size_t len, int div, long n)
 	str[i] = '\0';
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	size_t	len;
 	char	*str;

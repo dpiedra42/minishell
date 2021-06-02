@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:14:30 by gsmets            #+#    #+#             */
-/*   Updated: 2021/05/14 22:59:55 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/05/26 15:26:42 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	make_file(char *str, char *file, int i, int k)
 {
-	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>' &&
-			str[i] != '<' && str[i])
+	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>'
+		&& str[i] != '<' && str[i])
 	{
 		if (str[i] == '\'')
 		{
@@ -39,13 +39,13 @@ void	make_file(char *str, char *file, int i, int k)
 	file[k] = '\0';
 }
 
-int		get_file_len(char *str)
+int	get_file_len(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>' &&
-			str[i] != '<' && str[i])
+	while (str[i] != ' ' && str[i] != '|' && str[i] != ';' && str[i] != '>'
+		&& str[i] != '<' && str[i])
 	{
 		if (str[i] == '\'')
 		{
@@ -76,7 +76,8 @@ char	*get_file(char *str, int *j)
 
 	i = get_file_len(str);
 	*j += i;
-	if (!(file = malloc(sizeof(char) * (i + 1))))
+	file = malloc(sizeof(char) * (i + 1));
+	if (!(file))
 		return (NULL);
 	i = 0;
 	k = 0;
@@ -86,8 +87,8 @@ char	*get_file(char *str, int *j)
 
 void	remove_redir(char **command, int i, int j)
 {
-	char *tmp;
-	char *new_com;
+	char	*tmp;
+	char	*new_com;
 
 	tmp = ft_substr(command[0], 0, i);
 	new_com = ft_strjoin(tmp, &(command[0][j + 1]));
