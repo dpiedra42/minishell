@@ -6,7 +6,7 @@
 /*   By: dpiedra <dpiedra@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:45:05 by gsmets            #+#    #+#             */
-/*   Updated: 2021/06/02 18:46:46 by dpiedra          ###   ########.fr       */
+/*   Updated: 2021/06/07 12:54:46 by dpiedra          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ char	*clean_command(char *command)
 		command++;
 	len = command_len(command, i);
 	if (len == -1)
+	{
+		free(command_start);
 		return (0);
+	}
 	clean_com = (char *)malloc(sizeof(char) * (len + 1));
 	if (!(clean_com))
 		exit(EXIT_FAILURE);
